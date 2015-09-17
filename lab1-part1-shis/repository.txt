@@ -1,0 +1,51 @@
+
+1. How many branches are there in the remote repository ?
+
+There're 2 branches as follow, HEAD doesn't count.
+  remotes/origin/devbranch
+  remotes/origin/master
+
+2. Discounting hidden files, what are the files that are in the master branch ? What are their names? What is/are the content of the file(s) last committed on the master branch of the repository?
+
+There's a c source code file: hello.c.
+The content of the file is: 
+    #include <stdio.h>
+    int main()
+    {
+       printf("Goodbye, World v4 on master\n");
+       return 1;
+    }   
+The content of the commit is:
+    -   printf("Goodbye, World v3\n");
+    +   printf("Goodbye, World v4 on master\n");
+
+
+3. Who committed the files on the master branch and when (date and time) and what was the commit message?
+
+commit 0db0a6c31185112ba544fdfa2c697067d4a81330
+Author: Rajeev Gandhi <rgandhi@yinzcam.com>
+Date:   Mon Sep 7 15:02:05 2015 -0400
+
+    updated printed message
+
+4. Who made the last commit on all the other (other than the master) branches in the repository? When did (s)he commit them (date and time) and what was the commit message?
+
+On branch devbranch:
+commit 76ec8cc29f58bee4a167cc6ab1ef70c406f29020
+Author: Rajeev Gandhi <rgandhi@andrew.cmu.edu>
+Date:   Fri Sep 11 01:47:56 2015 -0400
+
+    Second commit on the branch
+
+5. If you are on the master branch and modify a file (original file version v0, modified version v1) and then do a “git commit file”, which version of the file gets committed?
+
+v0, actually none, the file need to be added to staging before the modified content can be committed.
+
+6. If you are on the master branch and modify a file (original file version v0, modified version v1) and then add the file into the staging area by doing “git add file” and then commit the changes using “git commit file”, which version of the file gets committed?
+
+v1.
+
+7. If you are on the master branch and modify a file (let’s call the modified version v1) and then add the file into the staging area by doing “git add file”. After adding the file into the staging area, let’s assume you make more modifications to the same file (let’s call the newly modified version v2) and then commit the changes. Which version of the file gets committed?
+
+v1.
+
