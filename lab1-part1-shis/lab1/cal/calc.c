@@ -1,42 +1,61 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "math.h"
 
+#define OPERATION_SIZE 30
+#define TRUE 1
+#define FALSE 0
+
 int main(int argc, char *argv[]){
-    printf("test\n");
 
-    if( argc != 3 )
-    {
-      printf("Invalid operation, please enter 'number operator number'%s\n",);
-      return 1;
-    }
-
-    int x = atoi(argv[1]);
-    int y = atoi(argv[3]);
-    char operator = argv[2];
+    char input[OPERATION_SIZE];
+    int x = 1;
+    int y = 2;
+    char operator = '+';
     int result;
+    int is_valid;
 
-    switch (operator){
-        case '+':
-            result = add(x,y);
-            break;
-        case '-'
-            result = sub(x,y);
-            break;
-        case '*':
-            result = mul(x,y);
-            break;
-        case '/':
-            result = cdiv(x,y);
-            break;
-        case '%':
-            result = mod(x,y);
-            break;
-        default:
-            printf("Operation not valid, Supports: +, -, *, /, %% \n");
-            return 1;
+    // keep looping until exit
+    while(TRUE){
+
+        is_valid = TRUE;
+        // fgets(input, OPERATION_SIZE, stdin);
+
+        // // FIXME: 
+        scanf("%d %c %d", &x, &operator, &y);
+        // // printf("%s\n", input);
+
+
+        // printf("x: %d\n",x );
+        // printf("operator %c\n", operator );
+        // printf("y: %d\n",y );
+
+
+        switch (operator){
+            case '+':
+                result = add(x,y);
+                break;
+            case '-':
+                result = sub(x,y);
+                break;
+            case '*':
+                result = mul(x,y);
+                break;
+            case '/':
+                result = cdiv(x,y);
+                break;
+            case '%':
+                result = mod(x,y);
+                break;
+            default:
+                is_valid = FALSE;
+                printf("Operator not valid, Supports: +, -, *, /, %% \n");
+                break;
+        }
+
+        if(is_valid)
+            printf("%d\n", result);
     }
-
-    printf("%d\n", result);
 
     return 0;
 }
