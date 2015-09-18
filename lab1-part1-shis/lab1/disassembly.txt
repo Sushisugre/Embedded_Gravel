@@ -1,0 +1,41 @@
+1. What is the entry point address of the program? (Hint: The readelf program may provide a clue.)
+
+Entry point address: 0x82ac
+
+2. What is the name of the first function branched to in the program? (Hint: One of readelf -s, readelf -r, objdump -t, or objdump -T may provide a clue.)
+
+In hello-d.txt, it shows the first branch instruction after entry point as below:
+    82d0:   ebffffec    bl  8288 <_init+0x34>
+And in the dynamic symbol table got from objdump -T hello, it shows:
+    00008288      DF *UND*  00000204  GLIBC_2.4   __libc_start_main
+So the name of the first function branched in is __libc_start_main.
+
+From the man page of readelf and objdump:
+readelf -s Display the symbol table
+readelf -r Display the relocations (if present)
+objdump -t Print the symbol table entries of the file
+objdump -T Print the symbol table entries of the file
+
+
+3. What is the key difference between the output of objdump -d(hello-d.txt)and objdump -D(hello-bigd.txt)?
+
+odjdump -d only provides disassembly of sections from .init to .fini, while odjdump -D offers disassembly of all the sections. Got a full section table from: 
+    readelf -S hello
+
+
+4. Is the interpretation of the instructions under the .rodata section of hello-bigd.txt correct? What does this interpretation mean?
+
+.rodata section stores read only data [1], and the <_IO_stdin_used> label indicates that the data will be used for IO, likely printf, so the string “Hello world!” is supposed to be found in this section. 
+Because here a string is stored in several 4-byte words, “Hello world!” can be divided into (Hell), (o wo), (rld!). And ARM uses little-endian memory arrangement, which puts least significant bit at lowest memory address, so in the memory the string should appear like (lleH), (ow o), (!dlr). The memory content exactly matches the expectation when mapping to ascii characters, so the interpretation under the .rodata section is correct.
+
+Disassembly of section .rodata:
+00008420 <_IO_stdin_used>:                  ascii mapping:
+    8420:   00020001    .word   0x00020001  nul stx nul soh
+    8424:   6c6c6548    .word   0x6c6c6548  l   l   e   H
+    8428:   6f77206f    .word   0x6f77206f  o   w   sp  o
+    842c:   21646c72    .word   0x21646c72  !   d   l   r
+    8430:   00000000    .word   0x00000000  nul nul nul nul
+
+References:
+
+ [1] Docs.oracle.com,. 'Object Files In Executable And Linking Format (ELF) (IA-32 Assembly Language Reference Manual)'. N.p., 2015. Web. 18 Sept. 2015. 
