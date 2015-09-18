@@ -6,6 +6,7 @@
 #define TRUE 1
 #define FALSE 0
 
+/*TODO: error handling*/
 int main(int argc, char *argv[]){
 
     // char input[OPERATION_SIZE];
@@ -21,10 +22,13 @@ int main(int argc, char *argv[]){
         is_valid = TRUE;
         // fgets(input, OPERATION_SIZE, stdin);
 
-        // // FIXME: 
-        scanf("%d %c %d", &x, &operator, &y);
-        // // printf("%s\n", input);
-
+        // // TODO: input validation
+        int n = scanf("%d %c %d", &x, &operator, &y);
+        // printf("n:%d\n", n);
+        
+        // stdin should provide 3 arguments
+        if(n!=3)
+            return 0;
 
         // printf("x: %d\n",x );
         // printf("operator %c\n", operator );
