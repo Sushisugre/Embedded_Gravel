@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]){
 
-    char input[OPERATION_SIZE];
+    // char input[OPERATION_SIZE];
     int x = 1;
     int y = 2;
     char operator = '+';
@@ -50,6 +50,7 @@ int main(int argc, char *argv[]){
             default:
                 is_valid = FALSE;
                 printf("Operator not valid, Supports: +, -, *, /, %% \n");
+                return 0;
                 break;
         }
 
