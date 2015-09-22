@@ -32,7 +32,7 @@ int main(int argc, char *argv[]){
             return 0;
         }else{
 
-           /* consume the rest of stdin buffer
+           /* consume the rest of characters in stdin buffer
             in case of the input like 12 + 3a
             causes unexpected behavior for the next round*/
 
