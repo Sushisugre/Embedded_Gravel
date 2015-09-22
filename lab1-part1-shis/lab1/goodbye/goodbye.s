@@ -22,8 +22,8 @@ main:
 	ldr	r0, .L3
 	bl	puts
 	ldr     r0, .L3+4 @ load from L3 with 4 byte offset
-        bl	puts @ print the string to stdout
-        mov	r3, #0
+    bl	puts @ print the string to stdout
+    mov	r3, #42  @ change the return value to 42
 	mov	r0, r3
 	sub	sp, fp, #12
 	ldmfd	sp, {fp, sp, lr}
