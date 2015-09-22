@@ -12,7 +12,6 @@
  *    Author: Shi Su
 */
 
-/*TODO: error handling*/
 int main(int argc, char *argv[]){
 
     int x, y;
@@ -24,20 +23,21 @@ int main(int argc, char *argv[]){
     while(TRUE){
 
         is_valid = TRUE;
-        // fgets(input, OPERATION_SIZE, stdin);
 
-        // // TODO: input validation
         int n = scanf("%d %c %d", &x, &operator, &y);
-        // printf("n:%d\n", n);
         
         // stdin should provide 3 arguments
-        if(n!=3)
+        if(n!=3){
+            printf("Valid input: number operator number, e.g. 3 + 4 \n");
             return 0;
+        }else{
 
-        // printf("x: %d\n",x );
-        // printf("operator %c\n", operator );
-        // printf("y: %d\n",y );
+           /* consume the rest of stdin buffer
+            in case of the input like 12 + 3a
+            causes unexpected behavior for the next round*/
 
+            while(getchar() != '\n');
+        }
 
         switch (operator){
             case '+':
@@ -68,7 +68,6 @@ int main(int argc, char *argv[]){
             default:
                 is_valid = FALSE;
                 printf("Valid operators: +, -, *, /, %% \n");
-                // return 0;
                 break;
         }
 
