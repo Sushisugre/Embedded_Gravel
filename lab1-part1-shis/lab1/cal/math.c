@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include "math.h"
 
+/* 
+ * Implementations of the calculator methods
+ *
+ * Author: Shi Su
+ *
+ */
+ 
 /* Ignore the overflows... */
 
  int add(int x, int y){

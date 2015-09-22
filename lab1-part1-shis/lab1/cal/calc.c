@@ -5,14 +5,18 @@
 #define OPERATION_SIZE 30
 #define TRUE 1
 #define FALSE 0
+    
+/*
+ *   Entry method of calculator
+ *
+ *    Author: Shi Su
+*/
 
 /*TODO: error handling*/
 int main(int argc, char *argv[]){
 
-    // char input[OPERATION_SIZE];
-    int x = 1;
-    int y = 2;
-    char operator = '+';
+    int x, y;
+    char operator;
     int result;
     int is_valid;
 
@@ -46,20 +50,32 @@ int main(int argc, char *argv[]){
                 result = mul(x,y);
                 break;
             case '/':
-                result = cdiv(x,y);
+                if(y == 0){
+                    is_valid = FALSE;
+                    printf("The divisor cannot be 0.\n");
+                }
+                else
+                    result = cdiv(x,y);
                 break;
             case '%':
-                result = mod(x,y);
+                if(y == 0){
+                    is_valid = FALSE;
+                    printf("The divisor cannot be 0.\n");
+                }
+                else
+                    result = mod(x,y);
                 break;
             default:
                 is_valid = FALSE;
-                printf("Operator not valid, Supports: +, -, *, /, %% \n");
-                return 0;
+                printf("Valid operators: +, -, *, /, %% \n");
+                // return 0;
                 break;
         }
 
         if(is_valid)
             printf("%d\n", result);
+        else
+            return 0;
     }
 
     return 0;

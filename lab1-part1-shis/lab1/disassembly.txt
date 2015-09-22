@@ -25,7 +25,8 @@ odjdump -d only provides disassembly of sections from .init to .fini, while odjd
 
 4. Is the interpretation of the instructions under the .rodata section of hello-bigd.txt correct? What does this interpretation mean?
 
-.rodata section stores read only data [1], and the <_IO_stdin_used> label indicates that the data will be used for IO, likely printf, so the string “Hello world!” is supposed to be found in this section. 
+.rodata section stores read only data [1], and the <_IO_stdin_used> label indicates that the data will be used for IO, likely printf, so the string “Hello world!” is supposed to be found in this section.
+ 
 Because here a string is stored in several 4-byte words, “Hello world!” can be divided into (Hell), (o wo), (rld!). And ARM uses little-endian memory arrangement, which puts least significant bit at lowest memory address, so in the memory the string should appear like (lleH), (ow o), (!dlr). The memory content exactly matches the expectation when mapping to ascii characters, so the interpretation under the .rodata section is correct.
 
 Disassembly of section .rodata:

@@ -1,5 +1,8 @@
 /*
  * Header of math.c
+ * Declare all the methods
+ *
+ * Author: Shi Su
  */
 
  int add(int, int);
