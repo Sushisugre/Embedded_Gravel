@@ -12,8 +12,8 @@ strTable:
 	mov	r0, r3
 	@mov	r2, #0
 	@cmp	r2, r3
-	cmp #0, r3
-	bge	.L11
+	cmp r3, #0
+	ble	.L11
 .L9:
 	ldrb	r3, [r1, r2]	@ zero_extendqisi2
 	sub	ip, r3, #23
