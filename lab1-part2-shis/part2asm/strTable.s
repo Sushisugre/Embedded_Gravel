@@ -10,8 +10,9 @@ strTable:
 	mov	r5, r0
 	mov	r4, r2
 	mov	r0, r3
-	mov	r2, #0
-	cmp	r2, r3
+	@mov	r2, #0
+	@cmp	r2, r3
+	cmp #0, r3
 	bge	.L11
 .L9:
 	ldrb	r3, [r1, r2]	@ zero_extendqisi2
@@ -34,7 +35,7 @@ strTable:
 	cmp	r2, r0
 	blt	.L9
 .L11:
-	ldmfd	sp!, {r4, r5, r6}
-	mov pc, lr
+	ldmfd	sp!, {r4, r5, r6} 
+	mov pc, lr   @return
 	.size	strTable, .-strTable
 	.ident	"GCC: (GNU) 3.4.5"
