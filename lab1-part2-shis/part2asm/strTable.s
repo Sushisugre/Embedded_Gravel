@@ -30,10 +30,9 @@ strTable:
 	bgt	.L7
 .L13:
 	cmp	ip, r4
-	bgt	.L4
-	ldrb	r6, [r5, ip]	@ zero_extendqisi2
-@	ldrb	r6, [r1, r2]	@ zero_extendqisi2
-	cmp	r3, r6
+	bgt	.L4 @ if position ip > sl, ignore
+@	ldrb	r6, [r5, ip]	@ zero_extendqisi2
+@	cmp	r3, r6
 	strneb	r3, [r5, ip]
 .L4:
 	add	r2, r2, #1  @ r2++
