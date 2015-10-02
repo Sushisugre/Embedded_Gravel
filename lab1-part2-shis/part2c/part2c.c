@@ -37,16 +37,30 @@ int oddball(int *arr, int len) {
 #endif
 
 #ifdef OPTIMIZE1
+
+
 int oddball(int *arr, int len) {
-	/* Put your code here */
-	return 0;
+	int i;
+	int result = 0;
+
+	for(i = len - 1; i >= 0; i--){
+		result = result^arr[i];
+	}
+
+	return result;
 }
 #endif
 
 #ifdef OPTIMIZE2
 int oddball(int *arr, int len) {
-	/* Put your code here */
-	return 0;
+	int i;
+	int result = 0;
+
+	for(i = len - 1; i >= 0; i--){
+		result = result^arr[i];
+	}
+
+	return result;
 }
 #endif
 

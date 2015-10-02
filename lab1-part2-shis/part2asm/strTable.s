@@ -18,7 +18,6 @@ strTable:
 	mov	r4, r2  @ r4 = sl
 	mov	r0, r3  @ r3 = dl
 	mov	r2, #0  @ r2 is the index
-	@cmp	r2, r3
 	cmp r3, #0  @ dl must larger than 0
 	ble	.L11
 .L9:
@@ -31,8 +30,6 @@ strTable:
 .L13:
 	cmp	ip, r4
 	bgt	.L4 @ if position ip > sl, ignore
-@	ldrb	r6, [r5, ip]	@ zero_extendqisi2
-@	cmp	r3, r6
 	strb	r3, [r5, ip]
 .L4:
 	add	r2, r2, #1  @ r2++
