@@ -33,7 +33,7 @@ strTable:
 	bgt	.L4 @ if position ip > sl, ignore
 @	ldrb	r6, [r5, ip]	@ zero_extendqisi2
 @	cmp	r3, r6
-	strneb	r3, [r5, ip]
+	strb	r3, [r5, ip]
 .L4:
 	add	r2, r2, #1  @ r2++
 	cmp	r2, r0   @ while r2 < dl

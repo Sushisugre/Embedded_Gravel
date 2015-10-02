@@ -54,6 +54,6 @@ Changed from:
     cmp r3, r6
     strneb  r3, [r5, ip]
 To:
-    strneb  r3, [r5, ip] 
+    strb  r3, [r5, ip] 
 
 part2c.c:
