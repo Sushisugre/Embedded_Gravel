@@ -1,3 +1,10 @@
+@ Updated by: Shi Su, AndrewID: shis
+@ Sept.30, 2015
+@
+@ strTable function maps each character in dst 
+@ to the position of its ascii number mod 23 in src
+
+
 	.file	"part1-strTable.c"
 	.text
 	.align	2
@@ -8,18 +15,20 @@ strTable:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	stmfd	sp!, {r4, r5, r6}
 	mov	r5, r0  @ r0 = src
-	mov	r4, r2  @ r2 = sl
+	mov	r4, r2  @ r4 = sl
 	mov	r0, r3  @ r3 = dl
-	mov	r2, #0
+	mov	r2, #0  @ r2 is the index
 	@cmp	r2, r3
-	cmp r3, #0
+	cmp r3, #0  @ dl must larger than 0
 	ble	.L11
 .L9:
-	ldrb	r3, [r1, r2]	@ zero_extendqisi2
-	sub	ip, r3, #23
-	cmp	ip, #22
-	ble	.L13
-.L7:
+	ldrb	r3, [r1, r2]	@ zero_extendqisi2 @ r3 = each character in dst E, 
+.L7
+	mov ip, r3
+@	sub	ip, r3, #23    @ip = r3 - 23
+@	cmp	ip, #22
+@	ble	.L13
+@.L7:    @ ip % 23
 	sub	ip, ip, #23
 	cmp	ip, #22
 	bgt	.L7
@@ -31,8 +40,8 @@ strTable:
 	cmp	r3, r6
 	strneb	r6, [r5, ip]
 .L4:
-	add	r2, r2, #1
-	cmp	r2, r0
+	add	r2, r2, #1  @ r2++
+	cmp	r2, r0   @ while r2 < dl
 	blt	.L9
 .L11:
 	ldmfd	sp!, {r4, r5, r6} 
