@@ -23,8 +23,8 @@ strTable:
 	ble	.L11
 .L9:
 	ldrb	r3, [r1, r2]	@ zero_extendqisi2 @ r3 = each character in dst E, 
-.L7
 	mov ip, r3
+.L7
 @	sub	ip, r3, #23    @ip = r3 - 23
 @	cmp	ip, #22
 @	ble	.L13
