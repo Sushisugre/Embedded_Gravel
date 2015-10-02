@@ -1,7 +1,7 @@
 CC      = gcc
 CFLAGS  = -g -O2 -Wall -Werror
 
-N = 5000
+N = 10000
 targets = part2_def part2_o1 part2_o2
 cobj = main.o
 

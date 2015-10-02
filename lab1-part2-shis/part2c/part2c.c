@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/* Updated by Shi Su, AndrewId: shis
+ * Oct.02, 2015 */
+
 /**
  * Function: oddball
  * Description: Baseline implementation for finding the number that
@@ -38,6 +41,10 @@ int oddball(int *arr, int len) {
 
 #ifdef OPTIMIZE1
 
+/* 1. Used xor operation to replace inner loop
+	because a^a=0, 0^b=b, and xor operation is communtative and associative,
+	so we can tell that the result of all array elements xor together will be the single item
+   2. Used count-down loop to replace count-up loop  */
 
 int oddball(int *arr, int len) {
 	int i;
@@ -52,13 +59,34 @@ int oddball(int *arr, int len) {
 #endif
 
 #ifdef OPTIMIZE2
+/* 1. Used xor operation to replace inner loop
+	because a^a=0, 0^b=b, and xor operation is communtative and associative,
+	so we can tell that the result of all array elements xor together will be the single item
+   2. Used count-down loop to replace count-up loop  
+   3. Unrolling the loop */
 int oddball(int *arr, int len) {
 	int i;
 	int result = 0;
 
-	for(i = len - 1; i >= 0; i--){
+	for(i = len - 1; i >= 4; i -= 4){
 		result = result^arr[i];
+		result = result^arr[i - 1];
+		result = result^arr[i - 2];
+		result = result^arr[i - 3];
 	}
+
+	/* handle the leftover from last loop */
+	// for(j = i; j >=0 ; j--){
+	// 	result = result^arr[j];
+	// }
+
+	if(i >= 3)
+		result = result^arr[3];
+	if(i >= 2)
+		result = result^arr[2];
+	if(i >= 1)
+		result = result^arr[1];
+	result = result^arr[0];
 
 	return result;
 }
