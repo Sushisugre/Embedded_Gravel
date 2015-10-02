@@ -24,21 +24,17 @@ strTable:
 .L9:
 	ldrb	r3, [r1, r2]	@ zero_extendqisi2 @ r3 = each character in dst E, 
 	mov ip, r3
-.L7
-@	sub	ip, r3, #23    @ip = r3 - 23
-@	cmp	ip, #22
-@	ble	.L13
-@.L7:    @ ip % 23
+.L7:
 	sub	ip, ip, #23
 	cmp	ip, #22
 	bgt	.L7
 .L13:
 	cmp	ip, r4
 	bgt	.L4
-	ldrb	r3, [r5, ip]	@ zero_extendqisi2
-	ldrb	r6, [r1, r2]	@ zero_extendqisi2
+	ldrb	r6, [r5, ip]	@ zero_extendqisi2
+@	ldrb	r6, [r1, r2]	@ zero_extendqisi2
 	cmp	r3, r6
-	strneb	r6, [r5, ip]
+	strneb	r3, [r5, ip]
 .L4:
 	add	r2, r2, #1  @ r2++
 	cmp	r2, r0   @ while r2 < dl

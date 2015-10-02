@@ -11,5 +11,29 @@ strTable.s:
     ble .L11
    to remove unnecessary middle step
 
+1. Replace count-up loop with count-down loop
+    mov r2, #0  @ r2 is the index
+    ...
+    add r2, r2, #1  @ r2++
+    cmp r2, r0   @ while r2 < dl
+    blt .L9
+    change to:
+
+1. Combine mode operation, to avoid code duplication 
+Changed:
+    sub ip, r3, #23    @ip = r3 - 23
+    cmp ip, #22
+    ble .L13
+.L7:    @ ip % 23
+    sub ip, ip, #23
+    cmp ip, #22
+    bgt .L7
+To:
+    mov ip, r3
+.L7:
+    sub ip, ip, #23
+    cmp ip, #22
+    bgt .L7
+
 
 part2c.c:
