@@ -7,10 +7,10 @@ strTable:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	stmfd	sp!, {r4, r5, r6}
-	mov	r5, r0
-	mov	r4, r2
-	mov	r0, r3
-	@mov	r2, #0
+	mov	r5, r0  @ r0 = src
+	mov	r4, r2  @ r2 = sl
+	mov	r0, r3  @ r3 = dl
+	mov	r2, #0
 	@cmp	r2, r3
 	cmp r3, #0
 	ble	.L11

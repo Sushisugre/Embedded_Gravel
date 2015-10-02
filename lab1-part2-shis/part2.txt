@@ -2,6 +2,14 @@ Shi Su, AndrewID: shis
 
 strTable.s:
 
+1. Replace 
+    mov    r2, #0
+    cmp    r2, r3
+    ble .L11
+   with 
+    cmp r3, #0
+    ble .L11
+   to remove unnecessary middle step
 
 
 part2c.c:

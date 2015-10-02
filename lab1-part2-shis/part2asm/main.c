@@ -11,9 +11,14 @@ int main()
    /* Assume that dst[i] is always >= 23 (decimal) */
    char src[] = "theinitialstring\n";
    char dst[] = "PENGUINS";
+   //char dst[] = "MONKEYS";
+   //char dst[] = "CATS";
+   //char dst[] = "ELEPHANTS";
+
    int i, srcLen, dstLen; 
    
-   srcLen = ((strlen(src) >> 2) << 2);
+   /* chop not word align part */
+   srcLen = ((strlen(src) >> 2) << 2); 
    dstLen = ((strlen(dst) >> 2) << 2);
 
    printf("PRE: src: %s (%d bytes), dst: %s (%d bytes)\n", 
