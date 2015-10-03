@@ -65,8 +65,8 @@ int oddball(int *arr, int len) {
    2. Used count-down loop to replace count-up loop  
    3. Unrolling the loop */
 int oddball(int *arr, int len) {
-	int i,j;
-	int result = 0;
+	unsigned int i;
+	unsigned int result = 0;
 
 	for(i = len - 1; i >= 5; i -= 5){
 		result = result^arr[i];
@@ -78,21 +78,21 @@ int oddball(int *arr, int len) {
 	}
 
 	/* handle the leftover from last loop */
-	 for(j = i; j >=0 ; j--){
-	 	result = result^arr[j];
-	 }
+	 // for(j = i; j >=0 ; j--){
+	 // 	result = result^arr[j];
+	 // }
 
 	// if(i >= 5)
 	// 	result = result^arr[5];
-	// if(i >= 4)
-	// 	result = result^arr[4];
-	// if(i >= 3)
-	// 	result = result^arr[3];
-	// if(i >= 2)
-	// 	result = result^arr[2];
-	// if(i >= 1)
-	// 	result = result^arr[1];
-	// result = result^arr[0];
+	if(i >= 4)
+		result = result^arr[4];
+	if(i >= 3)
+		result = result^arr[3];
+	if(i >= 2)
+		result = result^arr[2];
+	if(i >= 1)
+		result = result^arr[1];
+	result = result^arr[0];
 
 	return result;
 }

@@ -1,6 +1,6 @@
 Author: Shi Su, AndrewID: shis
 
-strTable.s:
+********** strTable.s **********
 
 1. Replace count-up loop with count-down loop
     mov r2, #0  @ r2 is the index
@@ -10,7 +10,7 @@ strTable.s:
     blt .L9
     change to:
 
-1. Combine mode operation, to avoid code duplication 
+1. Combined the mod operation, to avoid code duplication 
 Changed from:
     sub ip, r3, #23    @ip = r3 - 23
     cmp ip, #22
@@ -26,7 +26,7 @@ To:
     cmp ip, #22
     bgt .L7
 
-2. Avoid load same character from memory twice
+2. Avoid loading same character from memory twice
 Changed from:
     ldrb    r3, [r5, ip]    @ zero_extendqisi2
     ldrb    r6, [r1, r2]    @ zero_extendqisi2
@@ -39,7 +39,7 @@ To:
 
 3. Store the character from dst directly without checking the character in str,
 the time it saved from occastionally same char case is much less than the overhead of 
-load and compare each time
+performing load and compare each time
 Changed from:
     ldrb    r6, [r5, ip]    @ zero_extendqisi2
     cmp r3, r6
@@ -47,4 +47,17 @@ Changed from:
 To:
     strb  r3, [r5, ip] 
 
-part2c.c:
+********** part2c.c **********
+
+For Optimization o1: 
+
+1. Used xor operation to replace inner loop
+because a^a=0, 0^b=b, and xor operation is communtative and associative,
+so we can tell that the result of all array elements xor together will be the single item
+
+2. Used count-down loop to replace count-up loop, 
+as count-down loop can be implemented with 2 intructions instead of 3 in count-up loop
+
+For Optimization o2: 
+
+
