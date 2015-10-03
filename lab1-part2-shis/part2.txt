@@ -3,14 +3,19 @@ Author: Shi Su, AndrewID: shis
 ********** strTable.s **********
 
 1. Replace count-up loop with count-down loop
+Changed from:
     mov r2, #0  @ r2 is the index
     ...
     add r2, r2, #1  @ r2++
     cmp r2, r0   @ while r2 < dl
     blt .L9
-    change to:
+To:
+    sub r2, r0, #1  @ array index r2 = dl - 1
+    ...
+    subs r2, r2, #1  @ r2--
+    bge .L9  @ while r2 >= 0
 
-1. Combined the mod operation, to avoid code duplication 
+2. Combined the mod operation, to avoid code duplication 
 Changed from:
     sub ip, r3, #23    @ip = r3 - 23
     cmp ip, #22
@@ -26,7 +31,7 @@ To:
     cmp ip, #22
     bgt .L7
 
-2. Avoid loading same character from memory twice
+3. Avoid loading same character from memory twice
 Changed from:
     ldrb    r3, [r5, ip]    @ zero_extendqisi2
     ldrb    r6, [r1, r2]    @ zero_extendqisi2
@@ -37,7 +42,7 @@ To:
     cmp r3, r6
     strneb  r3, [r5, ip]
 
-3. Store the character from dst directly without checking the character in str,
+4. Store the character from dst directly without checking the character in str,
 the time it saved from occastionally same char case is much less than the overhead of 
 performing load and compare each time
 Changed from:
@@ -46,6 +51,17 @@ Changed from:
     strneb  r3, [r5, ip]
 To:
     strb  r3, [r5, ip] 
+
+5. Don't backup r6, since after the previous change, the function no longer modify the value of r6
+Changed from:
+    stmfd   sp!, {r4, r5, r6}
+    ...
+    ldmfd   sp!, {r4, r5, r6} 
+To:
+    stmfd   sp!, {r4, r5}
+    ...
+    ldmfd   sp!, {r4, r5}    
+
 
 ********** part2c.c **********
 

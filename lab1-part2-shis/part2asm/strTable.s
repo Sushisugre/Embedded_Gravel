@@ -13,7 +13,7 @@
 strTable:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
-	stmfd	sp!, {r4, r5, r6}
+	stmfd	sp!, {r4, r5}
 	mov	r5, r0  @ r0 = src
 	mov	r4, r2  @ r4 = sl
 	mov	r0, r3  @ r3 = dl
@@ -33,10 +33,9 @@ strTable:
 	strb	r3, [r5, ip]
 .L4:
 	subs r2, r2, #1  @ r2--
-	@cmp	r2, r0   @ while r2 >= 0
-	bge	.L9
+	bge	.L9  @ while r2 >= 0
 .L11:
-	ldmfd	sp!, {r4, r5, r6} 
+	ldmfd	sp!, {r4, r5} 
 	mov pc, lr   @return
 	.size	strTable, .-strTable
 	.ident	"GCC: (GNU) 3.4.5"
