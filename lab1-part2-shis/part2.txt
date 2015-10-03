@@ -72,6 +72,22 @@ To:
     subs r2, r0, #1  @ array index r2 = dl - 1
     blt .L11  @ dl - 1 should >=0, dl >= 1
 
+7. avoid rearrangement of registers to save 1 instruction
+Changed from:
+    mov r4, r2  @ r4 = sl
+    mov r0, r3  @ r3 = dl
+    subs r2, r0, #1  @ array index r2 = dl - 1
+    ...
+    cmp ip, r4
+    bgt .L4  @ if position ip > sl, ignore
+To:
+@   mov r4, r2  @ r4 = sl
+    mov r0, r3  @ r3 = dl
+    subs r4, r0, #1  @ array index r4 = dl - 1
+    ...
+    cmp ip, r2 @ r2 = sl
+    bgt .L4  @ if position ip > sl, ignore
+
 
 ********** part2c.c **********
 

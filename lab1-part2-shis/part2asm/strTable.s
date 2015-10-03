@@ -1,6 +1,6 @@
 @ Updated by: Shi Su, AndrewID: shis
 @ Oct.01, 2015
-@ Documentation of optimization locates in part2.txt
+@ Documentation of optimization located in part2.txt
 @
 @ strTable function set each character in dst (characters that don't fit in the words got truncated)
 @ to the position of its ascii number mod 23 in src
@@ -15,10 +15,9 @@ strTable:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	stmfd	sp!, {r4, r5}
-	mov	r5, r0  @ r0 = src
-@	mov	r4, r2  @ r4 = sl
-	mov	r0, r3  @ r3 = dl
-	subs r4, r0, #1  @ array index r4 = dl - 1
+@	mov	r5, r0  @ r0 = src
+	mov	r5, r3  @ r5 = r3 = dl
+	subs r4, r5, #1  @ array index r4 = dl - 1
 	blt	.L11  @ dl - 1 should >=0, dl >= 1
 .L9:
 	ldrb	r3, [r1, r4]	@ zero_extendqisi2 @ r3 = each character in dst 
@@ -30,7 +29,7 @@ strTable:
 .L13:
 	cmp	ip, r2 @ r2 = sl
 	bgt	.L4  @ if position ip > sl, ignore
-	strb	r3, [r5, ip]
+	strb	r3, [r0, ip] @ r0 = src
 .L4:
 	subs r4, r4, #1  @ r4--
 	bge	.L9  @ while r4 >= 0
