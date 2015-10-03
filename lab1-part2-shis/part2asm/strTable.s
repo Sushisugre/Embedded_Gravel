@@ -1,7 +1,8 @@
 @ Updated by: Shi Su, AndrewID: shis
 @ Oct.01, 2015
+@ Documentation of optimization locates in part2.txt
 @
-@ strTable function maps each character in dst 
+@ strTable function set each character in dst (characters that don't fit in the words got truncated)
 @ to the position of its ascii number mod 23 in src
 
 
@@ -17,11 +18,10 @@ strTable:
 	mov	r5, r0  @ r0 = src
 	mov	r4, r2  @ r4 = sl
 	mov	r0, r3  @ r3 = dl
-	sub	r2, r0, #1  @ array index r2 = dl - 1
-	cmp r3, #0  @ dl must larger than 0
-	ble	.L11
+	subs r2, r0, #1  @ array index r2 = dl - 1
+	blt	.L11  @ dl - 1 should >=0, dl >= 1
 .L9:
-	ldrb	r3, [r1, r2]	@ zero_extendqisi2 @ r3 = each character in dst E, 
+	ldrb	r3, [r1, r2]	@ zero_extendqisi2 @ r3 = each character in dst 
 	mov ip, r3
 .L7:
 	sub	ip, ip, #23

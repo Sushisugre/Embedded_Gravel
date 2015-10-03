@@ -2,7 +2,9 @@
 #include <stdio.h>
 
 /* Updated by Shi Su, AndrewId: shis
- * Oct.02, 2015 */
+ * Oct.02, 2015 
+ * Documentation of optimization locates in part2.txt
+ */
 
 /**
  * Function: oddball
@@ -15,7 +17,7 @@
  *   The number that occurs only once
  */
 #ifdef DEFAULT
-int oddball(int *arr, int len) {
+int oddball_baseline(int *arr, int len) {
 	int i, j;
 	int foundInner;
 	int result = 0;
@@ -64,7 +66,7 @@ int oddball(int *arr, int len) {
 	so we can tell that the result of all array elements xor together will be the single item
    2. Used count-down loop to replace count-up loop  
    3. Unrolling the loop */
-int oddball(int *arr, int len) {
+int oddball_with_loop_unrolling(int *arr, int len) {
 	unsigned int i;
 	unsigned int result = 0;
 

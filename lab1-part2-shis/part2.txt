@@ -67,7 +67,7 @@ To:
 
 For Optimization o1: 
 
-1. Used xor operation to replace inner loop
+1. Used xor operation to replace the inner loop
 because a^a=0, 0^b=b, and xor operation is communtative and associative,
 so we can tell that the result of all array elements xor together will be the single item
 
