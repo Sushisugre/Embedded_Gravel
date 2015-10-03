@@ -15,7 +15,6 @@ strTable:
 	@ args = 0, pretend = 0, frame = 0
 	@ frame_needed = 0, uses_anonymous_args = 0
 	stmfd	sp!, {r4, r5}
-@	mov	r5, r3  @ r5 = r3 = dl
 	subs r4, r3, #1  @ array index r4 = dl - 1, r3 = dl
 	blt	.L11  @ dl - 1 should >=0, dl >= 1
 .L9:
