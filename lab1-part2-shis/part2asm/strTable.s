@@ -16,24 +16,24 @@ strTable:
 	@ frame_needed = 0, uses_anonymous_args = 0
 	stmfd	sp!, {r4, r5}
 	mov	r5, r0  @ r0 = src
-	mov	r4, r2  @ r4 = sl
+@	mov	r4, r2  @ r4 = sl
 	mov	r0, r3  @ r3 = dl
-	subs r2, r0, #1  @ array index r2 = dl - 1
+	subs r4, r0, #1  @ array index r4 = dl - 1
 	blt	.L11  @ dl - 1 should >=0, dl >= 1
 .L9:
-	ldrb	r3, [r1, r2]	@ zero_extendqisi2 @ r3 = each character in dst 
+	ldrb	r3, [r1, r4]	@ zero_extendqisi2 @ r3 = each character in dst 
 	mov ip, r3
 .L7:
 	sub	ip, ip, #23
 	cmp	ip, #22
 	bgt	.L7
 .L13:
-	cmp	ip, r4
-	bgt	.L4 @ if position ip > sl, ignore
+	cmp	ip, r2 @ r2 = sl
+	bgt	.L4  @ if position ip > sl, ignore
 	strb	r3, [r5, ip]
 .L4:
-	subs r2, r2, #1  @ r2--
-	bge	.L9  @ while r2 >= 0
+	subs r4, r4, #1  @ r4--
+	bge	.L9  @ while r4 >= 0
 .L11:
 	ldmfd	sp!, {r4, r5} 
 	mov pc, lr   @return

@@ -1,4 +1,5 @@
-Author: Shi Su, AndrewID: shis
+Created by: Shi Su, AndrewID: shis
+Oct.01, 2015
 
 ********** strTable.s **********
 
@@ -60,7 +61,16 @@ Changed from:
 To:
     stmfd   sp!, {r4, r5}
     ...
-    ldmfd   sp!, {r4, r5}    
+    ldmfd   sp!, {r4, r5}  
+
+6. Remove redundant cmp instruction, use subs to set condition bit directly
+Changed from: 
+    sub r2, r0, #1  @ array index r2 = dl - 1
+    cmp r3, #0  @ dl must larger than 0
+    ble .L11  
+To:
+    subs r2, r0, #1  @ array index r2 = dl - 1
+    blt .L11  @ dl - 1 should >=0, dl >= 1
 
 
 ********** part2c.c **********
@@ -75,5 +85,9 @@ so we can tell that the result of all array elements xor together will be the si
 as count-down loop can be implemented with 2 intructions instead of 3 in count-up loop
 
 For Optimization o2: 
+The first 2 Optimizations are the same as o1.
 
-
+3. Use loop unrolling to reduce some overhead of loop
+However when compiled and run on x86 machine, it shows that this version uses more clock cycle than o1;
+When complied and run on ARM(gumstix), both version shows end_clock - start_clock = 0,
+no able to make a comparation
