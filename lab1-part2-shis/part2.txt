@@ -3,7 +3,7 @@ Oct.01, 2015
 
 ********** strTable.s **********
 
-1. Replace count-up loop with count-down loop
+1. Replace count-up loop with count-down loop, save 1 instruction for each iteration
 Changed from:
     mov r2, #0  @ r2 is the index
     ...
@@ -98,8 +98,9 @@ To:
 For Optimization o1: 
 
 1. Used xor operation to replace the inner loop
-because a^a=0, 0^b=b, and xor operation is communtative and associative,
-so we can tell that the result of all array elements xor together will be the single item
+because a^a=0, 0^b=b, the rest of array elements appear in pair, and xor operation is communtative and associative,
+so we can tell that the result of all array elements xor together will be the single item,
+which changed the complexity of the function from O(n^2) to O(n)
 
 2. Used count-down loop to replace count-up loop, 
 as count-down loop can be implemented with 2 intructions instead of 3 in count-up loop
@@ -108,6 +109,6 @@ For Optimization o2:
 The first 2 Optimizations are the same as o1.
 
 3. Use loop unrolling to reduce some overhead of loop
-However when compiled and run on x86 machine, it shows that this version uses more clock cycle than o1;
+However when compiled and run on x86 machine, it shows that this version uses a little more clock cycle than o1;
 When complied and run on ARM(gumstix), both version shows end_clock - start_clock = 0,
-no able to make a comparation
+not able to make a comparation, so I'm not sure about the best unrolling times
