@@ -17,7 +17,7 @@
  *   The number that occurs only once
  */
 #ifdef DEFAULT
-int oddball_baseline(int *arr, int len) {
+int oddball(int *arr, int len) {
 	int i, j;
 	int foundInner;
 	int result = 0;
@@ -41,8 +41,9 @@ int oddball_baseline(int *arr, int len) {
 }
 #endif
 
-#ifdef OPTIMIZE1
+#ifdef BEST_OPTIMIZE
 
+/* This is my best implementation */
 /* 1. Used xor operation to replace inner loop
 	because a^a=0, 0^b=b, and xor operation is communtative and associative,
 	so we can tell that the result of all array elements xor together will be the single item
@@ -66,7 +67,7 @@ int oddball(int *arr, int len) {
 	so we can tell that the result of all array elements xor together will be the single item
    2. Used count-down loop to replace count-up loop  
    3. Unrolling the loop */
-int oddball_with_loop_unrolling(int *arr, int len) {
+int oddball(int *arr, int len) {
 	unsigned int i;
 	unsigned int result = 0;
 
