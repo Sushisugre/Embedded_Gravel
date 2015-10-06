@@ -11,9 +11,9 @@ int main()
    /* Assume that dst[i] is always >= 23 (decimal) */
    char src[] = "theinitialstring\n";
    char dst[] = "PENGUINS";
-   //char dst[] = "MONKEYS";
-   //char dst[] = "CATS";
-   //char dst[] = "ELEPHANTS";
+   //char dst[] = "MONKEYS"; // larger han 1 word, smaller than 2 words
+   //char dst[] = "CATS";    // 1 word
+   //char dst[] = "ELEPHANTS";  // larger than 2 words
 
    int i, srcLen, dstLen; 
    
