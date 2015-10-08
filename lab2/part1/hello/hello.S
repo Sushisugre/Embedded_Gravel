@@ -10,7 +10,7 @@
 	.text
 	.global	_start
 _start:
-    ldr r1, =hello_str @load the address of label hello_str
+    ldr r1, phello_str @load the address of label hello_str
     mov r0, #hello_size
     swi WRITE_SWI
 	mov r0, #0
