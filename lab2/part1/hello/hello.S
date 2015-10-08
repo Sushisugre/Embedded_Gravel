@@ -11,7 +11,7 @@
 	.text
 	.global	_start
 _start:
-    mov r0 #1  @output to std
+    mov r0, #1  @output to std
     ldr r1, =hello_str @load the address of label hello_str
     mov r2, #hello_size
     swi WRITE_SWI
