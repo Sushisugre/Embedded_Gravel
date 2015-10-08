@@ -8,6 +8,7 @@
 
 	.file	"hello.S"
     .section    .rodata
+    .align 2
 hello_str:
     .ascii  "Hello world!\n"
     .set hello_size, .-hello_str  @subtract the current address(.) from hello_str label
