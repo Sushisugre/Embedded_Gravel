@@ -6,19 +6,20 @@
 
 #include <bits/swi.h>
 
+
 	.file	"hello.S"
 	.text
 	.global	_start
 _start:
     mov r0 #1  @output to std
-    ldr r1, phello_str @load the address of label hello_str
+    ldr r1, =hello_str @load the address of label hello_str
     mov r2, #hello_size
     swi WRITE_SWI
 	mov r0, #0
     swi EXIT_SWI
 
+
+    .section        .rodata
 hello_str:
     .ascii  "Hello world!\n"
     .set    hello_size, .-hello_str
-
- 
