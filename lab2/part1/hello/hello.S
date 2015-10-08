@@ -8,7 +8,8 @@
 
 	.file	"hello.S"
 hello_str:
-    .string "Hello world\n"
+    .ascii  "Hello world!\n"
+    .set hello_size, .-hello_str  @subtract the current address(.) from hello_str label
 	.text
 	.global	_start
 _start:
