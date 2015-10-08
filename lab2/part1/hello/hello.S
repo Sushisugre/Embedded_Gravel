@@ -17,10 +17,10 @@ _start:
     swi EXIT_SWI
 
 phello_str:
-        .word   hello_str
+    .word   hello_str
 
     .section    .rodata
 hello_str:
-    .ascii  "Hello world!\n"
+    .string  "Hello world!\n"
     .set hello_size, .-hello_str  @subtract the current address(.) from hello_str label
 
