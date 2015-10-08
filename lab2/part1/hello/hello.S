@@ -16,8 +16,9 @@ hello_str:
 	.text
 	.global	_start
 _start:
+    mov r0 #1  @output to std
     ldr r1, phello_str @load the address of label hello_str
-    mov r0, #hello_size
+    mov r2, #hello_size
     swi WRITE_SWI
 	mov r0, #0
     swi EXIT_SWI
