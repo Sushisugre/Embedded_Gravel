@@ -7,7 +7,6 @@
 #include <bits/swi.h>
 
 	.file	"hello.S"
-
 	.text
 	.global	_start
 _start:
@@ -16,6 +15,9 @@ _start:
     swi WRITE_SWI
 	mov r0, #0
     swi EXIT_SWI
+
+phello_str:
+        .word   hello_str
 
     .section    .rodata
 hello_str:
