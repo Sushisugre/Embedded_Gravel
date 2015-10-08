@@ -7,12 +7,6 @@
 #include <bits/swi.h>
 
 	.file	"hello.S"
-    .section    .rodata
-    .align 2
-hello_str:
-    .ascii  "Hello world!\n"
-    .set hello_size, .-hello_str  @subtract the current address(.) from hello_str label
-
 	.text
 	.global	_start
 _start:
@@ -23,7 +17,8 @@ _start:
 	mov r0, #0
     swi EXIT_SWI
 
-phello_str:
-    .word   hello_str
+hello_str:
+    .ascii  "Hello world!\n"
+    .set    hello_size, .-hello_str
 
  
