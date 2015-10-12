@@ -9,7 +9,6 @@
  #include <unistd.h>
  #include <stdlib.h>
  #include <errno.h>
- #include <string.h>
 
  #define true 1
  #define false 0
@@ -20,7 +19,9 @@ int main(void) {
     
         unsigned char buffer[10];
         int num = read(STDIN_FILENO, buffer, 10);
-        printf("print errno %s\n", strerror(errno));
+        
+        write(STDOUT_FILENO ,&errno,10);
+
 
         // terminate when zere byte read
         // or interrupted by a signal
