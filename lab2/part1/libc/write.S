@@ -13,6 +13,6 @@
 	.global	write
 write:  
 	swi WRITE_SWI  @ write have 3 arguments, which are already in R0,R1,R2
-    LDR  R1, =errno @ called function doesn't need to keep r0-r3
-    STR  R0, [R1]  @ store the return value into the address of errno
-    BX  LR
+    ldr  r1, =errno @ called function doesn't need to keep r0-r3
+    str  r0, [r1]  @ store the return value into the address of errno
+    bx  lr

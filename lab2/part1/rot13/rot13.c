@@ -6,8 +6,11 @@
  * Date:    The current time & date
  */
 
-int main(void) {
-	/* Needs more code. */
+ #include <unistd.h>
 
-	return -255;
+int main(void) {
+
+    
+
+	return 42;
 }

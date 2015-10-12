@@ -15,7 +15,7 @@ _start:
     ldr r1, =hello_str @load the address of label hello_str
     mov r2, #hello_size
     swi WRITE_SWI
-	mov r0, #0  status code 
+	mov r0, #0  @status code 
     swi EXIT_SWI
 
 

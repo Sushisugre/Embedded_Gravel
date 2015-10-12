@@ -1,12 +1,16 @@
 @ crt0.S: Execution startup routine
 @
-@ Authors: Group Member 1 <email address>
-@          Group Member 2 <email address>
+@ Authors: Shi Su <shis@andrew.cmu.edu>
+@          
 @ Date:    The current time & date
+#include <bits/swi.h>
 
 	.file	"crt0.S"
 	.text
 
 	.global	_start
 _start:
-	@ Needs more code.
+	ldr r0, [sp] @ sp -> argc
+    ldr r1, [sp, #4]  @ sp+4 -> address argv
+    bl main         @ Call main function
+    swi EXIT_SWI    @ Use the return value of main and exit
