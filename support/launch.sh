@@ -1,1 +1,1 @@
-qemu-system-arm -nographic -M verdex -pflash flash.img -sd sdcard.img
+qemu-system-arm -nographic -M verdex -pflash flash.img -sd ~/workspace/embedded/support/sdcard.img
