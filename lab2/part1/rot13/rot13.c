@@ -1,8 +1,8 @@
 /*
  * rot13.c: ROT13 cipher test application
  *
- * Authors: Group Member 1 <email address>
- *          Group Member 2 <email address>
+ * Authors: Shi Su <shis@andrew.cmu.edu>
+ *          
  * Date:    The current time & date
  */
 

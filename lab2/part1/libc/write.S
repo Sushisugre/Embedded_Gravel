@@ -1,12 +1,17 @@
 @ write.S: write sycall wrapper
 @
-@ Authors: Group Member 1 <email address>
-@          Group Member 2 <email address>
+@ Authors: Shi Su <shis@andrew.cmu.edu>
+@          
 @ Date:    The current time & date
+
+#include <bits/swi.h>
 
 	.file	"write.S"
 	.text
 
+    IMPORT  errno
 	.global	write
-write:
-	@ Needs more code.
+write:  
+	swi WRITE_SWI  @ write have 3 arguments, which are already in R0,R1,R2
+    LDR  R1, =errno @ called function doesn't need to keep r0-r3
+    STR  R0, [R1]  @ store the return value into the address of errno
