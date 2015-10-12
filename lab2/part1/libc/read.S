@@ -16,6 +16,7 @@ read:
     ldr  r1, =errno @ called function doesn't need to keep r0-r3
     cmp  r1, #0     @ if return value < 0 (-1), error occurs, update errno
     bge  .return
-    str  #1, [r1]  @ store 1(negate of -1) into the address of errno
-.return    
+    mov  r2, #1
+    str  r2, [r1]  @ store 1(negate of -1) into the address of errno
+.return:    
     bx  lr
