@@ -5,11 +5,11 @@
 @ Date:    The current time & date
 
 #include <bits/swi.h>
-
+#include <bits/errno.h>
 	.file	"read.S"
 	.text
 
-    IMPORT  errno  @ import the global variable from C
+    @IMPORT  errno  @ import the global variable from C
 	.global	read
 read:
 	swi  READ_SWI  @ read have 3 arguments, which are already in R0,R1,R2

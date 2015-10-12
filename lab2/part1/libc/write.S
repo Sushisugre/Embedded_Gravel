@@ -5,11 +5,12 @@
 @ Date:    The current time & date
 
 #include <bits/swi.h>
+#include <bits/errno.h>
 
 	.file	"write.S"
 	.text
 
-    IMPORT  errno  @ import the global variable from C
+    @IMPORT  errno  @ import the global variable from C
 	.global	write
 write:  
 	swi WRITE_SWI  @ write have 3 arguments, which are already in R0,R1,R2
