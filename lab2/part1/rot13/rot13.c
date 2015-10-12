@@ -7,6 +7,8 @@
  */
 
  #include <unistd.h>
+ #include <stdlib.h>
+ 
  #define true 1
  #define false 0
 
@@ -19,11 +21,11 @@ int main(void) {
         if(num == 0){
             // terminate when zere byte read
             // or interrupted by a signal
-            exit(0)
+            exit(0);
         }
         if(num == -1){
             // syscall error
-            exit(1)
+            exit(1);
         }
 
         write(STDOUT_FILENO ,buffer,10);
