@@ -15,6 +15,9 @@
 write:  
 	swi WRITE_SWI  @ write have 3 arguments, which are already in R0,R1,R2
     ldr  r1, =errno @ called function doesn't need to keep r0-r3
-    str  r0, [r1]  @ store the return value into the address of errno
+    cmp  r1, #0     @ if return value < 0 (-1), error occurs, update errno
+    bge  .return
+    str  #1, [r1]  @ store 1(negate of -1) into the address of errno
+.return    
     bx  lr
     

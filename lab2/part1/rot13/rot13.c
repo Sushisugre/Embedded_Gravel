@@ -8,7 +8,8 @@
 
  #include <unistd.h>
  #include <stdlib.h>
- 
+ #include <errno.h>
+
  #define true 1
  #define false 0
 
@@ -18,13 +19,15 @@ int main(void) {
     
         unsigned char buffer[10];
         int num = read(STDIN_FILENO, buffer, 10);
+        printf("print errno %s\n", strerror(errno));
+
+        // terminate when zere byte read
+        // or interrupted by a signal
         if(num == 0){
-            // terminate when zere byte read
-            // or interrupted by a signal
             exit(0);
         }
+        // syscall error
         if(num == -1){
-            // syscall error
             exit(1);
         }
 
