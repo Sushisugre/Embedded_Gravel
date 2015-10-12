@@ -17,3 +17,4 @@ write:
     ldr  r1, =errno @ called function doesn't need to keep r0-r3
     str  r0, [r1]  @ store the return value into the address of errno
     bx  lr
+    
