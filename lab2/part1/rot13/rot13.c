@@ -20,7 +20,18 @@
 
  int main(int argc, char *argv[]) {
 
-    // use gdb to check argc, argv
+    // check argc, argv
+    int i;
+    char *begin = "Start printing command line arguments:\n";
+    char *end = "End printing command line arguments.\n";
+
+    write(STDOUT_FILENO, begin, strlen(begin)+1);
+    for(i = 0; i<argc; i++){
+        write(STDOUT_FILENO, argv[i], 30);
+    }
+    write(STDOUT_FILENO, end, strlen(end)+1);
+
+
     // may overflow if use signed char
     unsigned char buffer[BUFFER_SIZE];
 
@@ -91,3 +102,15 @@ void rot(unsigned char* letter, int offset){
 
    *letter = x;
 }
+
+/* count the lenght of string,
+add this here since we are not able to use stand lib */
+int strlen(const char *str){
+    int count = 0;
+    while(*str != '\0'){
+        count++;
+        str++;
+    }
+    return count;
+}
+
