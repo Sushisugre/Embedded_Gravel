@@ -2,15 +2,13 @@
 @
 @ Authors: Shi Su <shis@andrew.cmu.edu>
 @          
-@ Date:    The current time & date
+@ Date:    Tue Oct 13 09:07:20 EDT 2015
 
 #include <bits/swi.h>
 #include <bits/errno.h>
-
 	.file	"write.S"
 	.text
 
-    @IMPORT  errno  @ import the global variable from C
 	.global	write
 write:  
 	swi WRITE_SWI  @ write have 3 arguments, which are already in R0,R1,R2

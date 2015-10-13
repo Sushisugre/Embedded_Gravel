@@ -19,6 +19,7 @@
 
  int main(int argc, char *argv[]) {
 
+    // use gdb to check argc, argv
     while(true){
         // may overflow if use signed char
         unsigned char buffer[BUFFER_SIZE];
@@ -49,7 +50,7 @@
         }
 
     }
-    return 42;
+    return 0;
 }
 
 /* Rotate character by offset,
