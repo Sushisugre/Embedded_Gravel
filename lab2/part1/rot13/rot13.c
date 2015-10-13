@@ -17,20 +17,25 @@
  #define BUFFER_SIZE 10
 
  void rot(unsigned char* letter, int offset);
+ int strlen(const char *str);
+ int printf(const char *str);
 
  int main(int argc, char *argv[]) {
 
-    // check argc, argv
-    int i;
+    // print out argv
     char *begin = "Start printing command line arguments:\n";
     char *end = "End printing command line arguments.\n";
+    char *instruct = "Please enter your message:\n";
+    char *div = "\n";
 
     write(STDOUT_FILENO, begin, strlen(begin)+1);
+    int i;
     for(i = 0; i<argc; i++){
-        write(STDOUT_FILENO, argv[i], 30);
+        write(STDOUT_FILENO, argv[i], strlen(argv[i])+1);
+        write(STDOUT_FILENO, div, strlen(div)+1);
     }
     write(STDOUT_FILENO, end, strlen(end)+1);
-
+    write(STDOUT_FILENO, instruct, strlen(instruct)+1);
 
     // may overflow if use signed char
     unsigned char buffer[BUFFER_SIZE];
@@ -53,58 +58,58 @@
             if(num == -1){
                 exit(1);
             }
-
+        // check if the input ends in this block
             if(num < BUFFER_SIZE
                 || (num == BUFFER_SIZE && buffer[BUFFER_SIZE - 1]== '\0')){
                 is_finished = true;
-            }
+        }
 
-            // interate through the characters
-            int i = 0;
-            unsigned char *p = buffer;
-            while (*p != '\0' && i < BUFFER_SIZE) {
-                rot(p, 13);
-                p++;
-                i++;
-            }
+        // interate through the characters
+        rot(buffer, 13);
 
         // print out rotated array
-            num = write(STDOUT_FILENO ,buffer, num);
+        num = write(STDOUT_FILENO ,buffer, num);
         // syscall error
-            if(num == -1){
-                exit(1);
+        if(num == -1){
+            exit(1);
+        }
+    }
+
+
+}
+return 0;
+}
+
+/* Rotate the characters in a string by specified offset,
+    if not in alphabet, let it be */
+void rot(unsigned char* p, int offset){
+
+    int i = 0;
+    // not at the end of the string or block
+    while (*p != '\0' && i < BUFFER_SIZE) {
+       unsigned char x = *p;
+
+       if('A' <= x && x <= 'Z'){
+            x = x + offset;
+            if(x > 'Z'){
+                x = x - CYCLE_SIZE;
+            }
+        }
+        else if('a' <= x && x <= 'z'){
+            x = x + offset;
+            if(x > 'z'){
+                x = x - CYCLE_SIZE;
             }
         }
 
-
+        *p = x;
+        p++;
+        i++;
     }
-    return 0;
 }
 
-/* Rotate character by offset,
-if not in alphabet, let it be */
-void rot(unsigned char* letter, int offset){
-
-    unsigned char x = *letter;
-
-    if('A' <= x && x <= 'Z'){
-        x = x + offset;
-        if(x > 'Z'){
-            x = x - CYCLE_SIZE;
-        }
-    }
-    else if('a' <= x && x <= 'z'){
-        x = x + offset;
-        if(x > 'z'){
-           x = x - CYCLE_SIZE;
-       }
-   }
-
-   *letter = x;
-}
-
-/* count the lenght of string,
-add this here since we are not able to use stand lib */
+/*  count the lenght of string,
+    add this here since we are not able to use standard lib */
 int strlen(const char *str){
     int count = 0;
     while(*str != '\0'){
@@ -112,5 +117,11 @@ int strlen(const char *str){
         str++;
     }
     return count;
+}
+
+/*  print the content of buffer to stdout,
+    add this here since we are not able to use standard lib */
+int printf(const char *str){
+    write(STDOUT_FILENO, str, strlen(str)+1);
 }
 
