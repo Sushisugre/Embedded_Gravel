@@ -17,7 +17,7 @@
 
  void rot(unsigned char* letter, int offset);
 
- int main(void) {
+ int main(int argc, char *argv[]) {
 
     while(true){
         // may overflow if use signed char
