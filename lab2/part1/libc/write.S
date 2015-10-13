@@ -18,7 +18,7 @@ write:
     cmp  r0, #0     @ if return value < 0, error occurs, update errno
     bge  .return
     mov  r2, #0
-    sub  r2, r2, r1 @ r2 = 0 - r1
+    sub  r2, r2, r1 @ r2 = 0 - r1, get the absolute value of error code 
     str  r2, [r1]  @ store negate of the ERROR into the address of errno
     mov  r0, #-1   @ return value of C lib when error occurs
 .return:    
