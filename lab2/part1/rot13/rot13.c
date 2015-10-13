@@ -12,16 +12,17 @@
 
  #define true 1
  #define false 0
+ #define CYCLE_SIZE 26
+ #define BUFFER_SIZE 100
 
-int main(void) {
+ void rot(unsigned char* letter, int offset);
+
+ int main(void) {
 
     while(true){
-    
-        unsigned char buffer[10];
-        int num = read(STDIN_FILENO, buffer, 10);
-        
-        write(STDOUT_FILENO ,&errno,10);
-
+        // may overflow if use signed char
+        unsigned char buffer[BUFFER_SIZE] ={0};
+        int num = read(STDIN_FILENO, buffer, BUFFER_SIZE);
 
         // terminate when zere byte read
         // or interrupted by a signal
@@ -33,8 +34,42 @@ int main(void) {
             exit(1);
         }
 
-        write(STDOUT_FILENO ,buffer,10);
-    
+        // interate through the characters
+        unsigned char *p = buffer;
+        while (*p != '\0') {
+            rot(p, 13);
+            p++;
+        }
+
+        // print out rotated array
+        num = write(STDOUT_FILENO ,buffer, BUFFER_SIZE);
+        // syscall error
+        if(num == -1){
+            exit(1);
+        }
+
     }
-	return 42;
+    return 42;
+}
+
+/* Rotate character by offset,
+if not in alphabet, let it be */
+void rot(unsigned char* letter, int offset){
+
+    unsigned char x = *letter;
+
+    if('A' <= x && x <= 'Z'){
+        x = x + offset;
+        if(x > 'Z'){
+            x = x - CYCLE_SIZE;
+        }
+    }
+    else if('a' <= x && x <= 'z'){
+        x = x + offset;
+        if(x > 'z'){
+         x = x - CYCLE_SIZE;
+     }
+ }
+
+ *letter = x;
 }
