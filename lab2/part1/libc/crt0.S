@@ -10,7 +10,7 @@
 
 	.global	_start
 _start:
-	ldr r0, [sp] @ sp -> argc
-    ldr r1, [sp, #4]  @ sp+4 -> address argv
+	ldr r0, [sp], #4 @ sp -> argc
+    mov r1, sp  @ sp+4 -> address argv
     bl main         @ Call main function
     swi EXIT_SWI    @ Use the return value of main and exit
