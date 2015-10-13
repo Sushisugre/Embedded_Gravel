@@ -21,7 +21,7 @@
 
     while(true){
         // may overflow if use signed char
-        unsigned char buffer[BUFFER_SIZE] ={0};
+        unsigned char buffer[BUFFER_SIZE];
         int num = read(STDIN_FILENO, buffer, BUFFER_SIZE);
 
         // terminate when zere byte read
@@ -42,7 +42,7 @@
         }
 
         // print out rotated array
-        num = write(STDOUT_FILENO ,buffer, BUFFER_SIZE);
+        num = write(STDOUT_FILENO ,buffer, num);
         // syscall error
         if(num == -1){
             exit(1);
