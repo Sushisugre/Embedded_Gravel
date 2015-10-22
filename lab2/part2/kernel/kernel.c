@@ -1,13 +1,20 @@
 /*
  * kernel.c: Kernel main (entry) function
  *
- * Author: Group Member 1 <email address>
- *         Group Member 2 <email address>
+ * Author: Shi Su <shis@andrew.cmu.edu>
+ *
  * Date:   The current time & date
  */
 
-int main(int argc, char *argv[]) {
-	/* Needs more code. */
+unsigned *swi_vector= (unsigned *)0x08;
 
+unsigned* install_handler(unsigned* vector, unsigned* new_handler);
+void restore_handler();
+
+int main(int argc, char *argv[]) {
+	// install custom swi handler
+
+
+    // restore native swi handler 
 	return -255;
 }
