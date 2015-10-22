@@ -1,5 +1,6 @@
-CC      = gcc
-AR      = ar
+CC      = arm-linux-gcc
+AR 	 	= arm-linux-ar
+OBJCOPY = arm-linux-objcopy
 CFLAGS  = -O2 -ffreestanding -Wall -Werror -nostdinc -I include
 ASFLAGS = -nostdinc -I include
 
