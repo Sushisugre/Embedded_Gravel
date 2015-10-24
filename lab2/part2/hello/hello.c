@@ -1,4 +1,4 @@
-/*
+b/*
  * hello.c: Hello world! with U-Boot Exports API
  *
  * Author: Mike Kasick <mkasick@andrew.cmu.edu>
