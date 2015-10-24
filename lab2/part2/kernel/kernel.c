@@ -6,12 +6,16 @@
  * Date:   The current time & date
  */
 
-#define LDR_MASK = 0xe59ff000;
+#define LDR_BASE = 0xe59ff000;
+#define LDR_MASK = 0xfffff000;
 #define E_BADCODE = 0X0badc0de;
 
 // swi handler in assembly
 // get the swi num then transfer the control to c_swi_handler
-extern unsigned swi_handler();
+extern void swi_handler(unsigned swi_num);
+// TODO
+extern unsigned setup_user();
+
 
 unsigned *swi_vector= (unsigned *)0x08;
 
@@ -32,18 +36,21 @@ int main(int argc, char *argv[]) {
     // install new swi handler by modifying old one
     install_handler(addr_old_hander, &swi_handler);
 
+    // setup for usermode & call user program
+    unsigned statu = setup_user()
+
     // restore native swi handler 
-    restore_handler()
-	return -255;
+    restore_handler(addr_old_hander, old_inst);
+	return statu;
 }
 
 unsigned* get_old_handler(unsigned* vector){
     unsigned offset, address;
-    offset = (*vector) ^ LDR_MASK;
+    offset = (*vector) ^ LDR_BASE;
 
     // if swi vector doesn't contains ldr pc, [pc,#1mm12]
-    if(offset){
-        return
+    if((*vector)& LDR_MASK != LDR_BASE){
+        return E_BADCODE;
     }
     
     // calculate the address of jumptable,
@@ -53,6 +60,7 @@ unsigned* get_old_handler(unsigned* vector){
     return (unsigned*)address;
 }
 
-restore_handler(unsigned* old_handler, unsigned* old_instruction){
+// TODO
+void restore_handler(unsigned* old_handler, unsigned* old_instruction){
 
 }
