@@ -42,6 +42,7 @@ int main(int argc, char *argv[]) {
     install_handler(addr_old_hander, (unsigned*)&swi_handler);
 
     // setup for usermode & call user program
+    unsigned status = 0;
     //unsigned statu = setup_user();
 
     // restore native swi handler 
