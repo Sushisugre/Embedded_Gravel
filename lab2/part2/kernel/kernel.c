@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 
     // store the first 2 instructions of old swi handler
     old_inst[0] = *(addr_old_hander);
-    old_inst[1] = *(addr_old_hander + WORD);
+    old_inst[1] = *(addr_old_hander + 1);
 
     // install new swi handler by modifying old one
     install_handler(addr_old_hander, (unsigned*)&swi_handler);
@@ -70,13 +70,13 @@ void install_handler(unsigned *old_handler, unsigned *new_handler){
     // load next instruction to pc when executing this line
     *old_handler = LDR_PC_MINUS_4;
     //  address of the new swi handler
-    *(unsigned*)((unsigned)old_handler + WORD) = (unsigned)new_handler;
+    *(old_handler + 1) = (unsigned)new_handler;
 }
 
 
 void restore_handler(unsigned *old_handler, unsigned old_inst[]){
     // put the old swi handler instruction back to whare they were
     *old_handler = old_inst[0];
-    *(unsigned*)((unsigned)old_handler + WORD) = old_inst[1];
+    *(old_handler + 1) = old_inst[1];
 }
 
