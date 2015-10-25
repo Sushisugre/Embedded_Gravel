@@ -42,5 +42,3 @@ exit_user:
 hello_str:
     .ascii  "Hello world!\n"
     .set    hello_size, .-hello_str @get the size of string
-
-cd 
