@@ -74,7 +74,7 @@ void install_handler(unsigned *old_handler, unsigned *new_handler){
 }
 
 
-void restore_handler(unsigned *old_handler, unsigned[] old_inst){
+void restore_handler(unsigned *old_handler, unsigned old_inst[]){
     // put the old swi handler instruction back to whare they were
     *old_handler = old_inst[0];
     *(old_handler + WORD) = old_inst[1];
