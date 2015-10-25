@@ -54,7 +54,7 @@
             r_count--;
             puts("\b \b");
         }
-        else if(ch == NEWLINE || ch CARRIAGE_RETURN){
+        else if(ch == NEWLINE || ch == CARRIAGE_RETURN){
             buf[r_count] = ch;
             putc(NEWLINE);
             break;
@@ -68,3 +68,4 @@
 
     return r_count;
  }
+ 
