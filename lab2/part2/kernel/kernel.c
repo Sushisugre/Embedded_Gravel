@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     unsigned old_inst[2];
 
     addr_old_hander = get_old_handler(swi_vector);
-    if(addr_old_hander==NULL){
+    if(addr_old_hander==0){
         return E_BADCODE;
     }
 
@@ -56,7 +56,7 @@ unsigned* get_old_handler(unsigned *vector){
 
     // if swi vector doesn't contains ldr pc, [pc,#1mm12]
     if(((*vector)& LDR_MASK) != LDR_BASE){
-        return NULL;
+        return 0;
     }
     
     // calculate the address of jumptable,
