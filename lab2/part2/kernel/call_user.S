@@ -26,7 +26,7 @@ call_user:
     swi WRITE_SWI
 
     @ test read swi
-    mov r0, #1
+    mov r0, #0
     mov r1, #0xa2000000
     mov r2, #10
     swi READ_SWI
