@@ -61,7 +61,7 @@ unsigned* get_old_handler(unsigned *vector){
     
     // calculate the address of jumptable,
     // dereference it to get the address of swi handler
-    address = *((unsigned)swi_vector + 2 * WORD + offset);   
+    address = *((unsigned)swi_vector + (2 * WORD) + offset);   
 
     return (unsigned*)address;
 }
