@@ -10,8 +10,9 @@
 #define LDR_BASE 0xe59ff000
 #define LDR_PC_MINUS_4 0xe51ff004
 #define LDR_MASK 0xfffff000
-#define E_BADCODE 0x0badc0de
 #define SWI_VECTOR 0x08
+#define E_BADCODE 0x0badc0de
+
 
 // swi handler in assembly
 // get the swi num then transfer the control to c_swi_handler
@@ -41,7 +42,7 @@ int main(int argc, char *argv[]) {
     install_handler(addr_old_hander, (unsigned*)&swi_handler);
 
     // setup for usermode & call user program
-    unsigned statu = setup_user();
+    //unsigned statu = setup_user();
 
     // restore native swi handler 
     restore_handler(addr_old_hander, old_inst);
