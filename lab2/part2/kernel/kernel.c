@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 
     // restore native swi handler 
     restore_handler(addr_old_hander, old_inst);
-	return statu;
+	return status;
 }
 
 unsigned* get_old_handler(unsigned* vector){
