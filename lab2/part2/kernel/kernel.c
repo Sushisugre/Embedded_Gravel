@@ -36,10 +36,10 @@ int main(int argc, char *argv[]) {
     old_inst[1] = *(addr_old_hander + WORD);
 
     // install new swi handler by modifying old one
-    install_handler(addr_old_hander, &swi_handler);
+    install_handler(addr_old_hander, (unsigned*)&swi_handler);
 
     // setup for usermode & call user program
-    unsigned statu = setup_user()
+    unsigned statu = setup_user();
 
     // restore native swi handler 
     restore_handler(addr_old_hander, old_inst);
@@ -71,6 +71,7 @@ void install_handler(unsigned* old_handler, unsigned* new_handler){
 
 
 void restore_handler(unsigned* old_handler, unsigned[] old_inst){
+    // put the old swi handler instruction back to whare they were
     *old_handler = old_inst[0];
     *(old_handler + WORD) = old_inst[1];
 }
