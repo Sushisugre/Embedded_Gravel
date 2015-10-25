@@ -48,10 +48,10 @@ int main(int argc, char *argv[]) {
 
 unsigned* get_old_handler(unsigned *vector){
     unsigned offset, address;
-    offset = (*vector) ^ LDR_BASE;
+    offset = (*vector) ^ (unsigned)LDR_BASE;
 
     // if swi vector doesn't contains ldr pc, [pc,#1mm12]
-    if((*vector)& LDR_MASK != LDR_BASE){
+    if((*vector)& LDR_MASK != (unsigned)LDR_BASE){
         return E_BADCODE;
     }
     
@@ -64,9 +64,9 @@ unsigned* get_old_handler(unsigned *vector){
 
 void install_handler(unsigned *old_handler, unsigned *new_handler){
     // load next instruction to pc when executing this line
-    *old_handler = LDR_PC_MINUS_4;
+    *old_handler = (unsigned)LDR_PC_MINUS_4;
     //  address of the new swi handler
-    *(old_handler + WORD) = ((unsigned)new_handler);
+    *(old_handler + WORD) = (unsigned)new_handler;
 }
 
 
