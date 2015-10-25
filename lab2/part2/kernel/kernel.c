@@ -61,7 +61,7 @@ unsigned* get_old_handler(unsigned* vector){
     // dereference it to get the address of swi handler
     address = *(unsigned*)((unsigned)vector + (2 * WORD) + offset);   
 
-    return address;
+    return (unsigned*)address;
 }
 
 void install_handler(unsigned *old_handler, unsigned *new_handler){
