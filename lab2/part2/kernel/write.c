@@ -24,6 +24,8 @@ ssize_t write(int fd, const void *buf, size_t count){
     }
 
     unsigned addr_buf = (unsigned)buf;
+    char *c_buf = (char*)buf;
+
     // buffer range exist out side of writable memory SDRAM
     // i.e. address not start with a3
     if((addr_buf & MASK)!= SDRAM_LOWER
@@ -36,7 +38,7 @@ ssize_t write(int fd, const void *buf, size_t count){
     // write to stdout until reach limited count
     while(w_count < count){
 
-        char ch = (char)buf[w_count];
+        char ch = (char)c_buf[w_count];
         // call uboot API to display the character
         putc(ch)
         w_count ++;

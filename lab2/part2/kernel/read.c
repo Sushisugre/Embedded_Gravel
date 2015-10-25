@@ -31,6 +31,7 @@
     }
 
     unsigned addr_buf = (unsigned)buf;
+    char *c_buf = (char*)buf;
     // buffer range exist out side of readable memory
     // StrataFlash ROM of SDRAM, i.e. buf not start with 00 or a3
     if(((addr_buf & MASK)!= SDRAM_LOWER
@@ -55,12 +56,12 @@
             puts("\b \b");
         }
         else if(ch == NEWLINE || ch == CARRIAGE_RETURN){
-            buf[r_count] = ch;
+            c_buf[r_count] = ch;
             putc(NEWLINE);
             break;
         }
         else{
-            buf[r_count] = ch;
+            c_buf[r_count] = ch;
             putc(ch);
             r_count ++;
         }
@@ -68,4 +69,4 @@
 
     return r_count;
  }
- 
+
