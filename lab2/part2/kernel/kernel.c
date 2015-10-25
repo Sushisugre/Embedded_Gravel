@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 
     // setup for usermode & call user program
     unsigned status = 0;
-    //status = call_user();
+    status = call_user();
 
     // restore native swi handler 
     restore_handler(addr_old_hander, old_inst);
