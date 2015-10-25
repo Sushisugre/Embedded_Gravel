@@ -6,11 +6,11 @@
  * Date:   The current time & date
  */
 
-#define WORD 4;
-#define LDR_BASE 0xe59ff000;
-#define LDR_PC_MINUS_4 0xe51ff004; 
-#define LDR_MASK 0xfffff000;
-#define E_BADCODE 0x0badc0de;
+#define WORD 4
+#define LDR_BASE 0xe59ff000
+#define LDR_PC_MINUS_4 0xe51ff004
+#define LDR_MASK 0xfffff000
+#define E_BADCODE 0x0badc0de
 
 // swi handler in assembly
 // get the swi num then transfer the control to c_swi_handler
@@ -48,10 +48,10 @@ int main(int argc, char *argv[]) {
 
 unsigned* get_old_handler(unsigned *vector){
     unsigned offset, address;
-    offset = (*vector) ^ (unsigned)LDR_BASE;
+    offset = (*vector) ^ LDR_BASE;
 
     // if swi vector doesn't contains ldr pc, [pc,#1mm12]
-    if((*vector)& LDR_MASK != (unsigned)LDR_BASE){
+    if((*vector)& LDR_MASK != LDR_BASE){
         return E_BADCODE;
     }
     
@@ -64,7 +64,7 @@ unsigned* get_old_handler(unsigned *vector){
 
 void install_handler(unsigned *old_handler, unsigned *new_handler){
     // load next instruction to pc when executing this line
-    *old_handler = (unsigned)LDR_PC_MINUS_4;
+    *old_handler = LDR_PC_MINUS_4;
     //  address of the new swi handler
     *(old_handler + WORD) = (unsigned)new_handler;
 }
