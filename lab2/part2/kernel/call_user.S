@@ -19,11 +19,17 @@ call_user:
     @mov r2, #0xa2000000
     @bl r2
 
-    @ test swi
+    @ test write swi
     mov r0, #1
     ldr r1, =hello_str @load the address of label hello_str
     mov r2, #hello_size
     swi WRITE_SWI
+
+    @ test read swi
+    mov r0, #1
+    mov r1, #0xa2000000
+    mov r2, #10
+    swi READ_SWI
 
 @ add a lable for exit syscall to jump to
 @ return to kernel and clean up
@@ -37,3 +43,4 @@ hello_str:
     .ascii  "Hello world!\n"
     .set    hello_size, .-hello_str @get the size of string
 
+cd 
