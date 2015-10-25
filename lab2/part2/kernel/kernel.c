@@ -21,13 +21,13 @@ extern unsigned setup_user();
 
 unsigned *swi_vector= (unsigned *)0x08;
 
-void install_handler(unsigned* old_handler, unsigned* new_handler);
-void restore_handler(unsigned* old_handler, unsigned* old_instruction);
-unsigned* get_old_handler(unsigned* vector);
+void install_handler(unsigned *old_handler, unsigned *new_handler);
+void restore_handler(unsigned *old_handler, unsigned *old_instruction);
+unsigned* get_old_handler(unsigned *vector);
 
 int main(int argc, char *argv[]) {
 
-    unsigned* addr_old_hander;
+    unsigned *addr_old_hander;
     unsigned old_inst[2];
 
     addr_old_hander = get_old_handler(swi_vector);
@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
 	return statu;
 }
 
-unsigned* get_old_handler(unsigned* vector){
+unsigned* get_old_handler(unsigned *vector){
     unsigned offset, address;
     offset = (*vector) ^ LDR_BASE;
 
@@ -62,7 +62,7 @@ unsigned* get_old_handler(unsigned* vector){
     return (unsigned*)address;
 }
 
-void install_handler(unsigned* old_handler, unsigned* new_handler){
+void install_handler(unsigned *old_handler, unsigned *new_handler){
     // load next instruction to pc when executing this line
     *old_handler = LDR_PC_MINUS_4;
     //  address of the new swi handler
@@ -70,8 +70,9 @@ void install_handler(unsigned* old_handler, unsigned* new_handler){
 }
 
 
-void restore_handler(unsigned* old_handler, unsigned[] old_inst){
+void restore_handler(unsigned *old_handler, unsigned[] old_inst){
     // put the old swi handler instruction back to whare they were
     *old_handler = old_inst[0];
     *(old_handler + WORD) = old_inst[1];
 }
+
