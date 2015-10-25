@@ -40,7 +40,7 @@ ssize_t write(int fd, const void *buf, size_t count){
 
         char ch = (char)c_buf[w_count];
         // call uboot API to display the character
-        putc(ch)
+        putc(ch);
         w_count ++;
     }
 
