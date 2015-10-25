@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
 	return statu;
 }
 
-unsigned get_old_handler(unsigned* vector){
+unsigned* get_old_handler(unsigned* vector){
     unsigned offset, address;
     offset = (*vector) ^ LDR_BASE;
 
