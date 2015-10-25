@@ -15,6 +15,6 @@ swi_handler:
     ldr r0, [lr, #-4]   @ lr store the next instruction of SWI call, lr-4->SWI instruction
     bic r0, r0, #0xff000000  @clear first few bits to get swi number
     bl c_swi_handler    @ pass controll to C, r0 is swi number, r1 is pointer to register
-    ldmfd sp!, {r0-r12}
-    movs pc, lr         @ return to user program
+    ldmfd sp!, {r0-r12} @ load the updated values on stack back to register
+    movs pc, lr         @ return to swi wrapper
 

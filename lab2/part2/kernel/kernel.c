@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 
     // setup for usermode & call user program
     unsigned status = 0;
-    //unsigned statu = setup_user();
+    //status = call_user();
 
     // restore native swi handler 
     restore_handler(addr_old_hander, old_inst);
@@ -66,6 +66,8 @@ unsigned* get_old_handler(unsigned* vector){
     return (unsigned*)address;
 }
 
+/* Change the first 2 instruction of native swi handler in uboot,
+ to pass the control to the custom swi handler */
 void install_handler(unsigned *old_handler, unsigned *new_handler){
     // load next instruction to pc when executing this line
     *old_handler = LDR_PC_MINUS_4;
@@ -73,7 +75,7 @@ void install_handler(unsigned *old_handler, unsigned *new_handler){
     *(old_handler + 1) = (unsigned)new_handler;
 }
 
-
+/* restore the native swi handler to its original value */
 void restore_handler(unsigned *old_handler, unsigned old_inst[]){
     // put the old swi handler instruction back to whare they were
     *old_handler = old_inst[0];
