@@ -12,10 +12,7 @@
  #include <exports.h>
 
  #define SDRAM_UPPER 0xa3ffffff
- #define SDRAM_LOWER 0xa3000000
- #define ROM_UPPER 0x00ffffff
- #define ROM_LOWER 0x00000000
- #define MASK 0xff000000
+ #define SDRAM_LOWER 0xa0000000
  // Special characters
  #define EOT 4
  #define BACKSPACE 8
@@ -33,12 +30,12 @@
 
     unsigned addr_buf = (unsigned)buf;
     char *c_buf = (char*)buf;
-    // buffer range exist out side of readable memory
-    // StrataFlash ROM of SDRAM, i.e. buf not start with 00 or a3
-    if(((addr_buf & MASK)!= SDRAM_LOWER
-            ||((addr_buf + count) & MASK)!= SDRAM_LOWER)
-        && ((addr_buf & MASK)!= ROM_LOWER
-            ||((addr_buf + count) & MASK)!= ROM_LOWER)){
+
+    // buffer range exist out side of writable memory SDRAM
+    // i.e. address not start with a3
+    if( addr_buf < SDRAM_LOWER
+        ||addr_buf > SDRAM_UPPER
+        ||(addr_buf + count) >SDRAM_UPPER){
 
         return -EFAULT;
     }
