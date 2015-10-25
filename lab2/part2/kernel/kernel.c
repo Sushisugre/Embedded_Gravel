@@ -66,7 +66,7 @@ void install_handler(unsigned *old_handler, unsigned *new_handler){
     // load next instruction to pc when executing this line
     *old_handler = LDR_PC_MINUS_4;
     //  address of the new swi handler
-    *(old_handler + WORD) = (unsigned)new_handler;
+    *(old_handler + WORD) = ((unsigned)new_handler);
 }
 
 
