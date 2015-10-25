@@ -11,20 +11,27 @@ extern void exit(int status);
  swi number and pointer to the register value on stack is passed from assembly swi handler */
 void c_swi_handler(unsigned swi_num, unsigned* regs){
 
+
     switch(swi_num){
         case EXIT_SWI:
+        {
             exit(regs[0]);
             break;
+        }
         case READ_SWI:
+        {
             // cast unsigned address to buffer pointer
-            char* buf = (char*)regs[1];
+            char *buf = (char*)regs[1];
             // call lib and put the return value back on stack
             regs[0] = read(regs[0], buf, regs[2]);
             break;
+        }
         case WRITE_SWI:
-            char* buf = (char*)regs[1];
+        {
+            char *buf = (char*)regs[1];
             regs[0] = write(regs[0], buf, regs[2]);
             break;
+        }
         default:
             exit(E_BADCODE);
 
