@@ -31,6 +31,10 @@ int main(int argc, char *argv[]) {
     unsigned old_inst[2];
 
     addr_old_hander = get_old_handler(swi_vector);
+    if(addr_old_hander==NULL){
+        return E_BADCODE;
+    }
+
     // store the first 2 instructions of old swi handler
     old_inst[0] = *(addr_old_hander);
     old_inst[1] = *(addr_old_hander + WORD);
@@ -51,8 +55,8 @@ unsigned* get_old_handler(unsigned *vector){
     offset = (*vector) ^ LDR_BASE;
 
     // if swi vector doesn't contains ldr pc, [pc,#1mm12]
-    if((*vector)& LDR_MASK != LDR_BASE){
-        return E_BADCODE;
+    if(((*vector)& LDR_MASK) != LDR_BASE){
+        return NULL;
     }
     
     // calculate the address of jumptable,
