@@ -31,6 +31,10 @@ call_user:
     mov r2, #10
     swi READ_SWI
 
+    @ test exit swi
+    mov r0, #42
+    swi EXIT_SWI
+
 @ add a lable for exit syscall to jump to
 @ return to kernel and clean up
     .global exit_user

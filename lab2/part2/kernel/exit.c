@@ -6,9 +6,12 @@
  * Date:   The current time & date
  */
 
+ // jump to the clean up and return section of call_user
+ // will return to kernel with r0 set to status
+ extern void exit_user(int status);
 
  void exit(int status){
-    return;
+    exit_user(status);
  }
 
 
