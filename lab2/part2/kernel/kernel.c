@@ -18,7 +18,7 @@
 // get the swi num then transfer the control to c_swi_handler
 extern void swi_handler(unsigned swi_num);
 // TODO
-extern unsigned call_userb();
+extern unsigned call_user();
 
 void install_handler(unsigned *old_handler, unsigned *new_handler);
 void restore_handler(unsigned *old_handler, unsigned *old_instruction);
