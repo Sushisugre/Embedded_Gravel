@@ -16,6 +16,7 @@ void c_swi_handler(unsigned swi_num, unsigned* regs){
             break;
         default:
             // exit with 0x0badc0de
+            break;
 
     }
 }
