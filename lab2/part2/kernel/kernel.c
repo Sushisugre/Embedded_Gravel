@@ -11,6 +11,7 @@
 #define LDR_PC_MINUS_4 0xe51ff004
 #define LDR_MASK 0xfffff000
 #define E_BADCODE 0x0badc0de
+#define SWI_VECTOR 0x08
 
 // swi handler in assembly
 // get the swi num then transfer the control to c_swi_handler
@@ -18,19 +19,16 @@ extern void swi_handler(unsigned swi_num);
 // TODO
 extern unsigned setup_user();
 
-
-unsigned *swi_vector= (unsigned *)0x08;
-
 void install_handler(unsigned *old_handler, unsigned *new_handler);
 void restore_handler(unsigned *old_handler, unsigned *old_instruction);
-unsigned* get_old_handler(unsigned *vector);
+unsigned* get_old_handler(unsigned* vector);
 
 int main(int argc, char *argv[]) {
 
     unsigned *addr_old_hander;
     unsigned old_inst[2];
 
-    addr_old_hander = get_old_handler(swi_vector);
+    addr_old_hander = get_old_handler((unsigned*)SWI_VECTOR);
     if(addr_old_hander==0){
         return E_BADCODE;
     }
@@ -50,7 +48,7 @@ int main(int argc, char *argv[]) {
 	return statu;
 }
 
-unsigned* get_old_handler(unsigned *vector){
+unsigned get_old_handler(unsigned* vector){
     unsigned offset, address;
     offset = (*vector) ^ LDR_BASE;
 
@@ -61,22 +59,22 @@ unsigned* get_old_handler(unsigned *vector){
     
     // calculate the address of jumptable,
     // dereference it to get the address of swi handler
-    address = *(unsigned*)((unsigned)swi_vector + (2 * WORD) + offset);   
+    address = *(unsigned*)((unsigned)vector + (2 * WORD) + offset);   
 
-    return (unsigned*)address;
+    return address;
 }
 
 void install_handler(unsigned *old_handler, unsigned *new_handler){
     // load next instruction to pc when executing this line
     *old_handler = LDR_PC_MINUS_4;
     //  address of the new swi handler
-    *(old_handler + WORD) = (unsigned)new_handler;
+    *(unsigned*)((unsigned)old_handler + WORD) = (unsigned)new_handler;
 }
 
 
 void restore_handler(unsigned *old_handler, unsigned old_inst[]){
     // put the old swi handler instruction back to whare they were
     *old_handler = old_inst[0];
-    *(old_handler + WORD) = old_inst[1];
+    *(unsigned*)((unsigned)old_handler + WORD) = old_inst[1];
 }
 
