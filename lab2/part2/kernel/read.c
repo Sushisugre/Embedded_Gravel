@@ -54,7 +54,8 @@
             puts("\b \b");
         }
         else if(ch == NEWLINE || ch == CARRIAGE_RETURN){
-            c_buf[r_count] = ch;
+            // put a newline character in the buffer
+            c_buf[r_count] = NEWLINE;
             putc(NEWLINE);
             break;
         }
