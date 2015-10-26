@@ -13,15 +13,27 @@ call_user:
     stmfd sp!, {r0-r12, lr}  @store user program register and lr_svc
 
     @ Update set cpsr to usermode and masked FIQ/IRQ
-    mrs r0, cpsr  @ copy cpsr to r0
-    bic r0, r0, #0xff
-    orr r0, r0, #0xd0 @ set F/T to 1, mode bit to user_mode
-    msr cpsr, r0  @ copy the updated value back
+    mrs r2, cpsr  @ copy cpsr to r0
+    bic r2, r2, #0xff
+    orr r2, r2, #0xd0 @ set F/T to 1, mode bit to user_mode
+    msr cpsr, r2  @ copy the updated value back
+
     @ setup user stack
     @ sp is banked between svc and usr, so no need to save sp
     mov sp, #0xa3000000
+    mov r2, #0  @ null
+    stmdb sp!, {r2}
+    mov r2, r0 @ argc, number of arguments
+.set_argv
+    subs r2, r2, #1  @ loop argc times to put those argument on stack
+    BMI .call_function @ <0
+    ldr   r3, [r1, r2, LSL #2]  @ r1(argv)+4(i-1),+4(i-2), ...4
+    stmdb sp!, {r3} @store the variables
+    B .set_argv
 
-    @ Jump to user program at 0xa2000000    
+    @ Jump to user program at 0xa2000000  
+.call_function
+    stmdb sp!, {r0}  @ set argc  
     mov r2, #0xa2000000
     blx r2  @ branch to the address in r
 

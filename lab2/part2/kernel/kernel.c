@@ -18,7 +18,7 @@
 // get the swi num then transfer the control to c_swi_handler
 extern void swi_handler(unsigned swi_num);
 // TODO
-extern unsigned call_user();
+extern unsigned call_user(int argc, char *argv[]);
 
 void install_handler(unsigned *old_handler, unsigned *new_handler);
 void restore_handler(unsigned *old_handler, unsigned *old_instruction);
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
     install_handler(addr_old_hander, (unsigned*)&swi_handler);
 
     // setup for usermode & call user program
-    unsigned status = call_user();
+    unsigned status = call_user(argc, argv);
 
     // restore native swi handler 
     restore_handler(addr_old_hander, old_inst);
