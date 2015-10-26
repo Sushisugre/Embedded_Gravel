@@ -15,16 +15,16 @@
 call_user:
     stmfd sp!, {r1-r12, lr}  @store user program register and lr_svc
 
+    @ setup user stack
+    @ sp is banked between svc and usr, so no need to save sp... seem that I'm wrong
+    mov   r2, #svc_stack_backup
+    str   sp, [r2] @ strore the svc stack pointer
+
     @ Update set cpsr to usermode and masked FIQ/IRQ
     mrs r2, cpsr  @ copy cpsr to r0
     bic r2, r2, #0xff
     orr r2, r2, #0xd0 @ set F/T to 1, mode bit to user_mode
     msr cpsr, r2  @ copy the updated value back
-
-    @ setup user stack
-    @ sp is banked between svc and usr, so no need to save sp... seem that I'm wrong
-    mov   r2, #svc_stack_backup
-    str   sp, [r2] @ strore the svc stack pointer
 
     mov sp, #user_stack
     mov r2, #0  @ null
