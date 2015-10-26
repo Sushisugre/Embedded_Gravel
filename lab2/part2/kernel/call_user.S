@@ -20,7 +20,7 @@ call_user:
 
     @ setup user stack
     @ sp is banked between svc and usr, so no need to save sp... seem that I'm wrong
-    
+
     mov sp, #0xa3000000
     mov r2, #0  @ null
     stmdb sp!, {r2}
@@ -39,10 +39,10 @@ call_user:
     blx r2  @ branch to the address in r
 
     @ restore svc mode
-    mrs r2, cpsr  @ copy cpsr to r0
-    bic r2, r2, #0xff
-    orr r2, r2, #0xd3 @ set F/T to 1, mode bit to svc_mode
-    msr cpsr, r2  @ copy the updated value back
+    @mrs r2, cpsr  @ copy cpsr to r0
+    @bic r2, r2, #0xff
+    @orr r2, r2, #0xd3 @ set F/T to 1, mode bit to svc_mode
+    @msr cpsr, r2  @ copy the updated value back
     @ now we have a sp_svc
 
 @ add a lable for exit syscall to jump to
