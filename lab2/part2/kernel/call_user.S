@@ -55,7 +55,7 @@ call_user:
     .global exit_user
 exit_user:
     mov   r2, #svc_stack_backup
-    ldr   sp, [r1]
+    ldr   sp, [r2]
     ldmfd sp!, {r1-r12, lr} @ restore registers
     mov pc, lr          @ return to kernel, no s! not switching mode!
 
