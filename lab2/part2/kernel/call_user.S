@@ -13,9 +13,14 @@ call_user:
     stmfd sp!, {r0-r12, lr}  @store user program register and lr_svc
     
     @ Update set cpsr to usermode and masked FIQ/IRQ
+    mrs r0, cpsr  @ copy cpsr to r0
+    bic r0, r0, #0xff
+    orr r0, r0, #0xd0 @ set F/T to 1, mode bit to user_mode
+    msr r0, cpsr  @ copy the updated value back
+    @ set user stack
 
-    @ Jump to user program at 0xa2000000
-    
+
+    @ Jump to user program at 0xa2000000    
     mov r2, #0xa2000000
     blx r2
 

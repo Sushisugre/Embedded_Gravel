@@ -20,4 +20,4 @@ read:
     str  r2, [r1]  @ store negate of the ERROR into the address of errno
     mov  r0, #-1   @ return value of C lib when error occurs
 .return:    
-    bx  lr
+    movs pc, lr
