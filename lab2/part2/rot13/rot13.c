@@ -33,14 +33,14 @@
     char *div = "\n";
   
     // // print out argv
-    // printf(begin);
+    printf(begin);
     // int i;
     // for(i = 0; i<argc; i++){
     //     printf(argv[i]);
     //     printf(div);
     // }
-    // printf(end);
-    // printf(instruct);
+    printf(end);
+    printf(instruct);
 
     // may overflow if use signed char
     unsigned char buffer[BUFFER_SIZE];
