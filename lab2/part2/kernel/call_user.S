@@ -24,7 +24,7 @@ call_user:
     mov r2, #0  @ null
     stmdb sp!, {r2}
     mov r2, r0 @ argc, number of arguments
-.set_argv
+.set_argv:
     subs r2, r2, #1  @ loop argc times to put those argument on stack
     BMI .call_function @ <0
     ldr   r3, [r1, r2, LSL #2]  @ r1(argv)+4(i-1),+4(i-2), ...4
@@ -32,7 +32,7 @@ call_user:
     B .set_argv
 
     @ Jump to user program at 0xa2000000  
-.call_function
+.call_function:
     stmdb sp!, {r0}  @ set argc  
     mov r2, #0xa2000000
     blx r2  @ branch to the address in r
