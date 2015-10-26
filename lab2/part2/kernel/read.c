@@ -1,9 +1,9 @@
 /*
- * read.c:
+ * read.c: read syscall
  *
  * Author: Shi Su <shis@andrew.cmu.edu>
  *
- * Date:   The current time & date
+ * Date:   Mon Oct 26 14:06:43 EDT 2015
  */
 
  #include <bits/fileno.h>

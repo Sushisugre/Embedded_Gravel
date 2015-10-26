@@ -1,4 +1,5 @@
-@ call_user.S: 
+@ call_user.S: Setup cpsr, stack for usermode
+@ and call the user program
 @
 @ Author: Shi Su <shis@andrew.cmu.edu>
 @ Date:   
@@ -10,6 +11,8 @@
     .equ user_entry, 0xa2000000  
     .equ user_stack, 0xa3000000
     .equ svc_stack_backup, 0xa0000000
+    .equ user_mode_code, 0xd0
+    .equ null, 0x0
 
     .global call_user
 call_user:
@@ -23,11 +26,11 @@ call_user:
     @ Update set cpsr to usermode and masked FIQ/IRQ
     mrs r2, cpsr  @ copy cpsr to r0
     bic r2, r2, #0xff
-    orr r2, r2, #0xd0 @ set F/T to 1, mode bit to user_mode
+    orr r2, r2, #user_mode_code @ set F/T to 1, mode bit to user_mode
     msr cpsr, r2  @ copy the updated value back
 
     mov sp, #user_stack
-    mov r2, #0  @ null
+    mov r2, #null  @ null
     stmdb sp!, {r2}
     mov r2, r0 @ argc, number of arguments
 .set_argv:
@@ -43,12 +46,6 @@ call_user:
     mov r2, #user_entry
     blx r2  @ branch to the address in r
 
-    @ restore svc mode
-    @mrs r2, cpsr  @ copy cpsr to r0
-    @bic r2, r2, #0xff
-    @orr r2, r2, #0xd3 @ set F/T to 1, mode bit to svc_mode
-    @msr cpsr, r2  @ copy the updated value back
-    @ now we have a sp_svc
 
 @ add a lable for exit syscall to jump to
 @ return to kernel and clean up
@@ -60,6 +57,13 @@ exit_user:
     mov pc, lr          @ return to kernel, no s! not switching mode!
 
 @@@@@@@@@@@@@@@@@@@@@ TEST CODE PLEASE IGNORE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    @ restore svc mode
+    @mrs r2, cpsr  @ copy cpsr to r0
+    @bic r2, r2, #0xff
+    @orr r2, r2, #0xd3 @ set F/T to 1, mode bit to svc_mode
+    @msr cpsr, r2  @ copy the updated value back
+    @ now we have a sp_svc
+
     @ test write swi
     @ mov r0, #1
     @ ldr r1, =hello_str @load the address of label hello_str

@@ -3,7 +3,7 @@
  *
  * Author: Shi Su <shis@andrew.cmu.edu>
  *
- * Date:   The current time & date
+ * Date:   Mon Oct 26 14:03:58 EDT 2015
  */
 
 #define WORD 4
@@ -17,7 +17,6 @@
 // swi handler in assembly
 // get the swi num then transfer the control to c_swi_handler
 extern void swi_handler(unsigned swi_num);
-// TODO
 extern unsigned call_user(int argc, char *argv[]);
 
 void install_handler(unsigned *old_handler, unsigned *new_handler);
@@ -49,6 +48,8 @@ int main(int argc, char *argv[]) {
 	return status;
 }
 
+/* calculate the address of old swi handler according to
+ *  the ldr command in vector table */
 unsigned* get_old_handler(unsigned* vector){
     unsigned offset, address;
     offset = (*vector) ^ LDR_BASE;

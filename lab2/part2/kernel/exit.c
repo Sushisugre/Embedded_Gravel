@@ -1,13 +1,13 @@
 /*
- * exit.c:
+ * exit.c: exit syscall
  *
  * Author: Shi Su <shis@andrew.cmu.edu>
  *
- * Date:   The current time & date
+ * Date:   Mon Oct 26 14:02:15 EDT 2015
  */
 
- // jump to the clean up and return section of call_user
- // will return to kernel with r0 set to status
+  /* jump to the exit_user section of call_user
+    will return to kernel with r0 set to status */
  extern void exit_user(int status);
 
  void exit(int status){

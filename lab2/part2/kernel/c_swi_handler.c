@@ -1,3 +1,12 @@
+/*
+ * c_swi_handler.c: swi handler in c, call libc according to swi number
+ *
+ * Author: Shi Su <shis@andrew.cmu.edu>
+ *
+ * Date:   Mon Oct 26 14:03:58 EDT 2015
+ */
+
+
 #include <bits/swi.h>
 #include <sys/types.h>
 
