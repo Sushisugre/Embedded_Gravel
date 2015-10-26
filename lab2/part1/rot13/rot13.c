@@ -7,7 +7,7 @@
  */
 
  #include <unistd.h>
- #include <stdlib.h>
+ //#include <stdlib.h>
  #include <errno.h>
 
  typedef int bool;
@@ -16,18 +16,23 @@
  #define CYCLE_SIZE 26
  #define BUFFER_SIZE 10
 
+ extern ssize_t write(int fd, const void *buf, size_t count);
+ extern ssize_t read(int fd, void *buf, size_t count);
+ extern void exit(int status);
+
  void rot(unsigned char* letter, int offset);
  int strlen(const char *str);
  int printf(const char *str);
 
  int main(int argc, char *argv[]) {
+    //
 
     char *begin = "Start printing command line arguments:\n";
     char *end = "End printing command line arguments.\n";
     char *instruct = "Please enter your message:\n";
     char *div = "\n";
   
-    // print out argv
+    // // print out argv
     printf(begin);
     int i;
     for(i = 0; i<argc; i++){
@@ -62,23 +67,21 @@
             if(num < BUFFER_SIZE
                 || (num == BUFFER_SIZE && buffer[BUFFER_SIZE - 1]== '\0')){
                 is_finished = true;
-        }
+            }
 
         // interate through the characters
-        rot(buffer, 13);
+            rot(buffer, 13);
 
         // print out rotated array
         // do not use print method for this may only contain part of str (no \0)
-        num = write(STDOUT_FILENO ,buffer, num);
+            num = write(STDOUT_FILENO ,buffer, num);
         // syscall error
-        if(num == -1){
-            exit(1);
+            if(num == -1){
+                exit(1);
+            }
         }
     }
-
-
-}
-return 0;
+    return 0;
 }
 
 /* Rotate the characters in a string by specified offset,

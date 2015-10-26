@@ -1,8 +1,8 @@
 CC      = arm-linux-gcc
 AR 	 	= arm-linux-ar
 OBJCOPY = arm-linux-objcopy
-CFLAGS  = -O2 -ffreestanding -Wall -Werror -nostdinc -I include
-ASFLAGS = -nostdinc -I include
+CFLAGS  = -O2 -ffreestanding -Wall -Werror -nostdinc -I include -g
+ASFLAGS = -nostdinc -I include -g
 
 objects = errno.o exit.o read.o write.o
 
