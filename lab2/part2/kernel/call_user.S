@@ -12,6 +12,7 @@
     .equ user_stack, 0xa3000000
     .equ svc_stack_backup, 0xa0000000
     .equ user_mode_code, 0xd0
+    .equ svc_mode_code, 0xd3
     .equ null, 0x0
 
     .global call_user
@@ -46,6 +47,11 @@ call_user:
     mov r2, #user_entry
     blx r2  @ branch to the address in r
 
+    @ restore svc mode
+    mrs r2, cpsr  @ copy cpsr to r0
+    bic r2, r2, #0xff
+    orr r2, r2, #svc_mode_code @ set F/T to 1, mode bit to svc_mode
+    msr cpsr, r2  @ copy the updated value back
 
 @ add a lable for exit syscall to jump to
 @ return to kernel and clean up
@@ -57,12 +63,6 @@ exit_user:
     mov pc, lr          @ return to kernel, no s! not switching mode!
 
 @@@@@@@@@@@@@@@@@@@@@ TEST CODE PLEASE IGNORE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    @ restore svc mode
-    @mrs r2, cpsr  @ copy cpsr to r0
-    @bic r2, r2, #0xff
-    @orr r2, r2, #0xd3 @ set F/T to 1, mode bit to svc_mode
-    @msr cpsr, r2  @ copy the updated value back
-    @ now we have a sp_svc
 
     @ test write swi
     @ mov r0, #1
