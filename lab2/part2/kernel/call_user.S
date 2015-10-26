@@ -19,7 +19,8 @@ call_user:
     msr cpsr, r2  @ copy the updated value back
 
     @ setup user stack
-    @ sp is banked between svc and usr, so no need to save sp
+    @ sp is banked between svc and usr, so no need to save sp... seem that I'm wrong
+    
     mov sp, #0xa3000000
     mov r2, #0  @ null
     stmdb sp!, {r2}

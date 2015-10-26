@@ -20,6 +20,6 @@ read:
     sub  r2, r2, r1 @ r2 = 0 - r1, get the absolute value of error code 
     str  r2, [r1]  @ store negate of the ERROR into the address of errno
     mov  r0, #-1   @ return value of C lib when error occurs
-    ldmfd sp!, {r1-r12, lr} 
 .return:    
+    ldmfd sp!, {r1-r12, lr} 
     mov pc, lr
