@@ -12,7 +12,7 @@
  #include <exports.h>
 
  #define SDRAM_UPPER 0xa3ffffff
- #define SDRAM_LOWER 0xa3000000
+ #define SDRAM_LOWER 0xa0000000
  #define ROM_UPPER 0x00ffffff
  #define ROM_LOWER 0x00000000
  #define MASK 0xff000000
