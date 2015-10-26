@@ -11,7 +11,7 @@
 
 	.global	read
 read:
-    stmfd sp!, {r1-r12, lr}
+    stmfd sp!, {r1-r12, lr}  @ save unbanked register before change mode
 	swi  READ_SWI  @ read have 3 arguments, which are already in R0,R1,R2
     ldr  r1, =errno @ called function doesn't need to keep r0-r3
     cmp  r0, #0     @ if return value < 0, error occurs, update errno

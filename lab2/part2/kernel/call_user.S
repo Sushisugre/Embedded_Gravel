@@ -10,7 +10,7 @@
 
     .global call_user
 call_user:
-    stmfd sp!, {r0-r12, lr}  @store user program register and lr_svc
+    stmfd sp!, {r1-r12, lr}  @store user program register and lr_svc
 
     @ Update set cpsr to usermode and masked FIQ/IRQ
     mrs r2, cpsr  @ copy cpsr to r0
@@ -37,13 +37,18 @@ call_user:
     mov r2, #0xa2000000
     blx r2  @ branch to the address in r
 
-    @ somehow the exit value is not preserved
+    @ restore svc mode
+    mrs r2, cpsr  @ copy cpsr to r0
+    bic r2, r2, #0xff
+    orr r2, r2, #0xd3 @ set F/T to 1, mode bit to svc_mode
+    msr cpsr, r2  @ copy the updated value back
+    @ now we have a sp_svc
 
 @ add a lable for exit syscall to jump to
 @ return to kernel and clean up
     .global exit_user
 exit_user:
-    ldmfd sp!, {r0-r12, lr} @ restore registers
+    ldmfd sp!, {r1-r12, lr} @ restore registers
     mov pc, lr          @ return to kernel, no s! not switching mode!
 
 @@@@@@@@@@@@@@@@@@@@@ TEST CODE PLEASE IGNORE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
