@@ -20,22 +20,23 @@
  int strlen(const char *str);
  int printf(const char *str);
 
- int main(int argc, char *argv[]) {
+ int main() {
+    //int argc, char *argv[]
 
-    char *begin = "Start printing command line arguments:\n";
-    char *end = "End printing command line arguments.\n";
-    char *instruct = "Please enter your message:\n";
-    char *div = "\n";
+    // char *begin = "Start printing command line arguments:\n";
+    // char *end = "End printing command line arguments.\n";
+    // char *instruct = "Please enter your message:\n";
+    // char *div = "\n";
   
-    // print out argv
-    printf(begin);
-    int i;
-    for(i = 0; i<argc; i++){
-        printf(argv[i]);
-        printf(div);
-    }
-    printf(end);
-    printf(instruct);
+    // // print out argv
+    // printf(begin);
+    // int i;
+    // for(i = 0; i<argc; i++){
+    //     printf(argv[i]);
+    //     printf(div);
+    // }
+    // printf(end);
+    // printf(instruct);
 
     // may overflow if use signed char
     unsigned char buffer[BUFFER_SIZE];
