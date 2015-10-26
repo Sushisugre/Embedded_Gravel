@@ -37,7 +37,6 @@
     int i;
     for(i = 0; i<argc; i++){
         // printf(argv[i]);
-        printf(i);
         printf(div);
     }
     printf(end);
