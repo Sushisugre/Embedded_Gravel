@@ -7,7 +7,7 @@
  */
 
  #include <unistd.h>
- #include <stdlib.h>
+ //#include <stdlib.h>
  #include <errno.h>
 
  typedef int bool;
@@ -15,6 +15,10 @@
  #define false 0
  #define CYCLE_SIZE 26
  #define BUFFER_SIZE 10
+
+ extern ssize_t write(int fd, const void *buf, size_t count);
+ extern ssize_t read(int fd, void *buf, size_t count);
+ extern void exit(int status);
 
  void rot(unsigned char* letter, int offset);
  int strlen(const char *str);
