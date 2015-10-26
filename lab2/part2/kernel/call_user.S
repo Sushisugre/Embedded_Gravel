@@ -7,9 +7,9 @@
 
     .file   "call_user.S"
     .text
-    user_entry equ 0xa2000000  
-    user_stack equ 0xa3000000
-    svc_stack_backup equ 0xa0000000
+    .equ user_entry, 0xa2000000  
+    .equ user_stack, 0xa3000000
+    .equ svc_stack_backup, 0xa0000000
 
     .global call_user
 call_user:
@@ -23,10 +23,10 @@ call_user:
 
     @ setup user stack
     @ sp is banked between svc and usr, so no need to save sp... seem that I'm wrong
-    mov   r2, =svc_stack_backup
+    mov   r2, #svc_stack_backup
     str   sp, [r2] @ strore the svc stack pointer
 
-    mov sp, =user_stack
+    mov sp, #user_stack
     mov r2, #0  @ null
     stmdb sp!, {r2}
     mov r2, r0 @ argc, number of arguments
@@ -40,7 +40,7 @@ call_user:
     @ Jump to user program at 0xa2000000  
 .call_function:
     stmdb sp!, {r0}  @ set argc  
-    mov r2, =user_entry
+    mov r2, #user_entry
     blx r2  @ branch to the address in r
 
     @ restore svc mode
@@ -54,7 +54,7 @@ call_user:
 @ return to kernel and clean up
     .global exit_user
 exit_user:
-    mov   r2, =svc_stack_backup
+    mov   r2, #svc_stack_backup
     ldr   sp, [r1]
     ldmfd sp!, {r1-r12, lr} @ restore registers
     mov pc, lr          @ return to kernel, no s! not switching mode!
