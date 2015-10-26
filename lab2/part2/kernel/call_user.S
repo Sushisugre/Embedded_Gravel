@@ -16,24 +16,26 @@ call_user:
 
     @ Jump to user program at 0xa2000000
     
-    @mov r2, #0xa2000000
-    @bl r2
+    mov r2, #0xa2000000
+    bl r2
 
     @ test write swi
-    mov r0, #1
-    ldr r1, =hello_str @load the address of label hello_str
-    mov r2, #hello_size
-    swi WRITE_SWI
+    @ mov r0, #1
+    @ ldr r1, =hello_str @load the address of label hello_str
+    @ mov r2, #hello_size
+    @ swi WRITE_SWI
 
     @ test read swi
-    mov r0, #0
-    mov r1, #0xa2000000
-    mov r2, #10
-    swi READ_SWI
+    @ mov r0, #0
+    @ mov r1, #0xa2000000
+    @ mov r2, #10
+    @ swi READ_SWI
 
     @ test exit swi
-    mov r0, #42
-    swi EXIT_SWI
+    @ mov r0, #42
+    @ swi EXIT_SWI
+
+    @ somehow the exit value is not preserved
 
 @ add a lable for exit syscall to jump to
 @ return to kernel and clean up
