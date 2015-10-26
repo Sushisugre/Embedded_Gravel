@@ -17,7 +17,7 @@ call_user:
     @ Jump to user program at 0xa2000000
     
     mov r2, #0xa2000000
-    bl [r2]
+    blx r2
 
     @ test write swi
     @ mov r0, #1
