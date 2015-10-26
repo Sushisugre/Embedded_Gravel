@@ -25,6 +25,18 @@ call_user:
     mov r2, #0xa2000000
     blx r2  @ branch to the address in r
 
+
+
+    @ somehow the exit value is not preserved
+
+@ add a lable for exit syscall to jump to
+@ return to kernel and clean up
+    .global exit_user
+exit_user:
+    ldmfd sp!, {r0-r12, lr} @ restore registers
+    movs pc, lr          @ return to kernel
+
+@@@@@@@@@@@@@@@@@@@@@ TEST CODE PLEASE IGNORE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @ test write swi
     @ mov r0, #1
     @ ldr r1, =hello_str @load the address of label hello_str
@@ -41,16 +53,7 @@ call_user:
     @ mov r0, #42
     @ swi EXIT_SWI
 
-    @ somehow the exit value is not preserved
-
-@ add a lable for exit syscall to jump to
-@ return to kernel and clean up
-    .global exit_user
-exit_user:
-    ldmfd sp!, {r0-r12, lr} @ restore registers
-    movs pc, lr          @ return to kernel
-
-    .section        .rodata
-hello_str:
-    .ascii  "Hello world!\n"
-    .set    hello_size, .-hello_str @get the size of string
+   @ .section        .rodata
+@ hello_str:
+   @ .ascii  "Hello world!\n"
+   @ .set    hello_size, .-hello_str @get the size of string

@@ -24,13 +24,13 @@
  int strlen(const char *str);
  int printf(const char *str);
 
- int main() {
-    //int argc, char *argv[]
+ int main(int argc, char *argv[]) {
+    //
 
-    // char *begin = "Start printing command line arguments:\n";
-    // char *end = "End printing command line arguments.\n";
-    // char *instruct = "Please enter your message:\n";
-    // char *div = "\n";
+    char *begin = "Start printing command line arguments:\n";
+    char *end = "End printing command line arguments.\n";
+    char *instruct = "Please enter your message:\n";
+    char *div = "\n";
   
     // // print out argv
     // printf(begin);
@@ -67,23 +67,21 @@
             if(num < BUFFER_SIZE
                 || (num == BUFFER_SIZE && buffer[BUFFER_SIZE - 1]== '\0')){
                 is_finished = true;
-        }
+            }
 
         // interate through the characters
-        rot(buffer, 13);
+            rot(buffer, 13);
 
         // print out rotated array
         // do not use print method for this may only contain part of str (no \0)
-        num = write(STDOUT_FILENO ,buffer, num);
+            num = write(STDOUT_FILENO ,buffer, num);
         // syscall error
-        if(num == -1){
-            exit(1);
+            if(num == -1){
+                exit(1);
+            }
         }
     }
-
-
-}
-return 0;
+    return 0;
 }
 
 /* Rotate the characters in a string by specified offset,
