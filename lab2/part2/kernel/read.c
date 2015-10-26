@@ -57,6 +57,7 @@
             // put a newline character in the buffer
             c_buf[r_count] = NEWLINE;
             putc(NEWLINE);
+            r_count++;
             break;
         }
         else{
