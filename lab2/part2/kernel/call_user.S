@@ -7,9 +7,9 @@
 
     .file   "call_user.S"
     .text
-    user_entry equ #0xa2000000  
-    user_stack equ #0xa3000000
-    svc_stack_backup equ #0xa0000000
+    user_entry equ 0xa2000000  
+    user_stack equ 0xa3000000
+    svc_stack_backup equ 0xa0000000
 
     .global call_user
 call_user:
