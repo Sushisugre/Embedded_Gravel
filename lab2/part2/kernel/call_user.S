@@ -25,8 +25,6 @@ call_user:
     mov r2, #0xa2000000
     blx r2  @ branch to the address in r
 
-
-
     @ somehow the exit value is not preserved
 
 @ add a lable for exit syscall to jump to
@@ -34,7 +32,7 @@ call_user:
     .global exit_user
 exit_user:
     ldmfd sp!, {r0-r12, lr} @ restore registers
-    movs pc, lr          @ return to kernel
+    mov pc, lr          @ return to kernel, no s! not switching mode!
 
 @@@@@@@@@@@@@@@@@@@@@ TEST CODE PLEASE IGNORE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @ test write swi
