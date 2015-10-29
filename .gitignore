@@ -1,3 +1,11 @@
+# image files, too big 
 *.img
+
+# symbol file on Mac
 *.dSYM/
+
+# submission tar balls
 *.tar.gz
+
+# object files
+*.o
