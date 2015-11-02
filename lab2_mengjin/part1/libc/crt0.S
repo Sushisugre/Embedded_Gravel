@@ -1,0 +1,22 @@
+@ crt0.S: Execution startup routine
+@
+@ Authors: Mengjin Yan <myan1@andrew.cmu.edu>
+@ Date:    Mon Oct 12 23:32:33 EDT 2015
+
+#include <bits/swi.h>
+	
+	.file	"crt0.S"
+	.text
+
+	.global	_start
+_start:
+	@ Load argc and argv into r0 and r1 repectively
+	ldr 	r0, [sp]
+	ldr	r1, [sp, #4]
+
+	@ Call main
+	b	main
+	
+	@ Exit with return value of main
+	swi	EXIT_SWI
+	
