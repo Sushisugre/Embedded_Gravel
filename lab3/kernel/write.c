@@ -2,6 +2,7 @@
  * write.c: write syscall
  *
  * Author: Shi Su <shis@andrew.cmu.edu>
+ *         Mengjin Yan <mengjinyan@cmu.edu>
  *
  * Date:   Mon Oct 26 14:06:43 EDT 2015
  */

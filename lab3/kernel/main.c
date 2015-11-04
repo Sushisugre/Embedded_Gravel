@@ -1,3 +1,12 @@
+/*
+ * kernel.c: Kernel main (entry) function
+ *
+ * Author: Shi Su <shis@andrew.cmu.edu>
+ *         Mengjin Yan <mengjinyan@cmu.edu>
+ *
+ * Date:   Wed Nov  4 11:07:45 EST 2015
+ */
+
 #include <exports.h>
 
 #include <arm/psr.h>

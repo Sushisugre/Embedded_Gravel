@@ -2,6 +2,7 @@
  * exit.c: exit syscall
  *
  * Author: Shi Su <shis@andrew.cmu.edu>
+ *         Mengjin Yan <mengjinyan@cmu.edu>
  *
  * Date:   Mon Oct 26 14:02:15 EDT 2015
  */

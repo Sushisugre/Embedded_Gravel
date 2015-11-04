@@ -2,6 +2,8 @@
 @                get the swi num then transfer the control to c_swi_handler
 @
 @ Author: Shi Su <shis@andrew.cmu.edu>
+@         Mengjin Yan <mengjinyan@cmu.edu>
+@
 @ Date:   Sat Oct 24 17:02:42 EDT 2015
 
     .file   "swi_handler.S"

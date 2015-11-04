@@ -1,7 +1,7 @@
 #! /bin/sh
 echo "making"
 make
-echo "mounting mmc1"
+echo "mounting sdcard"
 # mount /mnt/mmc1
 # cp kernel/kernel.bin /mnt/mmc1
 # cp tasks/bin/*.bin /mnt/mmc1
