@@ -8,7 +8,7 @@
 
 
 #include <bits/swi.h>
-#include <sys/types.h>
+#include <types.h>
 
 #define E_BADCODE 0x0badc0de
 
