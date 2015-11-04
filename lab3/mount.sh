@@ -7,7 +7,7 @@ echo "mounting mmc1"
 # cp tasks/bin/*.bin /mnt/mmc1
 # umount /mnt/mmc1
 
-MOUNT_FOLDER = /media/bootfs
+MOUNT_FOLDER=/media/bootfs
 
 sudo losetup /dev/loop1 $SUPPORT_FOLDER/sdcard.img
 sudo kpartx -a /dev/loop1
