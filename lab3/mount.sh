@@ -7,6 +7,12 @@ echo "mounting sdcard"
 # cp tasks/bin/*.bin /mnt/mmc1
 # umount /mnt/mmc1
 
+ret=$?
+if [ $ret -ne 0 ]; then
+    echo 'Make failed, abortint...'
+    exit
+fi
+
 MOUNT_FOLDER=/media/bootfs
 
 sudo losetup /dev/loop1 $SUPPORT_FOLDER/sdcard.img
