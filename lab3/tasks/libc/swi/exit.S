@@ -10,8 +10,11 @@
  */
 
 #include <asm.h>
+#include <bits/swi.h>
 
 	.file "exit.S"
 
+    .global exit
 FUNC(exit)
-	@ Add code here.  Put your name at the top.
+    swi    EXIT_SWI  @ r0 is already set by calling program
+                     @ exit has no return value
