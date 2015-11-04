@@ -102,6 +102,6 @@ void install_handler(unsigned *old_handler, unsigned *new_handler){
 /* restore the native swi handler to its original value */
 void restore_handler(unsigned *old_handler, unsigned old_inst[]){
     // put the old swi handler instruction back to whare they were
-    *old_handler = old_swi_inst[0];
-    *(old_handler + 1) = old_swi_inst[1];
+    *old_handler = old_inst[0];
+    *(old_handler + 1) = old_inst[1];
 }
