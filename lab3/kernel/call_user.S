@@ -3,21 +3,24 @@
 @
 @ Author: Shi Su <shis@andrew.cmu.edu>
 @         Mengjin Yan <mengjinyan@cmu.edu>
+@
 @ Date:   Mon Oct 26 14:17:08 EDT 2015
 
 #include <bits/swi.h>
+#include <asm.h>
+
 
     .file   "call_user.S"
     .text
     .equ user_entry, 0xa0000000  
     .equ user_stack, 0xa3000000
-    .equ svc_stack_backup, 0xa0000000
+    .equ svc_stack_backup, 0xa2000000
     .equ user_mode_code, 0xd0
     .equ svc_mode_code, 0xd3
     .equ null, 0x0
 
-    .global call_user
-call_user:
+    @.global call_user
+FUNC(call_user)
     stmfd sp!, {r1-r12, lr}  @store user program register and lr_svc
 
     @ setup user stack
