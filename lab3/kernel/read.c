@@ -8,7 +8,7 @@
 
  #include <bits/fileno.h>
  #include <bits/errno.h>
- #include <sys/types.h>
+ #include <types.h>
  #include <exports.h>
 
  #define SDRAM_UPPER 0xa3ffffff

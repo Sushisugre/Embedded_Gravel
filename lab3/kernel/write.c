@@ -8,7 +8,7 @@
 
  #include <bits/fileno.h>
  #include <bits/errno.h>
- #include <sys/types.h>
+ #include <types.h>
  #include <exports.h>
 
  #define SDRAM_UPPER 0xa3ffffff
@@ -40,7 +40,7 @@ ssize_t write(int fd, const void *buf, size_t count){
         return -EFAULT;
     }
 
-    ssize_t w_count = 0;
+    size_t w_count = 0;
     // write to stdout until reach limited count
     while(w_count < count){
 
