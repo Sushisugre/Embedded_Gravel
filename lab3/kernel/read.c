@@ -40,7 +40,7 @@
         return -EFAULT;
     }
 
-    ssize_t r_count = 0;
+    size_t r_count = 0;
 
     while(r_count < count){
         // call uboot function
