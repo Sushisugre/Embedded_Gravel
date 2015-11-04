@@ -19,6 +19,7 @@
 #define LDR_PC_MINUS_4 0xe51ff004
 #define LDR_MASK 0xfffff000
 #define SWI_VECTOR 0x08
+#define IRQ_VECTOR 0x18
 #define E_BADCODE 0x0badc0de
 
 uint32_t global_data;
@@ -28,35 +29,46 @@ uint32_t global_data;
 extern void swi_handler(unsigned swi_num);
 extern unsigned call_user(int argc, char *argv[]);
 
+// irq handler
+extern void irq_handler();
+
 void install_handler(unsigned *old_handler, unsigned *new_handler);
-void restore_handler(unsigned *old_handler, unsigned *old_instruction);
+void restore_handler(unsigned *old_handler, unsigned *old_inst);
 unsigned* get_old_handler(unsigned* vector);
 
 int kmain(int argc, char** argv, uint32_t table)
 {
 	app_startup(); /* bss is valid after this point */
-	global_data = table;
+	global_data = table; // uboot function table
 
-	unsigned *addr_old_hander;
-    unsigned old_inst[2];
+	unsigned *old_swi_handler;
+    unsigned old_swi_inst[2];
+    unsigned *old_irq_handler;
+    unsigned old_irq_inst[2];
 
-    addr_old_hander = get_old_handler((unsigned*)SWI_VECTOR);
-    if(addr_old_hander==0){
-        return E_BADCODE;
-    }
-
+    old_swi_handler = get_old_handler((unsigned*)SWI_VECTOR);
+    if(old_swi_handler==0) return E_BADCODE;
+    old_irq_handler = get_old_handler((unsigned*)IRQ_VECTOR);
+    if(old_irq_handler==0) return E_BADCODE;
+    
     // store the first 2 instructions of old swi handler
-    old_inst[0] = *(addr_old_hander);
-    old_inst[1] = *(addr_old_hander + 1);
+    old_swi_inst[0] = *(old_swi_handler);
+    old_swi_inst[1] = *(old_swi_handler + 1);
+    // store the first 2 instructions of old irq handler
+    old_irq_inst[0] = *(old_irq_handler);
+    old_irq_inst[1] = *(old_irq_handler+1);
 
-    // install new swi handler by modifying old one
-    install_handler(addr_old_hander, (unsigned*)&swi_handler);
+    // install new handlers by modifying old ones
+    install_handler(old_swi_handler, (unsigned*)&swi_handler);
+    install_handler(old_irq_handler, (unsigned*)&irq_handler);
 
     // setup for usermode & call user program
     unsigned status = call_user(argc, argv);
 
     // restore native swi handler 
-    restore_handler(addr_old_hander, old_inst);
+    restore_handler(old_swi_handler, old_swi_inst);
+    restore_handler(old_irq_handler, old_irq_inst);
+
     return status;
 }
 
@@ -90,6 +102,6 @@ void install_handler(unsigned *old_handler, unsigned *new_handler){
 /* restore the native swi handler to its original value */
 void restore_handler(unsigned *old_handler, unsigned old_inst[]){
     // put the old swi handler instruction back to whare they were
-    *old_handler = old_inst[0];
-    *(old_handler + 1) = old_inst[1];
+    *old_handler = old_swi_inst[0];
+    *(old_handler + 1) = old_swi_inst[1];
 }
