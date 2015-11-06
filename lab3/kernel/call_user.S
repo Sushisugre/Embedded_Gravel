@@ -16,7 +16,7 @@
     .equ user_stack, 0xa3000000
     .equ svc_stack_backup, 0xa2000000  @ might be faultful
     .equ user_mode_code, 0x50  @ eable irq in user mode
-    .equ svc_mode_code, 0xd3   @ enable irq is svc?
+    .equ svc_mode_code, 0x53   @ enable irq in svc mode
     .equ null, 0x0
 
     @.global call_user

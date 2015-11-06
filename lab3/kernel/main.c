@@ -13,6 +13,7 @@
 #include <arm/exception.h>
 #include <arm/interrupt.h>
 #include <arm/timer.h>
+#include <arm/reg.h>
 
 #define WORD 4
 #define LDR_BASE 0xe59ff000
@@ -24,13 +25,15 @@
 
 uint32_t global_data;
 /**
- * 
+ *  TBD: how big should irq stack be
  */
 uint32_t IRQ_STACK[30];
 
 // swi handler in assembly
 // get the swi num then transfer the control to c_swi_handler
 extern void swi_handler(unsigned swi_num);
+
+// set up 
 extern unsigned call_user(int argc, char *argv[]);
 
 // irq handler
@@ -44,6 +47,13 @@ int kmain(int argc, char** argv, uint32_t table)
 {
 	app_startup(); /* bss is valid after this point */
 	global_data = table; /* uboot function table */
+
+    /* initiate interrupt controler */
+
+
+    /* initiate timer */
+
+
 
 	unsigned *old_swi_handler;
     unsigned old_swi_inst[2];
