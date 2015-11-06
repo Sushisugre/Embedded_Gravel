@@ -32,7 +32,7 @@ uint32_t g_irq_stack[30];
 /**
  * Saved svc stack pointer
  */
-uint32_t g_svc_stack;
+uint32_t g_svc_stack = 0;
 
 /**
  *  Time Counters

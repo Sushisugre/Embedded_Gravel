@@ -18,14 +18,13 @@
     .equ user_mode_code, 0x50  @ eable irq in user mode
     .equ svc_mode_code, 0x53   @ enable irq in svc mode
     .equ null, 0x0
-    EXTERN g_svc_stack
 
 FUNC(call_user)
     stmfd sp!, {r1-r12, lr}  @store user program register and lr_svc
 
     @ setup user stack
     @ strore the svc stack pointer
-    adr   r2, g_svc_stack
+    ldr   r2, =g_svc_stack
     str   sp, [r2] 
 
     @ Update set cpsr to usermode and masked FIQ/IRQ
