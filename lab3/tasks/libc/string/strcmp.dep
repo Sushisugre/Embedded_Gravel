@@ -1,0 +1,12 @@
+ \
+ /home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/string/strcmp.o:  \
+ /home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/string/strcmp.c \
+  /home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/include/string.h \
+  /home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/include/sys/types.h \
+  /home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/include/bits/types.h
+
+/home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/include/string.h:
+
+/home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/include/sys/types.h:
+
+/home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/include/bits/types.h:

@@ -1,0 +1,8 @@
+/home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/call_user.o:  \
+ /home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/call_user.S \
+  /home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/bits/swi.h \
+  /home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/asm.h
+
+/home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/bits/swi.h:
+
+/home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/asm.h:

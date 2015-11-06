@@ -1,0 +1,11 @@
+/home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/arm/reg.o:  \
+ /home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/arm/reg.c \
+  /home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/types.h \
+  /home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/arm/reg.h \
+  /home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/inline.h
+
+/home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/types.h:
+
+/home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/arm/reg.h:
+
+/home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/inline.h:
