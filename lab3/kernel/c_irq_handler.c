@@ -13,7 +13,7 @@
 #define TIMER_INTERRUPT 0x04000000
 
 void c_irq_handler() {
-  unsigned icmr_num, icpr_num, iclr_num, condition;
+  unsigned icmr_num, icpr_num, iclr_num;
   
   // read the value in register and store in variables
   // to avoid changes in the registers
@@ -23,6 +23,6 @@ void c_irq_handler() {
 
   // dispatch the interrupt
   if((icmr_num & icpr_num & TIMER_INTERRUPT) != 0x0) {
-    interrupt_timer_driver();
+    timer_driver();
   }
 }
