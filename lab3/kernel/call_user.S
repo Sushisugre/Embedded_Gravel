@@ -24,7 +24,7 @@ FUNC(call_user)
 
     @ setup user stack
     @ strore the svc stack pointer
-    adr   r2, g_svc_stack
+    adr   r2, =g_svc_stack
     str   sp, [r2] 
 
     @ Update set cpsr to usermode and masked FIQ/IRQ
