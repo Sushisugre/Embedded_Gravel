@@ -30,6 +30,18 @@ uint32_t global_data;
 uint32_t IRQ_STACK[30];
 
 /**
+ *  Time Counters
+ */
+// millisecond
+volatile unsigned g_ms_counter; 
+// second
+volatile unsigned g_s_counter;
+// minute
+volatile unsigned g_m_counter;
+// hour
+volatile unsigned g_h_counter;
+
+/**
  * swi handler in assembly
  * get the swi num then transfer the control to c_swi_handler
  */
@@ -54,8 +66,10 @@ int kmain(int argc, char** argv, uint32_t table)
 
     /* initiate timer */
 
-    // set the value of OS timer register to 0
+    // set the value of OS Timer Counter Register to 0
     reg_write(OSTMR_OSCR_ADDR, 0);
+    // set the value of OS Timer Counter Register to 10 milisecond
+    reg_write(OSTMR_OSMR_ADDR(0), 32500);
 
     /* initiate interrupt controler */
 

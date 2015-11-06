@@ -9,7 +9,7 @@
 #include <asm.h>
 	
 	FUNC(irq_handler)
-	extern IRQ_STACK
+	EXTERN IRQ_STACK
 	
 irq_handler:
 	@ Set IRQ stack
