@@ -35,7 +35,7 @@ void time_driver() {
       g_m_counter = g_m_counter + 1;
 
       if(g_m_counter >= 60) {
-	g_h_counter = g_h_counter + 1;
+	         g_h_counter = g_h_counter + 1;
       }
     }
   }

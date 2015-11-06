@@ -38,13 +38,13 @@ uint32_t g_svc_stack = 0;
  *  Time Counters
  */
 // millisecond
-volatile unsigned g_ms_counter; 
+volatile unsigned g_ms_counter = 0; 
 // second
-volatile unsigned g_s_counter;
+volatile unsigned g_s_counter = 0;
 // minute
-volatile unsigned g_m_counter;
+volatile unsigned g_m_counter = 0;
 // hour
-volatile unsigned g_h_counter;
+volatile unsigned g_h_counter = 0;
 
 /**
  * swi handler in assembly
@@ -65,28 +65,13 @@ extern void irq_handler();
 void install_handler(unsigned *old_handler, unsigned *new_handler);
 void restore_handler(unsigned *old_handler, unsigned *old_inst);
 unsigned* get_old_handler(unsigned* vector);
+void init_interrupt_controller();
+void init_timer();
 
 int kmain(int argc, char** argv, uint32_t table)
 {
 	app_startup(); /* bss is valid after this point */
 	global_data = table; /* uboot function table */
-
-    /* initiate interrupt controler */
-
-    // mask all devices except OSMR0 in ICMR
-    reg_write(INT_ICMR_ADDR, 0x04000000);
-    // set OSMR0 to generate IRQ in ICLR
-    // other devices are masked so the value in ICLR has no effect on them
-    reg_write(INT_ICLR_ADDR, 0);
-
-    /* initiate timer */
-
-    // enable OSMR0 in OIER
-    reg_write(OSTMR_OIER_ADDR, OSTMR_OIER_E0);
-    // set the value of OS Timer Counter Register to 0
-    reg_write(OSTMR_OSCR_ADDR, 0);
-    // set the value of OS Timer Counter Register to 10 milisecond
-    reg_write(OSTMR_OSMR_ADDR(0), 32500);
 
 	unsigned *old_swi_handler;
     unsigned old_swi_inst[2];
@@ -109,6 +94,12 @@ int kmain(int argc, char** argv, uint32_t table)
     install_handler(old_swi_handler, (unsigned*)&swi_handler);
     install_handler(old_irq_handler, (unsigned*)&irq_handler);
 
+    /* initiate interrupt controler */
+    init_interrupt_controller();
+
+    /* initiate timer */
+    init_timer();
+
     // setup for usermode & call user program
     unsigned status = call_user(argc, argv);
 
@@ -119,6 +110,22 @@ int kmain(int argc, char** argv, uint32_t table)
     return status;
 }
 
+void init_interrupt_controller() {
+    // mask all devices except OSMR0 in ICMR
+    reg_write(INT_ICMR_ADDR, 0x04000000);
+    // set OSMR0 to generate IRQ in ICLR
+    // other devices are masked so the value in ICLR has no effect on them
+    reg_write(INT_ICLR_ADDR, 0);
+}
+
+void init_timer() {
+    // enable OSMR0 in OIER
+    reg_write(OSTMR_OIER_ADDR, OSTMR_OIER_E0);
+    // set the value of OS Timer Counter Register to 0
+    reg_write(OSTMR_OSCR_ADDR, 0);
+    // set the value of OS Timer Counter Register to 10 milisecond
+    reg_write(OSTMR_OSMR_ADDR(0), 32500);
+}
 
 /* calculate the address of old swi handler according to
  *  the ldr command in vector table */
