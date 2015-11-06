@@ -1,7 +1,6 @@
 #! /bin/sh
 echo "making"
 make
-echo "mounting sdcard"
 # mount /mnt/mmc1
 # cp kernel/kernel.bin /mnt/mmc1
 # cp tasks/bin/*.bin /mnt/mmc1
@@ -12,6 +11,8 @@ if [ $ret -ne 0 ]; then
     echo 'Make failed, abortint...'
     exit
 fi
+
+echo "mounting sdcard"
 
 MOUNT_FOLDER=/media/bootfs
 
