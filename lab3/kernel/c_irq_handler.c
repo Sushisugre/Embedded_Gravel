@@ -17,9 +17,9 @@ void c_irq_handler() {
   
   // read the value in register and store in variables
   // to avoid changes in the registers
-  icmr_num = reg_read(INI_ICMR_ADDR);
-  icpr_num = reg_read(INI_ICPR_ADDR);
-  iclr_num = reg_read(INI_ICLR_ADDR);
+  icmr_num = reg_read(INT_ICMR_ADDR);
+  icpr_num = reg_read(INT_ICPR_ADDR);
+  iclr_num = reg_read(INT_ICLR_ADDR);
 
   // dispatch the interrupt
   if((icmr_num & icpr_num & TIMER_INTERRUPT) != 0x0) {
