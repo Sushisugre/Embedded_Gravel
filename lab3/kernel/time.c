@@ -4,7 +4,7 @@
  * Author: Shi Su <shis@andrew.cmu.edu>
  *         Mengjin Yan <mengjinyan@cmu.edu>
  *         
- * Date:   
+ * Date:  Fri Nov  6 00:21:22 EST 2015
  */
 
 // milisecond
@@ -16,6 +16,10 @@ extern unsigned g_m_counter;
 // hour
 extern unsigned g_h_counter;
 
+/**
+ * Get the time in milliseconds that have elapsed since the kernel booted up.
+ * @return time in milisecond
+ */
 unsigned long time(){
 
     return 3600000 * g_h_counter 
