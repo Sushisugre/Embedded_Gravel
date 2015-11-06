@@ -9,8 +9,9 @@
 
 # object files
 *.o
+*.a
 *.dep
 *.bin
 *.conf
-
+bin/*
 *~

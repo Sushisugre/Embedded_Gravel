@@ -29,11 +29,15 @@ uint32_t global_data;
  */
 uint32_t IRQ_STACK[30];
 
-// swi handler in assembly
-// get the swi num then transfer the control to c_swi_handler
+/**
+ * swi handler in assembly
+ * get the swi num then transfer the control to c_swi_handler
+ */
 extern void swi_handler(unsigned swi_num);
 
-// set up 
+/**
+ * Setup environment and branch to usermode 
+ */
 extern unsigned call_user(int argc, char *argv[]);
 
 // irq handler
@@ -48,11 +52,19 @@ int kmain(int argc, char** argv, uint32_t table)
 	app_startup(); /* bss is valid after this point */
 	global_data = table; /* uboot function table */
 
-    /* initiate interrupt controler */
-
-
     /* initiate timer */
 
+    // set the value of OS timer register to 0
+    reg_write(OSTMR_OSCR_ADDR, 0);
+
+    /* initiate interrupt controler */
+
+    // mask all devices except OSMR0 in ICMR
+    reg_write(INT_ICMR_ADDR, 0x04000000);
+
+    // set OSMR0 to generate IRQ in ICLR
+    // other devices are masked so the value in ICLR has no effect on them
+    reg_write(INT_ICLR_ADDR, 0);
 
 
 	unsigned *old_swi_handler;
