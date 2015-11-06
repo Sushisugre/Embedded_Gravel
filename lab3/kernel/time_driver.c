@@ -12,6 +12,11 @@
 
 #define TEN_MILLION_SECONDS 32500
 
+extern g_ms_counter;
+extern g_s_counter;
+extern g_m_counter;
+extern g_h_counter;
+
 void time_driver() {
   
   // Set the counter register to zero
@@ -27,7 +32,7 @@ void time_driver() {
       g_m_counter = g_m_counter + 1;
 
       if(g_m_counter >= 60) {
-	g_h_counter = g_h_count + 1;
+	g_h_counter = g_h_counter + 1;
       }
     }
   }
