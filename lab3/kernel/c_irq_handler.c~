@@ -1,0 +1,16 @@
+/*
+ * c_irq_handler.c: irq handler in c, dispatch according to the device
+ *
+ * Author: Mengjin Yan <mengjinyan@cmu.edu>
+ *         Shi Su <shis@andrew.cmu.edu>
+ * 
+ * Date: Wed Nov 4 20:42:33 EST 2015  
+ */
+
+#define TIMER_INTERRUPT 0x04000000
+
+void c_irq_handler(unsigned *ICMR, unsigned *ICPR, unsigned *ICLR) {
+  unsigned condition;
+  condition = icmr & icpr;
+
+}

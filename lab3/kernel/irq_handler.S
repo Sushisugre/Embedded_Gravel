@@ -6,14 +6,21 @@
 @
 @ Date:   Wed Nov  4 11:13:25 EST 2015
 
-    .file   "irq_handler.S"
-    .text
-
-    .global irq_handler
-
+#include <asm.h>
+	
+	FUNC(irq_handler)
+	
 irq_handler:
-    stmfd sp!, {r0-r12, lr}  @store user program register and lr_svc
-    @ TBD!
-    ldmfd sp!, {r0-r12, lr} 
-    movs pc, lr         
+	@ Set IRQ stack
+	ldr	sp, =IRQ_STACK
+
+	@ Store user program register and lr_svc
+	stmfd	sp!, {r0-r12, lr}
+
+	@ Call c_irq_handler
+	bl	c_irq_handler
+
+	@ Load the value back to registers
+	ldmfd	sp!, {r0-r12, lr} 
+	movs	pc, lr         
 
