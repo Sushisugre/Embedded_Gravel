@@ -1,8 +1,0 @@
-/home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/swi/exit.o:  \
- /home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/swi/exit.S \
-  /home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/include/asm.h \
-  /home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/include/bits/swi.h
-
-/home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/include/asm.h:
-
-/home/mengjin/18342_local/lab3/18342_embedded/lab3/tasks/libc/include/bits/swi.h:

@@ -1,9 +1,0 @@
- \
- /home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/c_swi_handler.o:  \
- /home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/c_swi_handler.c \
-  /home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/bits/swi.h \
-  /home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/types.h
-
-/home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/bits/swi.h:
-
-/home/mengjin/18342_local/lab3/18342_embedded/lab3/kernel/include/types.h:
