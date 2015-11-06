@@ -14,8 +14,11 @@
 swi_handler:
         @ store user program register and lr_svc
         stmfd sp!, {r0-r12, lr} 
+
         @ restore svc r8 from global variable
-        ldr r8, =global_data
+        @ get address of global_data
+        ldr r4, =global_data
+        ldr r8, [r4]
         @ r1 is a pointer to the registers on stack
         mov r1, sp          
         @ lr store the next instruction of SWI call, lr-4->SWI instruction
