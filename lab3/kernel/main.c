@@ -48,6 +48,11 @@ int kmain(int argc, char** argv, uint32_t table)
 	app_startup(); /* bss is valid after this point */
 	global_data = table; /* uboot function table */
 
+    /* initiate timer */
+
+    // set the value of OS timer register to 0
+    reg_write(OSTMR_OSCR_ADDR, 0);
+
     /* initiate interrupt controler */
 
     // mask all devices except OSMR0 in ICMR
@@ -55,10 +60,7 @@ int kmain(int argc, char** argv, uint32_t table)
 
     // set OSMR0 to generate IRQ in ICLR
     // other devices are masked so the value in ICLR has no effect on them
-    reg_write(INT_ICLR_ADDR, 0x0)
-
-    /* initiate timer */
-
+    reg_write(INT_ICLR_ADDR, 0);
 
 
 	unsigned *old_swi_handler;
