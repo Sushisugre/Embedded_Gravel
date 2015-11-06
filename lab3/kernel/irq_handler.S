@@ -9,6 +9,7 @@
 #include <asm.h>
 	
 	FUNC(irq_handler)
+	extern IRQ_STACK
 	
 irq_handler:
 	@ Set IRQ stack
@@ -22,5 +23,5 @@ irq_handler:
 
 	@ Load the value back to registers
 	ldmfd	sp!, {r0-r12, lr} 
-	movs	pc, lr         
+	subs	pc, lr, #4         
 
