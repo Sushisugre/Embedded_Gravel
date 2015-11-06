@@ -50,6 +50,12 @@ int kmain(int argc, char** argv, uint32_t table)
 
     /* initiate interrupt controler */
 
+    // mask all devices except OSMR0 in ICMR
+    reg_write(INT_ICMR_ADDR, 0x04000000);
+
+    // set OSMR0 to generate IRQ in ICLR
+    // other devices are masked so the value in ICLR has no effect on them
+    reg_write(INT_ICLR_ADDR, 0x0)
 
     /* initiate timer */
 
