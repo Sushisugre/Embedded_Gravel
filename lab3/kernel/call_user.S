@@ -23,9 +23,10 @@ FUNC(call_user)
     stmfd sp!, {r1-r12, lr}  @store user program register and lr_svc
 
     @ setup user stack
-    @ sp is banked between svc and usr, so no need to save sp... seem that I'm wrong
+    @ strore the svc stack pointer
+    @ldr   r2, =g_svc_stack
     mov   r2, #svc_stack_backup
-    str   sp, [r2] @ strore the svc stack pointer
+    str   sp, [r2] 
 
     @ Update set cpsr to usermode and masked FIQ/IRQ
     mrs r2, cpsr  @ copy cpsr to r0
@@ -61,6 +62,7 @@ FUNC(call_user)
     .global exit_user
 exit_user:
     mov   r2, #svc_stack_backup
+    @ldr   r2, =g_svc_stack
     ldr   sp, [r2]
     ldmfd sp!, {r1-r12, lr} @ restore registers
     mov pc, lr          @ return to kernel, no s! not switching mode!

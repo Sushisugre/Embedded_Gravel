@@ -27,7 +27,12 @@ uint32_t global_data;
 /**
  *  TBD: how big should irq stack be
  */
-uint32_t IRQ_STACK[30];
+uint32_t g_irq_stack[30];
+
+/**
+ * Saved svc stack pointer
+ */
+uint32_t g_svc_stack = 0;
 
 /**
  *  Time Counters
@@ -52,7 +57,9 @@ extern void swi_handler(unsigned swi_num);
  */
 extern unsigned call_user(int argc, char *argv[]);
 
-// irq handler
+/**
+ * IRQ handler
+ */
 extern void irq_handler();
 
 void install_handler(unsigned *old_handler, unsigned *new_handler);

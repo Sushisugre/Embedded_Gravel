@@ -12,7 +12,7 @@
 	
 irq_handler:
 	@ Set IRQ stack
-	ldr	sp, =IRQ_STACK
+	ldr	sp, =g_irq_stack
 
 	@ Store user program register and lr_svc
 	stmfd	sp!, {r0-r12, lr}
