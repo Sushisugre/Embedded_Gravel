@@ -73,6 +73,8 @@ int kmain(int argc, char** argv, uint32_t table)
 
     /* initiate timer */
 
+    // enable OSMR0 in OIER
+    reg_write(OSTMR_OIER_ADDR, OSTMR_OIER_E0);
     // set the value of OS Timer Counter Register to 0
     reg_write(OSTMR_OSCR_ADDR, 0);
     // set the value of OS Timer Counter Register to 10 milisecond
@@ -81,7 +83,7 @@ int kmain(int argc, char** argv, uint32_t table)
     /* initiate interrupt controler */
 
     // mask all devices except OSMR0 in ICMR
-    reg_write(INT_ICMR_ADDR, 0x04000000);
+    reg_set(INT_ICMR_ADDR, INT_OSTMR_0);
 
     // set OSMR0 to generate IRQ in ICLR
     // other devices are masked so the value in ICLR has no effect on them
