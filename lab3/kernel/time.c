@@ -18,7 +18,7 @@ extern unsigned g_h_counter;
 
 /**
  * Get the time in milliseconds that have elapsed since the kernel booted up.
- * @return time in milisecond
+ * @return time 
  */
 unsigned long time(){
 

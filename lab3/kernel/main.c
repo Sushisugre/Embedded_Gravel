@@ -27,7 +27,12 @@ uint32_t global_data;
 /**
  *  TBD: how big should irq stack be
  */
-uint32_t IRQ_STACK[30];
+uint32_t g_irq_stack[30];
+
+/**
+ * Saved svc stack pointer
+ */
+uint32_t g_svc_stack;
 
 /**
  *  Time Counters

@@ -16,7 +16,7 @@
 
 FUNC(sleep)
         @ save unbanked register before change mode
-	    stmfd sp!, {r1-r12, lr}
+	stmfd sp!, {r1-r12, lr}
         @ read have 3 arguments, which are already in R0,R1,R2  
         swi  SLEEP_SWI 
         @ called function doesn't need to keep r0-r3

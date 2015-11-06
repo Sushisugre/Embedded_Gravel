@@ -24,8 +24,8 @@ FUNC(call_user)
 
     @ setup user stack
     @ sp is banked between svc and usr, so no need to save sp... seem that I'm wrong
-    mov   r2, #svc_stack_backup
-    str   sp, [r2] @ strore the svc stack pointer
+    @ mov   r2, #svc_stack_backup
+    str sp, =g_svc_stack @ strore the svc stack pointer
 
     @ Update set cpsr to usermode and masked FIQ/IRQ
     mrs r2, cpsr  @ copy cpsr to r0

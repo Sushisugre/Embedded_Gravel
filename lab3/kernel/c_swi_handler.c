@@ -46,7 +46,7 @@ void c_swi_handler(unsigned swi_num, unsigned* regs){
         }
         case TIME_SWI:
         {
-            // unsigned long to long
+            // unsigned long to long?
             regs[0] = (unsigned) time();
             break;
         }
