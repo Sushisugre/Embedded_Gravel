@@ -24,7 +24,8 @@ FUNC(call_user)
 
     @ setup user stack
     @ strore the svc stack pointer
-    ldr   r2, =g_svc_stack
+    @ldr   r2, =g_svc_stack
+    mov   r2, #svc_stack_backup
     str   sp, [r2] 
 
     @ Update set cpsr to usermode and masked FIQ/IRQ
@@ -60,8 +61,8 @@ FUNC(call_user)
 @ return to kernel and clean up
     .global exit_user
 exit_user:
-    @mov   r2, #svc_stack_backup
-    ldr   r2, =g_svc_stack
+    mov   r2, #svc_stack_backup
+    @ldr   r2, =g_svc_stack
     ldr   sp, [r2]
     ldmfd sp!, {r1-r12, lr} @ restore registers
     mov pc, lr          @ return to kernel, no s! not switching mode!
