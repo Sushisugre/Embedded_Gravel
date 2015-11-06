@@ -23,6 +23,10 @@
 #define E_BADCODE 0x0badc0de
 
 uint32_t global_data;
+/**
+ * 
+ */
+uint32_t IRQ_STACK[30];
 
 // swi handler in assembly
 // get the swi num then transfer the control to c_swi_handler
@@ -39,7 +43,7 @@ unsigned* get_old_handler(unsigned* vector);
 int kmain(int argc, char** argv, uint32_t table)
 {
 	app_startup(); /* bss is valid after this point */
-	global_data = table; // uboot function table
+	global_data = table; /* uboot function table */
 
 	unsigned *old_swi_handler;
     unsigned old_swi_inst[2];
