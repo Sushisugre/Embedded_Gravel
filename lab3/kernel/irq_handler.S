@@ -8,9 +8,7 @@
 
 #include <asm.h>
 
-	FUNC(irq_handler)
-	
-irq_handler:
+FUNC(irq_handler)
 	@ Set IRQ stack
 	ldr	sp, =g_irq_stack
 

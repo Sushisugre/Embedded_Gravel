@@ -121,6 +121,7 @@ int kmain(int argc, char** argv, uint32_t table)
     return status;
 }
 
+
 /* calculate the address of old swi handler according to
  *  the ldr command in vector table */
 unsigned* get_old_handler(unsigned* vector){
