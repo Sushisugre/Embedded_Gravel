@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define INTERVAL 0.2
+#define INTERVAL 200
 
 extern void sleep(unsigned long millis);
 
