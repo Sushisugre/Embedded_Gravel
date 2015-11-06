@@ -7,6 +7,8 @@
  * Date:  
  */
 
+extern unsigned long time();
+
 /**
  * Suspends the execution of the current task for the given time.
  * @param millis sleep time
