@@ -8,14 +8,14 @@
  */
 
 #include <arm/reg.h>
-#include <arm/interrupt.h>
+#include <arm/timer.h>
 
 #define TEN_MILLION_SECONDS 32500
 
-extern g_ms_counter;
-extern g_s_counter;
-extern g_m_counter;
-extern g_h_counter;
+extern unsigned g_ms_counter;
+extern unsigned g_s_counter;
+extern unsigned g_m_counter;
+extern unsigned g_h_counter;
 
 void time_driver() {
   
@@ -23,7 +23,7 @@ void time_driver() {
   reg_write(OSTMR_OSCR_ADDR, 0x0);
 
   // Update the counters
-  g_ms_counter = g_ms_counter + 1;
+  g_ms_counter = g_ms_counter + 10;
   
   if(g_ms_counter >= 1000) {
     g_s_counter = g_s_counter + 1;
