@@ -127,7 +127,7 @@ void init_timer() {
     g_h_counter = 0;
 
     // Clear OSSR
-    reg_clear(OSTMR_OSSR_ADDR, OSTMR_OSSR_M0);
+    reg_set(OSTMR_OSSR_ADDR, OSTMR_OSSR_M0);
     // enable OSMR0 in OIER
     reg_write(OSTMR_OIER_ADDR, OSTMR_OIER_E0);
     // set the value of OS Timer Counter Register to 0
