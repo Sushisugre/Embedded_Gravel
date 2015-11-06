@@ -2,19 +2,20 @@
  *
  * @brief exit sycall wrapper
  *
- * @author Mike Kasick <mkasick@andrew.cmu.edu>
- * @date   Sun, 07 Oct 2007 01:52:31 -0400
+ * @author Shi Su <shis@andrew.cmu.edu>
+ *         Mengjin Yan <mengjinyan@cmu.edu>
+ *         
+ * @date Thu Nov  5 23:08:44 EST 2015
  * 
- * @author Kartik Subramanian <ksubrama@andrew.cmu.edu>
- * @date 2008-10-29
  */
 
 #include <asm.h>
 #include <bits/swi.h>
 
-	.file "exit.S"
+    	.file "exit.S"
 
-    .global exit
+        .global exit
 FUNC(exit)
-    swi    EXIT_SWI  @ r0 is already set by calling program
-                     @ exit has no return value
+        @ r0 is already set by calling program
+        swi    EXIT_SWI  
+        @ exit has no return value

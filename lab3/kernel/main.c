@@ -29,11 +29,15 @@ uint32_t global_data;
  */
 uint32_t IRQ_STACK[30];
 
-// swi handler in assembly
-// get the swi num then transfer the control to c_swi_handler
+/**
+ * swi handler in assembly
+ * get the swi num then transfer the control to c_swi_handler
+ */
 extern void swi_handler(unsigned swi_num);
 
-// set up 
+/**
+ * Setup environment and branch to usermode 
+ */
 extern unsigned call_user(int argc, char *argv[]);
 
 // irq handler
