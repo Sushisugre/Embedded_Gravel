@@ -14,9 +14,9 @@
     .text
     .equ user_entry, 0xa0000000  
     .equ user_stack, 0xa3000000
-    .equ svc_stack_backup, 0xa2000000
-    .equ user_mode_code, 0xd0
-    .equ svc_mode_code, 0xd3
+    .equ svc_stack_backup, 0xa2000000  @ might be faultful
+    .equ user_mode_code, 0x50  @ eable irq in user mode
+    .equ svc_mode_code, 0xd3   @ enable irq is svc?
     .equ null, 0x0
 
     @.global call_user
@@ -31,7 +31,7 @@ FUNC(call_user)
     @ Update set cpsr to usermode and masked FIQ/IRQ
     mrs r2, cpsr  @ copy cpsr to r0
     bic r2, r2, #0xff
-    orr r2, r2, #user_mode_code @ set F/T to 1, mode bit to user_mode
+    orr r2, r2, #user_mode_code @ set F to 1, I to 0 (enable irq), mode bit to user_mode
     msr cpsr, r2  @ copy the updated value back
 
     mov sp, #user_stack

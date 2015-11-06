@@ -9,3 +9,5 @@
 
 # object files
 *.o
+*.dep
+*.bin
