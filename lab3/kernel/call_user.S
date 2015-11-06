@@ -14,7 +14,6 @@
     .text
     .equ user_entry, 0xa0000000  
     .equ user_stack, 0xa3000000
-    .equ svc_stack_backup, 0xa2000000  @ might be faultful
     .equ user_mode_code, 0x50  @ eable irq in user mode
     .equ svc_mode_code, 0x53   @ enable irq in svc mode
     .equ null, 0x0
@@ -25,7 +24,6 @@ FUNC(call_user)
     @ setup user stack
     @ strore the svc stack pointer
     ldr   r2, =g_svc_stack
-    @mov   r2, #svc_stack_backup
     str   sp, [r2] 
 
     @ Update set cpsr to usermode and masked FIQ/IRQ
@@ -61,31 +59,7 @@ FUNC(call_user)
 @ return to kernel and clean up
     .global exit_user
 exit_user:
-    @mov   r2, #svc_stack_backup
     ldr   r2, =g_svc_stack
     ldr   sp, [r2]
     ldmfd sp!, {r1-r12, lr} @ restore registers
     mov pc, lr          @ return to kernel, no s! not switching mode!
-
-@@@@@@@@@@@@@@@@@@@@@ TEST CODE PLEASE IGNORE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-    @ test write swi
-    @ mov r0, #1
-    @ ldr r1, =hello_str @load the address of label hello_str
-    @ mov r2, #hello_size
-    @ swi WRITE_SWI
-
-    @ test read swi
-    @ mov r0, #0
-    @ mov r1, #0xa2000000
-    @ mov r2, #10
-    @ swi READ_SWI
-
-    @ test exit swi
-    @ mov r0, #42
-    @ swi EXIT_SWI
-
-   @ .section        .rodata
-@ hello_str:
-   @ .ascii  "Hello world!\n"
-   @ .set    hello_size, .-hello_str @get the size of string

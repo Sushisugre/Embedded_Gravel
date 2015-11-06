@@ -15,6 +15,11 @@ swi_handler:
         @ store user program register and lr_svc
         stmfd sp!, {r0-r12, lr} 
 
+        @ enable irq in svc mode
+        mrs r2, cpsr  
+        bic r2, r2, #0x80
+        msr cpsr, r2  
+
         @ restore svc r8 from global variable
         @ get address of global_data
         ldr r4, =global_data
@@ -27,6 +32,9 @@ swi_handler:
         bic r0, r0, #0xff000000
         @ pass controll to C, r0 is swi number, r1 is pointer to register  
         bl c_swi_handler  
+
+        @ disable irq???
+
         @ load the updated values on stack back to register  
         ldmfd sp!, {r0-r12, lr}
         @ return to swi wrapper 

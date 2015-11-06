@@ -30,7 +30,7 @@ uint32_t global_data;
 uint32_t g_irq_stack[30];
 
 /**
- * Saved svc stack pointer
+ * Saved svc stack pointer to data section
  */
 uint32_t g_svc_stack = 0;
 
