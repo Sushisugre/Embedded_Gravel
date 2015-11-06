@@ -13,18 +13,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define INTERVAL 200
+#define INTERVAL 0.2
+
+extern void sleep(unsigned long millis);
 
 int main(int argc, char** argv) {
   
+  printf("\\");
+  fflush(stdout);
+  sleep(INTERVAL);
+
   while(1) {
-    puts("|");
+    printf("\b \b|");
+    fflush(stdout);
     sleep(INTERVAL);
-    puts("\b \b/");
+
+    printf("\b \b/");
+    fflush(stdout);
     sleep(INTERVAL);
-    puts("\b \b-");
+
+    printf("\b \b-");
+    fflush(stdout);
     sleep(INTERVAL);
-    puts("\b \b//");
+
+    printf("\b \b\\");
+    fflush(stdout);
     sleep(INTERVAL);
   }
 
