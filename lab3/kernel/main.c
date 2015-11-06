@@ -38,13 +38,13 @@ uint32_t g_svc_stack = 0;
  *  Time Counters
  */
 // millisecond
-volatile unsigned g_ms_counter = 0; 
+volatile unsigned g_ms_counter; 
 // second
-volatile unsigned g_s_counter = 0;
+volatile unsigned g_s_counter;
 // minute
-volatile unsigned g_m_counter = 0;
+volatile unsigned g_m_counter;
 // hour
-volatile unsigned g_h_counter = 0;
+volatile unsigned g_h_counter;
 
 /**
  * swi handler in assembly
@@ -119,6 +119,13 @@ void init_interrupt_controller() {
 }
 
 void init_timer() {
+
+    // clear global counters
+    g_ms_counter = 0;
+    g_s_counter = 0;
+    g_m_counter = 0;
+    g_h_counter = 0;
+
     // enable OSMR0 in OIER
     reg_write(OSTMR_OIER_ADDR, OSTMR_OIER_E0);
     // set the value of OS Timer Counter Register to 0

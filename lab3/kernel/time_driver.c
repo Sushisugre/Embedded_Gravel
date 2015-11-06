@@ -29,13 +29,16 @@ void time_driver() {
   g_ms_counter = g_ms_counter + 10;
   
   if(g_ms_counter >= 1000) {
-    g_s_counter = g_s_counter + 1;
-    
-    if(g_s_counter >= 60) {
-      g_m_counter = g_m_counter + 1;
+      g_ms_counter = 0;
+      g_s_counter = g_s_counter + 1;
+
+      if(g_s_counter >= 60) {
+          g_s_counter = 0;
+          g_m_counter = g_m_counter + 1;
 
       if(g_m_counter >= 60) {
-	         g_h_counter = g_h_counter + 1;
+          g_m_counter = 0;
+	        g_h_counter = g_h_counter + 1;
       }
     }
   }
