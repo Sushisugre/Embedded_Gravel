@@ -12,11 +12,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <bits/fileno.h>
 
 #define INTERVAL 200
-
-extern void sleep(unsigned long millis);
 
 int main(int argc, char** argv) {
   
