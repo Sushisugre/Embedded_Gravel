@@ -12,7 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include </bits/fileno.h>
+#include <bits/fileno.h>
 
 #define INTERVAL 200
 
@@ -21,24 +21,24 @@ extern void sleep(unsigned long millis);
 int main(int argc, char** argv) {
   
   printf("\\");
-  fflush(STDOUT_FILENO);
+  // fflush(STDOUT_FILENO);
   sleep(INTERVAL);
 
   while(1) {
     printf("\b \b|");
-    fflush(STDOUT_FILENO);
+    // fflush(STDOUT_FILENO);
     sleep(INTERVAL);
 
     printf("\b \b/");
-    fflush(STDOUT_FILENO);
+    // fflush(STDOUT_FILENO);
     sleep(INTERVAL);
 
     printf("\b \b-");
-    fflush(STDOUT_FILENO);
+    // fflush(STDOUT_FILENO);
     sleep(INTERVAL);
 
     printf("\b \b\\");
-    fflush(STDOUT_FILENO);
+    // fflush(STDOUT_FILENO);
     sleep(INTERVAL);
   }
 
