@@ -42,6 +42,17 @@ void c_swi_handler(unsigned swi_num, unsigned* regs){
             regs[0] = write(regs[0], buf, regs[2]);
             break;
         }
+        case TIME_SWI:
+        {
+
+            //TBD
+            break;
+        }
+        case SLEEP_SWI:
+        {
+            //TBD
+            break;
+        }
         default:
             exit(E_BADCODE);
 

@@ -19,7 +19,6 @@
     .equ svc_mode_code, 0x53   @ enable irq in svc mode
     .equ null, 0x0
 
-    @.global call_user
 FUNC(call_user)
     stmfd sp!, {r1-r12, lr}  @store user program register and lr_svc
 
