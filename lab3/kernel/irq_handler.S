@@ -7,9 +7,8 @@
 @ Date:   Wed Nov  4 11:13:25 EST 2015
 
 #include <asm.h>
-	
+
 	FUNC(irq_handler)
-	EXTERN IRQ_STACK
 	
 irq_handler:
 	@ Set IRQ stack

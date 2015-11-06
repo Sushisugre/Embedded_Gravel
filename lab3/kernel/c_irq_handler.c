@@ -12,6 +12,8 @@
 
 #define TIMER_INTERRUPT 0x04000000
 
+extern void time_driver();
+
 void c_irq_handler() {
   unsigned icmr_num, icpr_num, iclr_num;
   
@@ -23,6 +25,6 @@ void c_irq_handler() {
 
   // dispatch the interrupt
   if((icmr_num & icpr_num & TIMER_INTERRUPT) != 0x0) {
-    timer_driver();
+    time_driver();
   }
 }
