@@ -52,7 +52,9 @@ extern void swi_handler(unsigned swi_num);
  */
 extern unsigned call_user(int argc, char *argv[]);
 
-// irq handler
+/**
+ * IRQ handler
+ */
 extern void irq_handler();
 
 void install_handler(unsigned *old_handler, unsigned *new_handler);
