@@ -7,11 +7,12 @@
 @ Date:   Wed Nov  4 11:13:25 EST 2015
 
 #include <asm.h>
+#include <config.h>
 
 FUNC(irq_handler)
 	@ Set IRQ stack
 	ldr	r2, =g_irq_stack
-	ldr r3, =g_irq_stack_size
+	mov r3, #IRQ_STACK_HEIGHT
 	@ sp = (stack address) + 4 * (stack size)
 	add sp, r2, r3 LSL #2 
 

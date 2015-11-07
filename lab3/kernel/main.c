@@ -14,6 +14,7 @@
 #include <arm/interrupt.h>
 #include <arm/timer.h>
 #include <arm/reg.h>
+#include <config.h>
 
 #define WORD 4
 #define LDR_BASE 0xe59ff000
@@ -25,12 +26,10 @@
 
 uint32_t global_data;
 
-
-uint32_t g_irq_stack_size = 30;
 /**
  *  TBD: how big should irq stack be
  */
-uint32_t g_irq_stack[g_irq_stack_size];
+uint32_t g_irq_stack[IRQ_STACK_HEIGHT];
 
 /**
  * Saved svc stack pointer to data section

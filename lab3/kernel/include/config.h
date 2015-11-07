@@ -11,5 +11,6 @@
 #define _CONFIG_H_
 
 #define OS_TICKS_PER_SEC        100    /* Set the number of ticks in one second */
+#define IRQ_STACK_HEIGHT        100
 
 #endif /* _CONFIG_H_ */
