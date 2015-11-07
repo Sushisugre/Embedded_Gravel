@@ -24,10 +24,13 @@
 #define E_BADCODE 0x0badc0de
 
 uint32_t global_data;
+
+
+uint32_t g_irq_stack_size = 30;
 /**
  *  TBD: how big should irq stack be
  */
-uint32_t g_irq_stack[30];
+uint32_t g_irq_stack[g_irq_stack_size];
 
 /**
  * Saved svc stack pointer to data section
