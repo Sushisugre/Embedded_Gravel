@@ -64,6 +64,11 @@ extern unsigned call_user(int argc, char *argv[]);
  */
 extern void irq_handler();
 
+/**
+ * Set IRQ stack
+ */
+extern void set_irq_stack();
+
 void install_handler(unsigned *old_handler, unsigned *new_handler);
 void restore_handler(unsigned *old_handler, unsigned *old_inst);
 unsigned* get_old_handler(unsigned* vector);
@@ -96,10 +101,10 @@ int kmain(int argc, char** argv, uint32_t table)
     install_handler(old_swi_handler, (unsigned*)&swi_handler);
     install_handler(old_irq_handler, (unsigned*)&irq_handler);
 
-    /* initiate interrupt controler */
+    set_irq_stack();
+
     init_interrupt_controller();
 
-    /* initiate timer */
     init_timer();
 
     // setup for usermode & call user program

@@ -1,5 +1,4 @@
 @ irq_handler.S: IRQ handler in assembly
-@                TBD
 @
 @ Author: Shi Su <shis@andrew.cmu.edu>
 @         Mengjin Yan <mengjinyan@cmu.edu>
@@ -10,11 +9,11 @@
 #include <config.h>
 
 FUNC(irq_handler)
-	@ Set IRQ stack
-	ldr	r2, =g_irq_stack
-	mov r3, #IRQ_STACK_HEIGHT
-	@ sp = (stack address) + 4 * (stack size)
-	add sp, r2, r3, LSL #2 
+@	@ Set IRQ stack
+@	ldr	r2, =g_irq_stack
+@	mov r3, #IRQ_STACK_HEIGHT
+@	@ sp = (stack address) + 4 * (stack size)
+@	add sp, r2, r3, LSL #2 
 
 	@ Store user program register and lr_svc
 	stmfd	sp!, {r0-r12, lr}
