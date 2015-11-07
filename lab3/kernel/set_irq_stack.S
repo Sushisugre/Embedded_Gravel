@@ -7,6 +7,7 @@
 @ Date: Fri Nov  6 22:17:34 EST 2015
 
 #include <asm.h>
+#include <config.h>
     .equ svc_mode_code, 0x53   @ enable irq in svc mode
     .equ irq_mode_code, 0xd2
 
