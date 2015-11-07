@@ -34,7 +34,8 @@ int main(int argc, char** argv)
 
     if(write(STDOUT_FILENO, buffer, read_size) < 0)
       exit(1);
-    printf("%.1fs\n", duration);
+    // printf("%.1fs\n", duration);
+    printf("%d\n", duration);
 
     if(read_size < 0)
       exit(1);
