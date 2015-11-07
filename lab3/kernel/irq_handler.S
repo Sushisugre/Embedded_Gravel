@@ -9,13 +9,8 @@
 #include <config.h>
 
 FUNC(irq_handler)
-@	@ Set IRQ stack
-@	ldr	r2, =g_irq_stack
-@	mov r3, #IRQ_STACK_HEIGHT
-@	@ sp = (stack address) + 4 * (stack size)
-@	add sp, r2, r3, LSL #2 
 
-	@ Store user program register and lr_svc
+	@ Store user program register and lr_irq
 	stmfd	sp!, {r0-r12, lr}
 
 	@ Call c_irq_handler

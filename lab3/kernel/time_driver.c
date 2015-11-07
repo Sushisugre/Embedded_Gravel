@@ -10,8 +10,6 @@
 #include <arm/reg.h>
 #include <arm/timer.h>
 
-#define TEN_MILLION_SECONDS 32500
-
 extern unsigned g_ms_counter;
 extern unsigned g_s_counter;
 extern unsigned g_m_counter;
