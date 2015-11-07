@@ -27,7 +27,7 @@
 uint32_t global_data;
 
 /**
- *  TBD: how big should irq stack be
+ *  IRQ stack which will be placed in the data section
  */
 uint32_t g_irq_stack[IRQ_STACK_HEIGHT];
 
@@ -119,7 +119,9 @@ int kmain(int argc, char** argv, uint32_t table)
 
 void init_interrupt_controller() {
     // mask all devices except OSMR0 in ICMR
-    reg_write(INT_ICMR_ADDR, 0x04000000);
+    // reg_write(INT_ICMR_ADDR, 0x04000000);
+    reg_write(INT_ICMR_ADDR, 1 << INT_OSTMR_0);
+
     // set OSMR0 to generate IRQ in ICLR
     // other devices are masked so the value in ICLR has no effect on them
     reg_write(INT_ICLR_ADDR, 0);
