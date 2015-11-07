@@ -135,7 +135,7 @@ void init_timer() {
     // set the value of OS Timer Counter Register to 0
     reg_write(OSTMR_OSCR_ADDR, 0);
     // set the value of OS Timer Counter Register to 10 milisecond
-    reg_write(OSTMR_OSMR_ADDR(0), 32500*100);
+    reg_write(OSTMR_OSMR_ADDR(0), OS_TIMER_INTERVAL);
 }
 
 /* calculate the address of old swi handler according to

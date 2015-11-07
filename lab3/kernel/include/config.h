@@ -12,5 +12,6 @@
 
 #define OS_TICKS_PER_SEC        100    /* Set the number of ticks in one second */
 #define IRQ_STACK_HEIGHT        100
+#define OS_TIMER_INTERVAL       32500 /* 32500 cycle = 10ms */
 
 #endif /* _CONFIG_H_ */
