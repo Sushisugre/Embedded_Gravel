@@ -51,8 +51,10 @@
         else if(ch == BACKSPACE || ch == DELETE){
             // count -1 and leave the last character put in the
             // buffer to be overwrite in next round
-            r_count--;
-            puts("\b \b");
+            if(r_count > 0){
+                r_count--;
+                puts("\b \b");
+            }
         }
         else if(ch == NEWLINE || ch == CARRIAGE_RETURN){
             // put a newline character in the buffer
