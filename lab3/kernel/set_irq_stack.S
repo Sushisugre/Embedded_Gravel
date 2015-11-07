@@ -1,10 +1,12 @@
-@ set_irq_stack.S: IRQ handler in assembly
-@                TBD
+@ set_irq_stack.S: Put a global variable array in data section 
+@                   as irq stack
 @
 @ Author: Shi Su <shis@andrew.cmu.edu>
 @         Mengjin Yan <mengjinyan@cmu.edu>
 @
-@ Date:
+@ Date: Fri Nov  6 22:17:34 EST 2015
+
+#include <asm.h>
     .equ svc_mode_code, 0x53   @ enable irq in svc mode
     .equ irq_mode_code, 0xd2
 
