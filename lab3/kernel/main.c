@@ -72,7 +72,7 @@ extern void set_irq_stack();
 void install_handler(unsigned *old_handler, unsigned *new_handler);
 void restore_handler(unsigned *old_handler, unsigned *old_inst);
 unsigned* get_old_handler(unsigned* vector);
-void init_interrupt_controller();
+void update_interrupt_controller(unsigned icmr, unsigned iclr);
 void init_timer();
 
 int kmain(int argc, char** argv, uint32_t table)
@@ -81,8 +81,8 @@ int kmain(int argc, char** argv, uint32_t table)
 	global_data = table; /* uboot function table */
 
 	unsigned *old_swi_handler;
-    unsigned old_swi_inst[2];
     unsigned *old_irq_handler;
+    unsigned old_swi_inst[2];
     unsigned old_irq_inst[2];
 
     old_swi_handler = get_old_handler((unsigned*)SWI_VECTOR);
@@ -103,29 +103,32 @@ int kmain(int argc, char** argv, uint32_t table)
 
     set_irq_stack();
 
-    init_interrupt_controller();
-
+    unsigned old_icmr = reg_read(INT_ICMR_ADDR);
+    unsigned old_iclr = reg_read(INT_ICLR_ADDR);
+    update_interrupt_controller(1 << INT_OSTMR_0, 0);
     init_timer();
 
     // setup for usermode & call user program
     unsigned status = call_user(argc, argv);
 
-    // restore native swi handler 
+    // restore native swi/irq handler, interrupt controller
     restore_handler(old_swi_handler, old_swi_inst);
     restore_handler(old_irq_handler, old_irq_inst);
+    update_interrupt_controller(old_icmr, old_iclr);
 
     return status;
 }
 
-void init_interrupt_controller() {
+void update_interrupt_controller(unsigned icmr, unsigned iclr) {
     // mask all devices except OSMR0 in ICMR
     // reg_write(INT_ICMR_ADDR, 0x04000000);
-    reg_write(INT_ICMR_ADDR, 1 << INT_OSTMR_0);
+    reg_write(INT_ICMR_ADDR, icmr);
 
     // set OSMR0 to generate IRQ in ICLR
     // other devices are masked so the value in ICLR has no effect on them
-    reg_write(INT_ICLR_ADDR, 0);
+    reg_write(INT_ICLR_ADDR, iclr);
 }
+
 
 void init_timer() {
 
