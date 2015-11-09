@@ -105,7 +105,12 @@ int kmain(int argc, char** argv, uint32_t table)
 
     unsigned old_icmr = reg_read(INT_ICMR_ADDR);
     unsigned old_iclr = reg_read(INT_ICLR_ADDR);
+
+    // mask all devices except OSMR0 in ICMR
+    // set OSMR0 to generate IRQ in ICLR
+    // other devices are masked so the value in ICLR has no effect on them
     update_interrupt_controller(1 << INT_OSTMR_0, 0);
+    
     init_timer();
 
     // setup for usermode & call user program
@@ -119,17 +124,22 @@ int kmain(int argc, char** argv, uint32_t table)
     return status;
 }
 
+/**
+ * Mask interrupt in interrupt controler, and decide the level of interrupt
+ * @param icmr value of icmr
+ * @param iclr value of iclr
+ */
 void update_interrupt_controller(unsigned icmr, unsigned iclr) {
-    // mask all devices except OSMR0 in ICMR
-    // reg_write(INT_ICMR_ADDR, 0x04000000);
     reg_write(INT_ICMR_ADDR, icmr);
-
-    // set OSMR0 to generate IRQ in ICLR
-    // other devices are masked so the value in ICLR has no effect on them
     reg_write(INT_ICLR_ADDR, iclr);
 }
 
-
+/**
+ * clear OSCR
+ * clear global time counters
+ * mask timer interrupt in OIER
+ * set OSMR0 to generate interrup every 10ms
+ */
 void init_timer() {
 
     // clear global counters
