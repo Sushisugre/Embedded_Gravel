@@ -1,5 +1,10 @@
 #! /bin/sh
 
+#   Make the kernel and user programs, if make succeed, copy the executables
+#   to the sdcard image of Gumstix
+#   
+#   Set enviroment variable SUPPORT_FOLDER to the path contains your sdcard image
+#   
 #   Modified By Shi Su
 #   November 2015
 #

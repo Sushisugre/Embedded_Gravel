@@ -43,7 +43,7 @@ FUNC(call_user)
     stmdb sp!, {r3} @store the variables
     B .set_argv
 
-    @ Jump to user program at 0xa2000000  
+    @ Jump to user program 
 .call_function:
     stmdb sp!, {r0}  @ set argc  
     mov r2, #user_entry
