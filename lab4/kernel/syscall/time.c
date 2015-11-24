@@ -17,7 +17,7 @@
 
 
 /**
- * System time since kernel init
+ * System time since kernel init in milisecond
  */
 extern unsigned g_ms_counter; 
 

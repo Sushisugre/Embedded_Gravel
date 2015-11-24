@@ -12,6 +12,8 @@
 
 #define OS_TICKS_PER_SEC        100    /* Set the number of ticks in one second */
 #define OS_TIMER_RESOLUTION     (1000/OS_TICKS_PER_SEC)  /* Timer resolution in ms */
+#define OS_TIMER_INTERVAL       32500 /* 32500 cycle = 10ms */
+
 
 #define LOAD_ADDR  0xa0000000
 #define USR_STACK  0xa3000000
