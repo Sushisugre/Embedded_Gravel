@@ -16,6 +16,12 @@
 
 uint32_t global_data;
 
+/**
+ *  Time Counters
+ */
+// millisecond
+volatile unsigned g_ms_counter; 
+
 int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused)), uint32_t table)
 {
 
