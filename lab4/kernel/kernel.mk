@@ -2,7 +2,7 @@ KERNEL = $(KDIR)/kernel
 KSTART = $(KDIR)/start.o
 
 # All core kernel objects go here.  Add objects here if you need to.
-KOBJS := assert.o main.o math.o memcheck.o raise.o ctype.o hexdump.o device.o enter_user_mode.o irq_handler.o time_driver.o
+KOBJS := assert.o main.o math.o memcheck.o raise.o ctype.o hexdump.o device.o enter_user_mode.o irq_handler.o time_driver.o swi_handler.o c_swi_handler.o
 KOBJS := $(KOBJS:%=$(KDIR)/%)
 
 -include $(KDIR)/arm/kernel.mk
