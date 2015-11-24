@@ -82,8 +82,6 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     install_handler(old_swi_handler, (unsigned*)&swi_handler);
     install_handler(old_irq_handler, (unsigned*)&irq_wrapper);
 
-    set_irq_stack();
-
     unsigned old_icmr = reg_read(INT_ICMR_ADDR);
     unsigned old_iclr = reg_read(INT_ICLR_ADDR);
 
