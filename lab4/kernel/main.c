@@ -31,6 +31,23 @@ uint32_t global_data;
  */
 volatile unsigned g_ms_counter; 
 
+/**
+ * swi handler in assembly
+ * get the swi num then transfer the control to c_swi_handler
+ */
+extern void swi_handler(unsigned swi_num);
+
+/**
+ * IRQ wrapper which move irq handling from irq mode to svc mode 
+ */
+extern void irq_wrapper();
+
+/**
+ * Set IRQ stack
+ */
+extern void set_irq_stack();
+
+
 void install_handler(unsigned *old_handler, unsigned *new_handler);
 void restore_handler(unsigned *old_handler, unsigned *old_inst);
 unsigned* get_old_handler(unsigned* vector);
@@ -63,7 +80,7 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
 
     // install new handlers by modifying old ones
     install_handler(old_swi_handler, (unsigned*)&swi_handler);
-    install_handler(old_irq_handler, (unsigned*)&irq_handler);
+    install_handler(old_irq_handler, (unsigned*)&irq_wrapper);
 
     set_irq_stack();
 
@@ -75,15 +92,15 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     // other devices are masked so the value in ICLR has no effect on them
     update_interrupt_controller(1 << INT_OSTMR_0, 0);
     
+    // TODO: init secheduler
+
+
+
+
     init_timer();
 
-    // TODO: init secheduler
-    
-
-
-
     // setup for usermode & call user program
-    unsigned status = call_user(argc, argv);
+    unsigned status = enter_user_mode(argc, argv);
 
     // restore native swi/irq handler, interrupt controller
     restore_handler(old_swi_handler, old_swi_inst);
