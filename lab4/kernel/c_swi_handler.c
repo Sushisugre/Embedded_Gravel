@@ -25,11 +25,6 @@ void c_swi_handler(unsigned swi_num, unsigned* regs){
 
 
     switch(swi_num){
-        case EXIT_SWI:
-        {
-            exit(regs[0]);
-            break;
-        }
         case READ_SWI:
         {
             // cast unsigned address to buffer pointer
