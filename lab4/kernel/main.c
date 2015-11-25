@@ -14,6 +14,8 @@
 #include <device.h>
 #include <assert.h>
 #include <config.h>
+#include <arm/timer.h>
+#include <arm/interrupt.h>
 
 
 #define WORD 4
