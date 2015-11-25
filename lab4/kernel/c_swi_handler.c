@@ -14,12 +14,6 @@
 
 #define E_BADCODE 0x0badc0de
 
-extern ssize_t write(int fd, const void *buf, size_t count);
-extern ssize_t read(int fd, void *buf, size_t count);
-extern void exit(int status);
-extern unsigned long time();
-extern void sleep(unsigned long millis);
-
 /* Dispatch the syscall to different lib function according to swi_num
  swi number and pointer to the register value on stack is passed from assembly swi handler */
 void c_swi_handler(unsigned swi_num, unsigned* regs){

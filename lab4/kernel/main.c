@@ -114,7 +114,6 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     restore_handler(old_irq_handler, old_irq_inst);
     update_interrupt_controller(old_icmr, old_iclr);
 
-	
 	assert(0);        /* should never get here */
 }
 
