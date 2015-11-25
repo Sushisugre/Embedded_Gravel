@@ -6,6 +6,8 @@
 @
 @ Date:   Fri Nov  6 00:47:45 EST 2015
 
+#include <asm.h>
+
         .file   "swi_handler.S"
 
 FUNC(swi_handler)
