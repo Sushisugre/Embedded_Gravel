@@ -14,10 +14,10 @@ FUNC(swi_handler)
         @ store user program register and lr_svc
         stmfd sp!, {r0-r12, lr} 
 
-        @ enable irq in svc mode
-        mrs r2, cpsr  
-        bic r2, r2, #0x80
-        msr cpsr, r2  
+        @@ enable irq in svc mode
+        @mrs r2, cpsr  
+        @bic r2, r2, #0x80
+        @msr cpsr, r2  
 
         @ restore svc r8 from global variable
         @ get address of global_data
