@@ -102,7 +102,7 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     init_timer();
 
     // setup for usermode & call user program
-    unsigned status = enter_user_mode(argc, argv);
+    enter_user_mode();
 
     // restore native swi/irq handler, interrupt controller
     restore_handler(old_swi_handler, old_swi_inst);

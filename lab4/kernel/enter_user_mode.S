@@ -31,20 +31,10 @@ FUNC(enter_user_mode)
     orr r2, r2, #user_mode_code @ set F to 1, I to 0 (enable irq), mode bit to user_mode
     msr cpsr, r2  @ copy the updated value back
 
+    @ Setup user mode stack
     mov sp, #USR_STACK
-    mov r2, #null  @ null
-    stmdb sp!, {r2}
-    mov r2, r0 @ argc, number of arguments
-.set_argv:
-    subs r2, r2, #1  @ loop argc times to put those argument on stack
-    BMI .call_function @ <0
-    ldr   r3, [r1, r2, LSL #2]  @ r1(argv)+4(i-1),+4(i-2), ...4
-    stmdb sp!, {r3} @store the variables
-    B .set_argv
-
     @ Jump to user program 
 .call_function:
-    stmdb sp!, {r0}  @ set argc  
     mov r2, #LOAD_ADDR
     blx r2  @ branch to the address in r
 
