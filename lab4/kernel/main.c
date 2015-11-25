@@ -36,6 +36,11 @@ uint32_t global_data;
 volatile unsigned g_ms_counter; 
 
 /**
+ * Saved svc stack pointer to data section
+ */
+uint32_t g_svc_stack = 0;
+
+/**
  * swi handler in assembly
  * get the swi num then transfer the control to c_swi_handler
  */

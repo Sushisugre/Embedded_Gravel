@@ -38,7 +38,7 @@ unsigned long time_syscall(void)
  */
 void sleep_syscall(unsigned long millis  __attribute__((unused)))
 {
-	unsigned long start = time();
+	unsigned long start = time_syscall();
     unsigned long end = start + millis;
 
     // as we don't have other process to switch to
