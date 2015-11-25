@@ -20,6 +20,6 @@ FUNC(_start)
      @ Call main function      
     bl main 
     @ Infinite loop    
-.Loop   
+.Loop:   
     subs r1, r1, r1
     beq .Loop  
