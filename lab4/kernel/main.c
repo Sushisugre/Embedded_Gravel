@@ -39,6 +39,8 @@ volatile unsigned g_ms_counter;
  * Saved svc stack pointer to data section
  */
 uint32_t g_svc_stack = 0;
+uint32_t g_usr_stack = 0;
+
 
 /**
  * swi handler in assembly

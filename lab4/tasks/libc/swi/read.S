@@ -15,7 +15,13 @@
 	   .file "read.S"
 
 FUNC(read)
-        stmfd sp!, {r1-r12}  @ save unbanked register before change mode
+        stmfd sp!, {r1-r12, lr}  @ save unbanked register before change mode
+
+        @ strore the svc stack pointer
+        ldr   r2, =g_usr_stack
+        str   sp, [r2] 
+
+
         swi  READ_SWI  @ read have 3 arguments, which are already in R0,R1,R2
         ldr  r1, =errno @ called function doesn't need to keep r0-r3
         cmp  r0, #0     @ if return value < 0, error occurs, update errno
@@ -33,7 +39,10 @@ FUNC(read)
         @ Store the new value of errno
         str r0, [r4]
         mov r0, #-1
-.return:    
-        ldmfd sp!, {r1-r12} 
+.return:
+        ldr   r2, =g_usr_stack
+        ldr   sp, [r2]  
+
+        ldmfd sp!, {r1-r12, lr} 
         mov pc, lr
 
