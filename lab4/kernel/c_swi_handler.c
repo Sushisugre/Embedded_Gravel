@@ -10,6 +10,7 @@
 
 #include <bits/swi.h>
 #include <types.h>
+#include <syscall.h>
 
 #define E_BADCODE 0x0badc0de
 
