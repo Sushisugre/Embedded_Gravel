@@ -16,6 +16,8 @@
 #include <config.h>
 #include <arm/timer.h>
 #include <arm/interrupt.h>
+#include <arm/reg.h>
+
 
 
 #define WORD 4
