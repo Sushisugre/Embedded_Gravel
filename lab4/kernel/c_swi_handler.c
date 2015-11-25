@@ -31,28 +31,28 @@ void c_swi_handler(unsigned swi_num, unsigned* regs){
             // cast unsigned address to buffer pointer
             char *buf = (char*)regs[1];
             // call lib and put the return value back on stack
-            regs[0] = read(regs[0], buf, regs[2]);
+            regs[0] = read_syscall(regs[0], buf, regs[2]);
             break;
         }
         case WRITE_SWI:
         {
             char *buf = (char*)regs[1];
-            regs[0] = write(regs[0], buf, regs[2]);
+            regs[0] = write_syscall(regs[0], buf, regs[2]);
             break;
         }
         case TIME_SWI:
         {
             // unsigned long to long?
-            regs[0] = (unsigned) time();
+            regs[0] = (unsigned) time_syscall();
             break;
         }
         case SLEEP_SWI:
         {
-            sleep(regs[0]);
+            sleep_syscall(regs[0]);
             break;
         }
         default:
-            exit(E_BADCODE);
+            invalid_syscall(regs[0]);
 
     }
 }
