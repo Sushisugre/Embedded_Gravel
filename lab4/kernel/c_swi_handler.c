@@ -45,6 +45,27 @@ void c_swi_handler(unsigned swi_num, unsigned* regs){
             sleep_syscall(regs[0]);
             break;
         }
+        case CREATE_SWI:
+        {
+            task_create((task_t*)regs[0], regs[1]);
+            break;
+        }
+        case MUTEX_CREATE:
+        {
+            break;
+        }
+        case MUTEX_LOCK:
+        {
+            break;
+        }
+        case MUTEX_UNLOCK:
+        {
+            break;
+        }
+        case EVENT_WAIT:
+        {
+            break;
+        }        
         default:
             invalid_syscall(regs[0]);
 
