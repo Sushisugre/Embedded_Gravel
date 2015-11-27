@@ -30,7 +30,7 @@ FUNC(swi_handler)
         ldr r8, [r4]
         @ r1 is a pointer to the registers on stack
         @mov r1, sp
-        sub r1, sp, #4
+        add r1, sp, #4
         @ lr store the next instruction of SWI call, lr-4->SWI instruction
         ldr r0, [lr, #-4]
         @clear first few bits to get swi number   
