@@ -12,8 +12,8 @@
 #include <sched.h>
 
 
-void dispatch_init(tcb_t* idle);
-void runqueue_init(void);
+void dispatch_init(tcb_t* idle); // make idle running
+void runqueue_init(void);   // clear run queue, first call after task_create
 
 void ctx_switch_full(volatile void* next_ctx, volatile void* cur_ctx);
 void ctx_switch_half(volatile void* next_ctx) __attribute__((noreturn));

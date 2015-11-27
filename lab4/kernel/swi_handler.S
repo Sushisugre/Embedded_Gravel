@@ -14,6 +14,9 @@
 FUNC(swi_handler)
         @ store user program register and lr_svc
         stmfd sp!, {r0-r12, lr} 
+        @ save spsr
+        mrs r0, spsr  
+        stmfd sp!, {r0} 
 
         @ enable irq in svc mode
         mrs r2, cpsr  
@@ -38,8 +41,14 @@ FUNC(swi_handler)
         orr r2, r2, #PSR_IRQ
         msr cpsr, r2  
 
+        @ restore spsr
+        ldmfd sp!, {r0}
+        msr spsr, r0  
+
         @ load the updated values on stack back to register  
         ldmfd sp!, {r0-r12, lr}
+
+
         @ return to swi wrapper 
         movs pc, lr         
 
