@@ -14,6 +14,7 @@
 FUNC(swi_handler)
         @ store user program register and lr_svc
         stmfd sp!, {r0-r12, lr} 
+
         @ save spsr
         mrs r0, spsr  
         stmfd sp!, {r0} 
@@ -28,7 +29,8 @@ FUNC(swi_handler)
         ldr r4, =global_data
         ldr r8, [r4]
         @ r1 is a pointer to the registers on stack
-        mov r1, sp          
+        @mov r1, sp
+        sub r1, sp, #4
         @ lr store the next instruction of SWI call, lr-4->SWI instruction
         ldr r0, [lr, #-4]
         @clear first few bits to get swi number   
@@ -47,7 +49,6 @@ FUNC(swi_handler)
 
         @ load the updated values on stack back to register  
         ldmfd sp!, {r0-r12, lr}
-
 
         @ return to swi wrapper 
         movs pc, lr         
