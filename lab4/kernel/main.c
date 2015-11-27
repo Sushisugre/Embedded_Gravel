@@ -17,6 +17,7 @@
 #include <arm/timer.h>
 #include <arm/interrupt.h>
 #include <arm/reg.h>
+#include <lock.h>
 
 
 
@@ -39,8 +40,6 @@ volatile unsigned g_ms_counter;
  * Saved svc stack pointer to data section
  */
 uint32_t g_svc_stack = 0;
-uint32_t g_usr_stack = 0;
-
 
 /**
  * swi handler in assembly
@@ -101,8 +100,8 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     // other devices are masked so the value in ICLR has no effect on them
     update_interrupt_controller(1 << INT_OSTMR_0, 0);
     
-    // TODO: init secheduler
-
+    // TODO: init 
+    mutex_init();
 
 
 

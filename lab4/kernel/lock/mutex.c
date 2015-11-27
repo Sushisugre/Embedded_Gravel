@@ -25,7 +25,13 @@ mutex_t gtMutex[OS_NUM_MUTEX];
 
 void mutex_init()
 {
-	
+    for (int i = 0; i < OS_NUM_MUTEX; i++)
+    {
+        gtMutex.bAvailable = TRUE;
+        gtMutex.pHolding_Tcb = 0;
+        gtMutex.bLock = 0;
+        gtMutex.pSleep_queue = 0;
+    }
 }
 
 int mutex_create(void)

@@ -45,8 +45,13 @@ static dev_t devices[NUM_DEVICES];
  */
 void dev_init(void)
 {
-   /* the following line is to get rid of the warning and should not be needed */	
-   devices[0]=devices[0];
+
+   for (int i = 0; i < NUM_DEVICES; i++)
+   {
+       devices[i].sleep_queue = 0;
+       // call dev_init before timer init
+       devices[i].next_match = g_ms_counter + dev_freq[i];
+   }
 }
 
 

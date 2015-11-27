@@ -15,7 +15,7 @@ FUNC(swi_handler)
         @ store user program register and lr_svc
         stmfd sp!, {r0-r12, lr} 
 
-        @ save spsr
+        @ save spsr, seems that spsr will be modified by int_asm.S
         mrs r0, spsr  
         stmfd sp!, {r0} 
 
