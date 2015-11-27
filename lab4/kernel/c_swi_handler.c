@@ -11,6 +11,8 @@
 #include <bits/swi.h>
 #include <types.h>
 #include <syscall.h>
+#include <lock.h>
+
 
 #define E_BADCODE 0x0badc0de
 
@@ -52,18 +54,22 @@ void c_swi_handler(unsigned swi_num, unsigned* regs){
         }
         case MUTEX_CREATE:
         {
+            regs[0] = mutex_create();
             break;
         }
         case MUTEX_LOCK:
         {
+            regs[0] = mutex_lock(regs[0]);
             break;
         }
         case MUTEX_UNLOCK:
         {
+            regs[0] = mutex_unlock(regs[0]);
             break;
         }
         case EVENT_WAIT:
         {
+            regs[0] = event_wait(regs[0]);
             break;
         }        
         default:
