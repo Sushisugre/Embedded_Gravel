@@ -7,6 +7,7 @@
 @ Date:   Fri Nov  6 00:47:45 EST 2015
 
 #include <asm.h>
+#include <arm/psr.h>
 
         .file   "swi_handler.S"
 
@@ -16,7 +17,7 @@ FUNC(swi_handler)
 
         @ enable irq in svc mode
         mrs r2, cpsr  
-        bic r2, r2, #0x80
+        bic r2, r2, #PSR_IRQ
         msr cpsr, r2  
 
         @ restore svc r8 from global variable
@@ -32,7 +33,10 @@ FUNC(swi_handler)
         @ pass controll to C, r0 is swi number, r1 is pointer to register  
         bl c_swi_handler  
 
-        @ disable irq???
+        @ disable irq
+        mrs r2, cpsr  
+        orr r2, r2, #PSR_IRQ
+        msr cpsr, r2  
 
         @ load the updated values on stack back to register  
         ldmfd sp!, {r0-r12, lr}
