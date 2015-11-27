@@ -17,7 +17,7 @@
 
 #define BUFFER_SIZE 50
 
-int main(int argc, char** argv)
+int main(void)
 {
   unsigned char buffer[BUFFER_SIZE];
   int read_size;
@@ -38,12 +38,13 @@ int main(int argc, char** argv)
     fraction = (duration/100)%10;
 
     if(write(STDOUT_FILENO, buffer, read_size) < 0)
-      exit(1);
+        printf("write failed\n");
+
     // printf("%.1fs\n", duration);
     printf("%d.%ds\n", second, fraction);
 
     if(read_size < 0)
-      exit(1);
+      printf("read size < 0\n");
   }
 
   return 0;
