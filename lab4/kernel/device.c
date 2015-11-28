@@ -15,6 +15,7 @@
 #include <arm/reg.h>
 #include <arm/psr.h>
 #include <arm/exception.h>
+#include <arm/timer.h>
 
 /**
  * @brief Fake device maintainence structure.

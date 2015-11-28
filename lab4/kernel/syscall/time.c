@@ -15,12 +15,6 @@
 #include <syscall.h>
 
 
-
-/**
- * System time since kernel init in milisecond
- */
-extern unsigned g_ms_counter; 
-
 /**
  * Get the time in milliseconds that have elapsed since the kernel booted up.
  * @return time 

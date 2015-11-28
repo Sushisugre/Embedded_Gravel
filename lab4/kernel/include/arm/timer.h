@@ -38,6 +38,11 @@
 
 #ifndef ASSEMBLER
 
+/**
+ * System time since kernel init in milisecond
+ */
+volatile unsigned g_ms_counter; 
+
 void init_timer(void);
 void destroy_timer(void);
 void timer_handler(unsigned int int_num);

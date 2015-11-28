@@ -10,8 +10,6 @@
 #include <arm/reg.h>
 #include <arm/timer.h>
 
-extern unsigned g_ms_counter;
-
 void time_driver() {
   
   // Set the counter register to zero
