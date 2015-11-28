@@ -103,6 +103,7 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     
     // TODO: init 
     mutex_init();
+    dev_init();
 
 
 
