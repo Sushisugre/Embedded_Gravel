@@ -30,6 +30,11 @@
  * all tasks waiting on the device event to occur.
  */
 
+/**
+ * System time since kernel init in milisecond
+ */
+extern unsigned g_ms_counter; 
+
 struct dev
 {
 	tcb_t* sleep_queue;

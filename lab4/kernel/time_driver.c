@@ -10,6 +10,11 @@
 #include <arm/reg.h>
 #include <arm/timer.h>
 
+ /**
+ * System time since kernel init in milisecond
+ */
+extern unsigned g_ms_counter; 
+
 void time_driver() {
   
   // Set the counter register to zero

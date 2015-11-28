@@ -38,8 +38,6 @@
 
 #ifndef ASSEMBLER
 
-extern volatile unsigned g_ms_counter; 
-
 void init_timer(void);
 void destroy_timer(void);
 void timer_handler(unsigned int int_num);

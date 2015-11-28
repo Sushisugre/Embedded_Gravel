@@ -32,14 +32,15 @@
 uint32_t global_data;
 
 /**
- * System time since kernel init in milisecond
- */
-volatile unsigned g_ms_counter; 
-
-/**
  * Saved svc stack pointer to data section
  */
 uint32_t g_svc_stack = 0;
+
+/**
+ * System time since kernel init in milisecond
+ */
+extern unsigned g_ms_counter; 
+
 
 /**
  * swi handler in assembly
