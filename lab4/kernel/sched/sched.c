@@ -63,20 +63,20 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     tcb_t idle_tcb = system_tcb[IDLE_PRIO];
 
     // user entry point
-    idle_tcb.contexts.r4 = (uint32_t) &idle;
+    idle_tcb.context.r4 = (uint32_t) &idle;
     // function argument
-    idle_tcb.contexts.r5 = 0;
+    idle_tcb.context.r5 = 0;
     // user mode stack, top of the user mode stack
-    idle_tcb.contexts.r6 = (uint32_t) USR_STACK;
-    idle_tcb.contexts.r7 = 0;
-    idle_tcb.contexts.r8 = global_data;
-    idle_tcb.contexts.r9 = 0;
-    idle_tcb.contexts.r10 = 0;
-    idle_tcb.contexts.r11 = 0;
+    idle_tcb.context.r6 = (uint32_t) USR_STACK;
+    idle_tcb.context.r7 = 0;
+    idle_tcb.context.r8 = global_data;
+    idle_tcb.context.r9 = 0;
+    idle_tcb.context.r10 = 0;
+    idle_tcb.context.r11 = 0;
     // initial return address of the task, however the task never return?
-    idle_tcb.contexts.lr = 0;
+    idle_tcb.context.lr = 0;
     // not so sure about this
-    idle_tcb.contexts.sp = (void*)idle_tcb.kstack_high;
+    idle_tcb.context.sp = (void*)idle_tcb.kstack_high;
 
     idle_tcb.native_prio = IDLE_PRIO;
     idle_tcb.cur_prio = IDLE_PRIO;
@@ -90,16 +90,15 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
      * Setup up passed in tasks
      */
     int i;
-    for (int i = 0; i < num_tasks; i++)
+    for (i = 0; i < (int)num_tasks; i++)
     {
         system_tcb[i].native_prio = 0; //FIXME
         system_tcb[i].cur_prio = 0; //FIXME
         system_tcb[i].holds_lock = 0;
-        system_tcb[i].context = 0;
         system_tcb[i].sleep_queue = 0;
 
         // add the new tasks to ready queue
-        runqueue_add(system_tcb[i], system_tcb[cur_prio]);
+        runqueue_add(system_tcb[i], system_tcb[i].cur_prio);
     }
 
     // context switch to the highest priority task 
