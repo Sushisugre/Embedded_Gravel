@@ -41,6 +41,10 @@ void contexts_init() {
 
 }
 
+void sort_tasks(task_t** tasks) {
+
+}
+
 /**
  * @brief Allocate user-stacks and initializes the kernel contexts of the
  * given threads.
@@ -60,28 +64,28 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     /**
      * Setup idle tcb
      */
-    tcb_t idle_tcb = system_tcb[IDLE_PRIO];
+    tcb_t* idle_tcb = &system_tcb[IDLE_PRIO];
 
     // user entry point
-    idle_tcb.context.r4 = (uint32_t) &idle;
+    idle_tcb->context.r4 = (uint32_t) &idle;
     // function argument
-    idle_tcb.context.r5 = 0;
+    idle_tcb->context.r5 = 0;
     // user mode stack, top of the user mode stack
-    idle_tcb.context.r6 = (uint32_t) USR_STACK;
-    idle_tcb.context.r7 = 0;
-    idle_tcb.context.r8 = global_data;
-    idle_tcb.context.r9 = 0;
-    idle_tcb.context.r10 = 0;
-    idle_tcb.context.r11 = 0;
+    idle_tcb->context.r6 = (uint32_t) USR_STACK;
+    idle_tcb->context.r7 = 0;
+    idle_tcb->context.r8 = global_data;
+    idle_tcb->context.r9 = 0;
+    idle_tcb->context.r10 = 0;
+    idle_tcb->context.r11 = 0;
     // initial return address of the task, however the task never return?
-    idle_tcb.context.lr = 0;
+    idle_tcb->context.lr = 0;
     // not so sure about this
-    idle_tcb.context.sp = (void*)idle_tcb.kstack_high;
+    idle_tcb->context.sp = (void*)idle_tcb->kstack_high;
 
-    idle_tcb.native_prio = IDLE_PRIO;
-    idle_tcb.cur_prio = IDLE_PRIO;
-    idle_tcb.holds_lock = 0;
-    idle_tcb.sleep_queue = 0;
+    idle_tcb->native_prio = IDLE_PRIO;
+    idle_tcb->cur_prio = IDLE_PRIO;
+    idle_tcb->holds_lock = 0;
+    idle_tcb->sleep_queue = 0;
 
     // make idle task run
     dispatch_init(&idle_tcb);
