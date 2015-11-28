@@ -10,6 +10,7 @@
 #include <arm/reg.h>
 #include <arm/timer.h>
 #include <sched.h>
+#include <device.h>
 
  /**
  * System time since kernel init in milisecond

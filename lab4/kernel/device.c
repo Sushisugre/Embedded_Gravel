@@ -92,16 +92,16 @@ void dev_update(unsigned long millis __attribute__((unused)))
 
 	// check if the task needs to be waked up
 	for(i = 0; i < NUM_DEVICES; i++) {
-		if(millis <= dev[i].next_match) {
+		if(millis <= devices[i].next_match) {
 
 			// change the device next match time
-			dev[i].next_match = dev[i].next_match + dev_freq[i];
+			devices[i].next_match = devices[i].next_match + dev_freq[i];
 
-			// make the task ready to run
-			runqueue.add(dev[i].sleep_queue);
+			// make the task ready to runqueue
+			runqueue_add(devices[i].sleep_queue, devices[i].sleep_queue->cur_prio);
 
 			// drop the task from sleep queue
-			dev[i].sleep_queue = NULL;
+			devices[i].sleep_queue = 0;
 		}
 	}
 }
