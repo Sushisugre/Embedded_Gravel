@@ -38,9 +38,6 @@
 
 #ifndef ASSEMBLER
 
-/**
- * System time since kernel init in milisecond
- */
 extern unsigned g_ms_counter; 
 
 void init_timer(void);
