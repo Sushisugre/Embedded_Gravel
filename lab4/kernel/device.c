@@ -46,8 +46,8 @@ static dev_t devices[NUM_DEVICES];
  */
 void dev_init(void)
 {
-
-   for (int i = 0; i < NUM_DEVICES; i++)
+    int i;
+   for (i = 0; i < NUM_DEVICES; i++)
    {
        devices[i].sleep_queue = 0;
        // call dev_init before timer init

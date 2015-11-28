@@ -25,7 +25,8 @@ mutex_t gtMutex[OS_NUM_MUTEX];
 
 void mutex_init()
 {
-    for (int i = 0; i < OS_NUM_MUTEX; i++)
+    int i;
+    for (i = 0; i < OS_NUM_MUTEX; i++)
     {
         gtMutex.bAvailable = TRUE;
         gtMutex.pHolding_Tcb = 0;
