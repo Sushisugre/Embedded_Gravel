@@ -20,6 +20,8 @@
 
 tcb_t system_tcb[OS_MAX_TASKS]; /*allocate memory for system TCBs */
 
+extern launch_task();
+
 void sched_init(task_t* main_task  __attribute__((unused)))
 {
 	
@@ -50,6 +52,46 @@ static void __attribute__((unused)) idle(void)
  */
 void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
-	
+
+    /**
+     * Setup idle tcb
+     */
+    tcb_t idle_tcb = system_tcb[IDLE_PRIO];
+
+    // user entry point
+    idle_tcb.contexts.r4 = (uint32_t) &idle;
+    // function argument
+    idle_tcb.contexts.r5 = 0;
+    // user mode stack, top of the user mode stack
+    idle_tcb.contexts.r6 = USR_STACK;
+    idle_tcb.contexts.r7 = 0;
+    idle_tcb.contexts.r8 = global_data;
+    idle_tcb.contexts.r9 = 0;
+    idle_tcb.contexts.r10 = 0;
+    idle_tcb.contexts.r11 = 0;
+    // return address of the task, however the task never return
+    idle_tcb.contexts.lr = launch_task;
+    // not so sure about this
+    idle_tcb.contexts.sp = (void*)idle_tcb.kstack_high;
+
+
+    system_tcb[IDLE_PRIO].native_prio = IDLE_PRIO;
+    system_tcb[IDLE_PRIO].cur_prio = IDLE_PRIO;
+    system_tcb[IDLE_PRIO].holds_lock = 0;
+    system_tcb[IDLE_PRIO].sleep_queue = 0;
+
+    runqueue_add(system_tcb[IDLE_PRIO], IDLE_PRIO);
+
+    int i;
+    for (int i = 0; i < num_tasks; i++)
+    {
+        system_tcb[i].native_prio = ??;
+        system_tcb[i].cur_prio = ??;
+        system_tcb[i].holds_lock = 0;
+        system_tcb[i].context = 0;
+        system_tcb[i].sleep_queue = 0;
+
+        runqueue_add(system_tcb[i], system_tcb[cur_prio]);
+    }
 }
 
