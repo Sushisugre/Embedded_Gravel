@@ -28,10 +28,10 @@ void mutex_init()
     int i;
     for (i = 0; i < OS_NUM_MUTEX; i++)
     {
-        gtMutex.bAvailable = TRUE;
-        gtMutex.pHolding_Tcb = 0;
-        gtMutex.bLock = 0;
-        gtMutex.pSleep_queue = 0;
+        gtMutex[i].bAvailable = TRUE;
+        gtMutex[i].pHolding_Tcb = 0;
+        gtMutex[i].bLock = 0;
+        gtMutex[i].pSleep_queue = 0;
     }
 }
 
