@@ -41,7 +41,7 @@
 /**
  * System time since kernel init in milisecond
  */
-volatile unsigned g_ms_counter; 
+extern unsigned g_ms_counter; 
 
 void init_timer(void);
 void destroy_timer(void);
