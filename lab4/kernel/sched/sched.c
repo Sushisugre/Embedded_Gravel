@@ -98,7 +98,7 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
         system_tcb[i].sleep_queue = 0;
 
         // add the new tasks to ready queue
-        runqueue_add(system_tcb[i], system_tcb[i].cur_prio);
+        runqueue_add(&system_tcb[i], system_tcb[i].cur_prio);
     }
 
     // context switch to the highest priority task 
