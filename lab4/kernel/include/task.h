@@ -57,9 +57,10 @@ struct tcb
 	sched_context_t  context;            /**< The task's serialized context -- if not running */
 	int              holds_lock;         /**< 1 if the task is currently owning a lock */
 	volatile struct tcb* sleep_queue;    /**< If this task is asleep, this is its sleep queue link */
-	/** Embed the kernel stack here -- AAPCS wants 8 byte alignment */
+	/** Embed the kernel svc stack here -- AAPCS wants 8 byte alignment */
 	uint32_t         kstack[OS_KSTACK_SIZE/sizeof(uint32_t)] 
 	                     __attribute__((aligned(8)));
+	/** The end address of kstack array, i.e. the top of svc stack of the task  **/
 	uint32_t         kstack_high[0];
 };
 typedef volatile struct tcb tcb_t;
