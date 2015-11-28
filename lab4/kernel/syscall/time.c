@@ -18,7 +18,7 @@
 /**
  * System time since kernel init in milisecond
  */
-unsigned g_ms_counter; 
+volatile unsigned g_ms_counter; 
 
 /**
  * Get the time in milliseconds that have elapsed since the kernel booted up.
