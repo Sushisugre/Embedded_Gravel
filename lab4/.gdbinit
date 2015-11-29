@@ -8,3 +8,4 @@ b dispatch_init
 b dispatch_nosave
 b ctx_switch_half
 b swi_handler
+b c_swi_handler
