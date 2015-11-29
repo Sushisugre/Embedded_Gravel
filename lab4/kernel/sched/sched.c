@@ -39,9 +39,7 @@ static void __attribute__((unused)) idle(void)
 /**
  * @brief Given a task, initiate its TCB context
  */
-void context_init(task_t* task,  uint8_t prio  __attribute__((unused))) {
-
-    tcb_t* tcb = &system_tcb[prio];
+void context_init(task_t* task, tcb_t* tcb) {
 
     // user entry point, i.e. task function
     tcb->context.r4 = (uint32_t) task->lambda;
@@ -54,8 +52,8 @@ void context_init(task_t* task,  uint8_t prio  __attribute__((unused))) {
     tcb->context.r9 = 0;
     tcb->context.r10 = 0;
     tcb->context.r11 = 0;
-    // initial return address of the task, however the task never return?
-    tcb->context.lr = 0;
+    // after first ctx_switch_half, branch to launch_task
+    tcb->context.lr = &launch_task;
     // initial sp is the high address of kstack in tcb
     tcb->context.sp = (void*)tcb->kstack_high;
 }
@@ -93,8 +91,8 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     idle_tcb->context.r9 = 0;
     idle_tcb->context.r10 = 0;
     idle_tcb->context.r11 = 0;
-    // initial return address of the task, however the task never return?
-    idle_tcb->context.lr = 0;
+    // after first ctx_switch_half, branch to launch_task
+    idle_tcb->context.lr = &launch_task;
     // initial sp is the high address of kstack in tcb
     idle_tcb->context.sp = (void*)idle_tcb->kstack_high;
 
@@ -104,8 +102,9 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     idle_tcb->sleep_queue = 0;
 
     // make idle task run
+    disable_interrupts();
     dispatch_init(idle_tcb);
-
+    enable_interrupts();
 
     /**
      * Setup up passed in tasks
@@ -115,14 +114,16 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     {
         // save highest priority 0 for part 2
         uint8_t init_prio = i + 1;
-        context_init(tasks[i], init_prio);
-        system_tcb[i].native_prio = init_prio; 
-        system_tcb[i].cur_prio = init_prio; 
-        system_tcb[i].holds_lock = 0;
-        system_tcb[i].sleep_queue = 0;
+        tcb_t* tcb = &system_tcb[init_prio];
+
+        context_init(tasks[i], tcb);
+        tcb->native_prio = init_prio; 
+        tcb->cur_prio = init_prio; 
+        tcb->holds_lock = 0;
+        tcb->sleep_queue = 0;
 
         // add the new tasks to ready queue
-        runqueue_add(&system_tcb[i], system_tcb[i].cur_prio);
+        runqueue_add(tcb, tcb->cur_prio);
     }
 
     // context switch to the highest priority task 

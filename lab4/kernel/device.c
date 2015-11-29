@@ -76,6 +76,8 @@ void dev_wait(unsigned int dev __attribute__((unused)))
 
 	// put the task in corresponding sleep queue
 	devices[dev].sleep_queue = current_tcb;
+
+    dispatch_sleep();
 }
 
 
@@ -92,13 +94,14 @@ void dev_update(unsigned long millis __attribute__((unused)))
 
 	// check if the task needs to be waked up
 	for(i = 0; i < NUM_DEVICES; i++) {
-		if(millis <= devices[i].next_match) {
+		if(devices[i].next_match <= millis) {
 
 			// change the device next match time
 			devices[i].next_match = devices[i].next_match + dev_freq[i];
 
 			// make the task ready to runqueue
-			runqueue_add(devices[i].sleep_queue, devices[i].sleep_queue->cur_prio);
+            if(devices[i].sleep_queue)
+			     runqueue_add(devices[i].sleep_queue, devices[i].sleep_queue->cur_prio);
 
 			// drop the task from sleep queue
 			devices[i].sleep_queue = 0;

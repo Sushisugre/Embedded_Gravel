@@ -67,7 +67,7 @@ int mutex_lock(int mutex  __attribute__((unused)))
 
         // if the current task is already holding the lock
         enable_interrupts();
-        return EDADLOCK;
+        return EDEADLOCK;
 
     } else {
         if(gtMutex[mutex].bLock == 0) {

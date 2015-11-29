@@ -30,7 +30,8 @@ void time_driver() {
   g_ms_counter = g_ms_counter + 10;
 
   // Update the time in sleeping tasks
-  for(i = 0; i < NUM_DEVICES; i++) {
-  	dev_update(i);
-  }
+  // for(i = 0; i < NUM_DEVICES; i++) {
+  // 	dev_update(i);
+  // }
+  dev_update(g_ms_counter);
 }
