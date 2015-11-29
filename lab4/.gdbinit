@@ -7,3 +7,4 @@ b allocate_tasks
 b dispatch_init
 b dispatch_nosave
 b ctx_switch_half
+b swi_handler
