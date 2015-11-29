@@ -51,4 +51,4 @@ FUNC(ctx_switch_full)
 FUNC(ctx_switch_half)
 	@ load target registers from tcb context
 	ldmia	r0, {r4-r11, sp, lr}
-	mov pc, lr
+	mov 	pc, lr
