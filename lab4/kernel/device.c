@@ -94,7 +94,7 @@ void dev_update(unsigned long millis __attribute__((unused)))
 
 	// check if the task needs to be waked up
 	for(i = 0; i < NUM_DEVICES; i++) {
-		if(millis <= devices[i].next_match) {
+		if(devices[i].next_match <= millis) {
 
 			// change the device next match time
 			devices[i].next_match = devices[i].next_match + dev_freq[i];
