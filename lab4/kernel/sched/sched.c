@@ -94,7 +94,7 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     idle_tcb->context.r10 = 0;
     idle_tcb->context.r11 = 0;
     // initial return address of the task, however the task never return?
-    idle_tcb->context.lr = 0;
+    idle_tcb->context.lr = &launch_task;
     // initial sp is the high address of kstack in tcb
     idle_tcb->context.sp = (void*)idle_tcb->kstack_high;
 
