@@ -69,9 +69,26 @@ void runqueue_init(void)
  * only requirement is that the run queue for that priority is empty.  This
  * function needs to be externally synchronized.
  */
-void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute__((unused)))
-{
-	
+void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute__((unused))) {
+	uint8_t OSTCBY, OSTCBX;
+
+	// set prio in tcb
+	tcb->cur_prio = prio;
+
+	// put the task into run_queue
+	run_list[prio] = tcb;
+
+	// compute priority group (OSTCBY field) of the task
+	OSTCBY = prio >> 3;
+
+	// compute task'sposition in the priority group (OSTCBX field)
+	OSTCBX = prio & 0x07;
+
+	// set bit number OSTCBY of group_run_bits to 1
+	group_run_bits = group_run_bits | (0x01 << (OSTCBY - 1));
+
+	// set bit number OSTBX of run_bits[OSTCBY] equal to 1
+	run_bits[OSTCBY] = run_bits[OSTCBY] | (0x01 << (OSTCBX - 1));
 }
 
 
@@ -84,7 +101,26 @@ void runqueue_add(tcb_t* tcb  __attribute__((unused)), uint8_t prio  __attribute
  */
 tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
 {
-	return (tcb_t *)1; // fix this; dummy return to prevent warning messages	
+	tcb_t* remove_task;
+	uint8_t OSTCBX, OSTCBY;
+
+	// remove task from run_list
+	remove_task = run_list[prio];
+	run_list[prio] = 0;
+
+	// compute OSTCBY and OSTCBX
+	OSTCBX = prio & 0x07;
+	OSTCBY = prio >> 3;
+
+	// set bit number OSTCBX of run_bits[OSTCBY] equal to 0
+	run_bits[OSTCBY] = run_bits[OSTCBY] | (0x01 << (OSTCBX - 1));
+
+	// set bit number OSTBY of group_run_bits to 0 if necessary
+	if(run_bits[OSTCBY] == 0) {
+		group_run_bits = group_run_bits | (0x01 << (OSTCBY - 1));
+	}
+
+	return remove_task; // fix this; dummy return to prevent warning messages	
 }
 
 /**
@@ -93,5 +129,16 @@ tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
  */
 uint8_t highest_prio(void)
 {
-	return 1; // fix this; dummy return to prevent warning messages	
+	uint8_t x, y, prio;
+
+	// find the least significant bit set in group_bits
+	y = prio_unmap_table[group_run_bits];
+
+	// find the least significant bit set in run_bits[y]
+	x = prio_unmap_table[run_bits[y]];
+
+	// get the priority
+	prio = (y << 3) + x;
+
+	return prio; // fix this; dummy return to prevent warning messages	
 }
