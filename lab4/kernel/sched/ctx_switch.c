@@ -101,7 +101,7 @@ void dispatch_sleep(void)
  */
 uint8_t get_cur_prio(void)
 {
-	return cur_tcb->cur_prio; //fix this; dummy return to prevent compiler warning
+	return cur_tcb->cur_prio; 
 }
 
 /**
@@ -109,5 +109,5 @@ uint8_t get_cur_prio(void)
  */
 tcb_t* get_cur_tcb(void)
 {
-	return cur_tcb; //fix this; dummy return to prevent compiler warning
+	return cur_tcb; 
 }
