@@ -28,7 +28,9 @@ static __attribute__((unused)) tcb_t* cur_tcb; /* use this if needed */
  */
 void dispatch_init(tcb_t* idle __attribute__((unused)))
 {
-	
+    cur_tcb = idle;
+    ctx_switch_half(cur_tcb->context);
+	launch_task();
 }
 
 
@@ -42,7 +44,8 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
  */
 void dispatch_save(void)
 {
-	
+	tcb_t* target_tcb = runqueue_remove(highest_prio());
+    ctx_switch_full(target_tcb->context, cur_tcb->context);
 }
 
 /**
@@ -53,7 +56,8 @@ void dispatch_save(void)
  */
 void dispatch_nosave(void)
 {
-
+    tcb_t* target_tcb = runqueue_remove(highest_prio());
+    ctx_switch_half(target_tcb->context);
 }
 
 
@@ -65,7 +69,7 @@ void dispatch_nosave(void)
  */
 void dispatch_sleep(void)
 {
-	
+
 }
 
 /**
@@ -73,7 +77,7 @@ void dispatch_sleep(void)
  */
 uint8_t get_cur_prio(void)
 {
-	return 1; //fix this; dummy return to prevent compiler warning
+	return cur_tcb->cur_prio; //fix this; dummy return to prevent compiler warning
 }
 
 /**
@@ -81,5 +85,5 @@ uint8_t get_cur_prio(void)
  */
 tcb_t* get_cur_tcb(void)
 {
-	return (tcb_t *) 0; //fix this; dummy return to prevent compiler warning
+	return cur_tcb; //fix this; dummy return to prevent compiler warning
 }
