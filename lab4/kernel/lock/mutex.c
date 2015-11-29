@@ -133,7 +133,7 @@ int mutex_unlock(int mutex  __attribute__((unused)))
             runqueue_add(gtMutex[mutex].pHolding_Tcb, gtMutex[mutex].pHolding_Tcb->cur_prio);
         
             // check the wake up task's priority and current running task's priority
-            if(get_cur_prio < highest_prio) {
+            if(get_cur_prio() < highest_prio()) {
                 // switch to the highest task
                 enable_interrupts();
                 dispatch_save();

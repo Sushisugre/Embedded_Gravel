@@ -102,6 +102,12 @@ void dev_update(unsigned long millis __attribute__((unused)))
 
 			// drop the task from sleep queue
 			devices[i].sleep_queue = 0;
+
+			// check the wake up task's priority and the currently running task's priority
+			if(get_cur_prio() < highest_prio()) {
+				// context switch to the highest priority task
+				dispatch_save();
+			}
 		}
 	}
 }
