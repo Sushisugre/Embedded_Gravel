@@ -124,11 +124,11 @@ tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
 	OSTCBY = prio >> 3;
 
 	// set bit number OSTCBX of run_bits[OSTCBY] equal to 0
-	run_bits[OSTCBY] = run_bits[OSTCBY] | (0x01 << (OSTCBX - 1));
+	run_bits[OSTCBY] = run_bits[OSTCBY] | (0x01 << (OSTCBX));
 
 	// set bit number OSTBY of group_run_bits to 0 if necessary
 	if(run_bits[OSTCBY] == 0) {
-		group_run_bits = group_run_bits | (0x01 << (OSTCBY - 1));
+		group_run_bits = group_run_bits | (0x01 << (OSTCBY));
 	}
 
 	return remove_task; // fix this; dummy return to prevent warning messages	
