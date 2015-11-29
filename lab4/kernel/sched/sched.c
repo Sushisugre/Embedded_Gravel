@@ -116,7 +116,7 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
         uint8_t init_prio = i + 1;
         tcb_t* tcb = &system_tcb[init_prio];
 
-        context_init(tasks[i], tcb);
+        context_init(((task_t*)tasks)[i], tcb);
         tcb->native_prio = init_prio; 
         tcb->cur_prio = init_prio; 
         tcb->holds_lock = 0;
