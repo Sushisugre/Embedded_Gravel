@@ -27,11 +27,13 @@ static __attribute__((unused)) tcb_t* cur_tcb; /* use this if needed */
  *
  * Set the initialization thread's priority to IDLE so that anything
  * will preempt it when dispatching the first task.
+ *
+ * This function needs to be externally synchronized.
  */
 void dispatch_init(tcb_t* idle __attribute__((unused)))
 {
     cur_tcb = idle;
-    ctx_switch_half((void*)&(cur_tcb->context));
+    // ctx_switch_half((void*)&(cur_tcb->context));
 	// launch_task();
 }
 
@@ -43,17 +45,18 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
  * This function needs to be externally synchronized.
  * We could be switching from the idle task.  The priority searcher has been tuned
  * to return IDLE_PRIO for a completely empty run_queue case.
+ *
+ * This function needs to be externally synchronized.
  */
 void dispatch_save(void)
 {
-    disable_interrupts();
 	tcb_t* target_tcb = runqueue_remove(highest_prio());
-    enable_interrupts();
-    
+
     ctx_switch_full((void*)&(target_tcb->context), (void*)&(cur_tcb->context));
     
     runqueue_add(cur_tcb, cur_tcb->cur_prio);
     cur_tcb = target_tcb;
+
     // launch_task();
 }
 
@@ -62,12 +65,12 @@ void dispatch_save(void)
  * don't save the current task state.
  *
  * There is always an idle task to switch to.
+ *
+ * This function needs to be externally synchronized.
  */
 void dispatch_nosave(void)
 {
-    disable_interrupts();
     tcb_t* target_tcb = runqueue_remove(highest_prio());
-    enable_interrupts();
     ctx_switch_half((void*)&(target_tcb->context));
     cur_tcb = target_tcb;
     launch_task();
@@ -79,6 +82,8 @@ void dispatch_nosave(void)
  * and save the current task but don't mark is runnable.
  *
  * There is always an idle task to switch to.
+ *
+* This function needs to be externally synchronized.
  */
 void dispatch_sleep(void)
 {
