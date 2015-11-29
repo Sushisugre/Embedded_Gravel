@@ -33,5 +33,15 @@ int assign_schedule(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
 	return 1; // fix this; dummy return to prevent compiler warnings	
 }
 	
-
-
+/**
+ * Sort the task list in order is priority
+ * @param tasks An array of task pointers containing the task set to schedule.
+ */
+void sort_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused))) {
+    size_t out;
+    size_t size = 0;
+    for (size_t out = 0; i < num_tasks; i++)
+    {
+        //task_t tmp = 
+    }
+}

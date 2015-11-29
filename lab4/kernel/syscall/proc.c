@@ -34,10 +34,13 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
         return -EINVAL;
     }
 
-    // check schedulable
-
-
-
+    // check schedulable, 
+    // The task list at the end of this method will be sorted in order is priority
+    // TODO: update assign_schedule in part2, now it's just a dummy
+    if (assign_schedule()){
+        enable_interrupts();
+        return -ESCHED;
+    }
 
     allocate_tasks(&tasks, num_tasks);
 
