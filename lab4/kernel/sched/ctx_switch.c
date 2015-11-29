@@ -70,8 +70,8 @@ void dispatch_nosave(void)
 {
     tcb_t* target_tcb = runqueue_remove(highest_prio());
   
-    ctx_switch_half((void*)&(target_tcb->context));
-    // ctx_switch_half((void*)&(cur_tcb->context));
+    // ctx_switch_half((void*)&(target_tcb->context));
+    ctx_switch_half((void*)&(cur_tcb->context));
 
     cur_tcb = target_tcb;
     // launch_task();
