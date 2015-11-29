@@ -5,3 +5,7 @@ add-symbol-file ../lab4/tasks/bin/dagger 0xa0000000
 b dispatch_save
 b runqueue_remove
 b runqueue_add
+b allocate_task
+b proc.c:task_create
+b ctx_switch_half
+b ctx_switch_full
