@@ -39,9 +39,7 @@ static void __attribute__((unused)) idle(void)
 /**
  * @brief Given a task, initiate its TCB context
  */
-void context_init(task_t* task,  uint8_t prio  __attribute__((unused))) {
-
-    tcb_t* tcb = &system_tcb[prio];
+void context_init(task_t* task, tcb_t* tcb) {
 
     // user entry point, i.e. task function
     tcb->context.r4 = (uint32_t) task->lambda;
@@ -116,14 +114,16 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     {
         // save highest priority 0 for part 2
         uint8_t init_prio = i + 1;
-        context_init(tasks[i], init_prio);
-        system_tcb[init_prio].native_prio = init_prio; 
-        system_tcb[init_prio].cur_prio = init_prio; 
-        system_tcb[init_prio].holds_lock = 0;
-        system_tcb[init_prio].sleep_queue = 0;
+        tcb_t* tcb = &system_tcb[prio];
+
+        context_init(tasks[i], tcb);
+        tcb->native_prio = init_prio; 
+        tcb->cur_prio = init_prio; 
+        tcb->holds_lock = 0;
+        tcb->sleep_queue = 0;
 
         // add the new tasks to ready queue
-        runqueue_add(&system_tcb[init_prio], system_tcb[init_prio].cur_prio);
+        runqueue_add(tcb, tcb->cur_prio);
     }
 
     // context switch to the highest priority task 
