@@ -13,6 +13,7 @@
 #include <config.h>
 #include <kernel.h>
 #include "sched_i.h"
+#include <arm/psr.h>
 #include <arm/exception.h>
 
 #ifdef DEBUG_MUTEX
