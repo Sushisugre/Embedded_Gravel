@@ -33,8 +33,6 @@ static __attribute__((unused)) tcb_t* cur_tcb; /* use this if needed */
 void dispatch_init(tcb_t* idle __attribute__((unused)))
 {
     cur_tcb = idle;
-    // ctx_switch_half((void*)&(cur_tcb->context));
-	// launch_task();
 }
 
 
@@ -73,7 +71,7 @@ void dispatch_nosave(void)
     tcb_t* target_tcb = runqueue_remove(highest_prio());
     ctx_switch_half((void*)&(target_tcb->context));
     cur_tcb = target_tcb;
-    launch_task();
+    //launch_task();
 }
 
 
