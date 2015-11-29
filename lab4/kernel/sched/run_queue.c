@@ -58,7 +58,18 @@ static uint8_t prio_unmap_table[]  __attribute__((unused)) =
  */
 void runqueue_init(void)
 {
+	int i;
 	
+	// clear run_list
+	for(i = 0; i < OS_MAX_TASKS; i++)
+		run_list[i] = 0;
+
+	// clear run_bits
+	for(i = 0; i < (OS_MAX_TASKS/8); i++)
+		run_bits[i] = 0;
+
+	// clear gourp_run_bits
+	group_run_bits = 0;
 }
 
 /**
