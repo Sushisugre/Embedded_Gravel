@@ -129,16 +129,11 @@ tcb_t* runqueue_remove(uint8_t prio  __attribute__((unused)))
  */
 uint8_t highest_prio(void)
 {
-	uint8_t x, y, prio;
-
 	// find the least significant bit set in group_bits
-	y = prio_unmap_table[group_run_bits];
+	uint8_t y = prio_unmap_table[group_run_bits];
 
 	// find the least significant bit set in run_bits[y]
-	x = prio_unmap_table[run_bits[y]];
-
-	// get the priority
-	prio = (y << 3) + x;
-
-	return prio; // fix this; dummy return to prevent warning messages	
+    uint8_t x = prio_unmap_table[run_bits[y]];
+    
+    return (y << 3) + x;
 }
