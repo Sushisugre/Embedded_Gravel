@@ -55,7 +55,7 @@ void context_init(task_t* task,  uint8_t prio  __attribute__((unused))) {
     tcb->context.r10 = 0;
     tcb->context.r11 = 0;
     // initial return address of the task, however the task never return?
-    tcb->context.lr = 0;
+    tcb->context.lr = &launch_task;
     // initial sp is the high address of kstack in tcb
     tcb->context.sp = (void*)tcb->kstack_high;
 }

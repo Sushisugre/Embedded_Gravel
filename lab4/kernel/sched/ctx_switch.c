@@ -74,7 +74,7 @@ void dispatch_nosave(void)
     // ctx_switch_half((void*)&(cur_tcb->context));
 
     cur_tcb = target_tcb;
-    launch_task();
+    // launch_task();
 }
 
 
