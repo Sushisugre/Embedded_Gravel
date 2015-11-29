@@ -44,7 +44,9 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
  */
 void dispatch_save(void)
 {
+    disable_interrupts();
 	tcb_t* target_tcb = runqueue_remove(highest_prio());
+    enable_interrupts();
     ctx_switch_full((void*)&(target_tcb->context), (void*)&(cur_tcb->context));
     // launch_task();
 }
@@ -57,7 +59,9 @@ void dispatch_save(void)
  */
 void dispatch_nosave(void)
 {
+    disable_interrupts();
     tcb_t* target_tcb = runqueue_remove(highest_prio());
+    enable_interrupts();
     ctx_switch_half((void*)&(target_tcb->context));
     launch_task();
 }
