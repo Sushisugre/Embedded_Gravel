@@ -77,6 +77,7 @@ void dev_wait(unsigned int dev __attribute__((unused)))
 	// put the task in corresponding sleep queue
 	devices[dev].sleep_queue = current_tcb;
 
+    disable_interrupts();
     dispatch_sleep();
 }
 
