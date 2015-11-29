@@ -49,7 +49,10 @@ void dispatch_save(void)
     disable_interrupts();
 	tcb_t* target_tcb = runqueue_remove(highest_prio());
     enable_interrupts();
+    
     ctx_switch_full((void*)&(target_tcb->context), (void*)&(cur_tcb->context));
+    
+    runqueue_add(cur_tcb, cur_tcb->cur_prio);
     cur_tcb = target_tcb;
     // launch_task();
 }
