@@ -52,7 +52,12 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
 
 int event_wait(unsigned int dev  __attribute__((unused)))
 {
-  return 1; /* remove this line after adding your code */	
+    // get the tcb of the current task
+    dev_wait(dev);
+
+    //TODO: You should modify the dev wait for this part to return a EHOLDSLOCK error if a task calls dev wait while holding a lock1
+    
+    return 1; 	
 }
 
 /* An invalid syscall causes the kernel to exit. */
