@@ -117,10 +117,10 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
         // save highest priority 0 for part 2
         uint8_t init_prio = i + 1;
         context_init(tasks[i], init_prio);
-        system_tcb[i].native_prio = init_prio; 
-        system_tcb[i].cur_prio = init_prio; 
-        system_tcb[i].holds_lock = 0;
-        system_tcb[i].sleep_queue = 0;
+        system_tcb[init_prio].native_prio = init_prio; 
+        system_tcb[init_prio].cur_prio = init_prio; 
+        system_tcb[init_prio].holds_lock = 0;
+        system_tcb[init_prio].sleep_queue = 0;
 
         // add the new tasks to ready queue
         runqueue_add(&system_tcb[i], system_tcb[i].cur_prio);
