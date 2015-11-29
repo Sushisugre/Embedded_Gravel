@@ -52,7 +52,7 @@ void context_init(task_t* task, tcb_t* tcb) {
     tcb->context.r9 = 0;
     tcb->context.r10 = 0;
     tcb->context.r11 = 0;
-    // initial return address of the task, however the task never return?
+    // after first ctx_switch_half, branch to launch_task
     tcb->context.lr = &launch_task;
     // initial sp is the high address of kstack in tcb
     tcb->context.sp = (void*)tcb->kstack_high;
@@ -91,7 +91,7 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     idle_tcb->context.r9 = 0;
     idle_tcb->context.r10 = 0;
     idle_tcb->context.r11 = 0;
-    // initial return address of the task, however the task never return???
+    // after first ctx_switch_half, branch to launch_task
     idle_tcb->context.lr = &launch_task;
     // initial sp is the high address of kstack in tcb
     idle_tcb->context.sp = (void*)idle_tcb->kstack_high;
