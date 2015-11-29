@@ -50,6 +50,7 @@ void dispatch_save(void)
 	tcb_t* target_tcb = runqueue_remove(highest_prio());
     enable_interrupts();
     ctx_switch_full((void*)&(target_tcb->context), (void*)&(cur_tcb->context));
+    cur_tcb = target_tcb;
     // launch_task();
 }
 
@@ -64,8 +65,8 @@ void dispatch_nosave(void)
     disable_interrupts();
     tcb_t* target_tcb = runqueue_remove(highest_prio());
     enable_interrupts();
-    cur_tcb = target_tcb;
     ctx_switch_half((void*)&(target_tcb->context));
+    cur_tcb = target_tcb;
     launch_task();
 }
 
