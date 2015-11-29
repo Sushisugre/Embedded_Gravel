@@ -103,7 +103,7 @@ void dev_update(unsigned long millis __attribute__((unused)))
 			// make the task ready to runqueue
             if(devices[i].sleep_queue) {
 			    runqueue_add(devices[i].sleep_queue, devices[i].sleep_queue->cur_prio);
-                if (devices[i].sleep_queue->cur_prio > get_cur_prio()) {
+                if (devices[i].sleep_queue->cur_prio < get_cur_prio()) {
                     dispatch_save();
                 }
             }
