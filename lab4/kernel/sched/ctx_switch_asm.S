@@ -41,9 +41,13 @@ FUNC(launch_task)
 /* r0 points to the target context, r1 to the current context. */
 /* add your code to perform a full context switch */
 FUNC(ctx_switch_full)
-
+	@ store current task registers to 
+	@ TODO
+	@ load target register from tcb context
+	b ctx_switch_half
 
 /* r0 points to the target context */
 /*add your code to perform a half context switch */	
 FUNC(ctx_switch_half)
+	@ load target registers from tcb context
 	ldmia	r0, {r4-r11, sp, lr}
