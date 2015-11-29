@@ -100,7 +100,8 @@ void dev_update(unsigned long millis __attribute__((unused)))
 			devices[i].next_match = devices[i].next_match + dev_freq[i];
 
 			// make the task ready to runqueue
-			runqueue_add(devices[i].sleep_queue, devices[i].sleep_queue->cur_prio);
+            if(devices[i].sleep_queue)
+			     runqueue_add(devices[i].sleep_queue, devices[i].sleep_queue->cur_prio);
 
 			// drop the task from sleep queue
 			devices[i].sleep_queue = 0;
