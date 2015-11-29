@@ -39,7 +39,6 @@ int assign_schedule(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
  */
 void sort_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused))) {
     size_t out;
-    size_t size = 0;
     for (out = 0; out < num_tasks; out++)
     {
         //task_t tmp = 
