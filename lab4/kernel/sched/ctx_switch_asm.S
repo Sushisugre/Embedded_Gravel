@@ -43,5 +43,7 @@ FUNC(launch_task)
 FUNC(ctx_switch_full)
 
 
+/* r0 points to the target context */
 /*add your code to perform a half context switch */	
 FUNC(ctx_switch_half)
+	ldmia	r0, {r4-r11, sp, lr}

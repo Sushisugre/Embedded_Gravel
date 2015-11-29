@@ -46,6 +46,7 @@ void dispatch_save(void)
 {
 	tcb_t* target_tcb = runqueue_remove(highest_prio());
     ctx_switch_full(target_tcb->context, cur_tcb->context);
+    // launch_task();
 }
 
 /**
@@ -58,6 +59,7 @@ void dispatch_nosave(void)
 {
     tcb_t* target_tcb = runqueue_remove(highest_prio());
     ctx_switch_half(target_tcb->context);
+    // launch_task();
 }
 
 
