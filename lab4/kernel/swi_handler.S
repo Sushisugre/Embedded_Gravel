@@ -12,6 +12,10 @@
         .file   "swi_handler.S"
 
 FUNC(swi_handler)
+        @ store user mode banked sp, lr
+        @ otherwise it may get modified by other task
+        stmfd sp, {sp, lr}^
+        sub   sp, sp, #4
         @ store user program register and lr_svc
         stmfd sp!, {r0-r12, lr} 
 
@@ -49,7 +53,9 @@ FUNC(swi_handler)
 
         @ load the updated values on stack back to register  
         ldmfd sp!, {r0-r12, lr}
-
+        @ restore user mode sp and lr
+        ldmfd sp, {sp,lr}^
+        add   sp, sp, #8
         @ return to swi wrapper 
         movs pc, lr         
 

@@ -17,9 +17,9 @@
 
 FUNC(event_wait)
         @disable irq
-        mrs r2, cpsr  
-        orr r2, r2, #0x00000080
-        msr cpsr, r2  
+        @mrs r2, cpsr  
+        @orr r2, r2, #0x00000080
+        @msr cpsr, r2  
 
         stmfd sp!, {r1-r12, lr}  @ save unbanked register before change mode
         swi  EVENT_WAIT 
@@ -41,9 +41,9 @@ FUNC(event_wait)
         mov r0, #-1
 .return:
         @ enable irq
-        mrs r2, cpsr  
-        bic r2, r2, #0x00000080
-        msr cpsr, r2  
+        @mrs r2, cpsr  
+        @bic r2, r2, #0x00000080
+        @msr cpsr, r2  
 
         ldmfd sp!, {r1-r12, lr} 
         mov pc, lr
