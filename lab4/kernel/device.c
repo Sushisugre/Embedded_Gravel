@@ -77,6 +77,7 @@ void dev_wait(unsigned int dev __attribute__((unused)))
 	// put the task in corresponding sleep queue
 	devices[dev].sleep_queue = current_tcb;
 
+    disable_interrupts();
     dispatch_sleep();
 }
 
@@ -100,17 +101,17 @@ void dev_update(unsigned long millis __attribute__((unused)))
 			devices[i].next_match = devices[i].next_match + dev_freq[i];
 
 			// make the task ready to runqueue
-            if(devices[i].sleep_queue)
-			     runqueue_add(devices[i].sleep_queue, devices[i].sleep_queue->cur_prio);
+            if(devices[i].sleep_queue) {
 
-			// drop the task from sleep queue
-			devices[i].sleep_queue = 0;
+                tcb_t* wake_tcb = devices[i].sleep_queue;
+			    runqueue_add(wake_tcb, wake_tcb->cur_prio);
+                // drop the task from sleep queue
+                devices[i].sleep_queue = 0;
 
-			// check the wake up task's priority and the currently running task's priority
-			if(get_cur_prio() < highest_prio()) {
-				// context switch to the highest priority task
-				dispatch_save();
-			}
+                if (wake_tcb->cur_prio < get_cur_prio()) {
+                    dispatch_save();
+                }
+            }
 		}
 	}
 }

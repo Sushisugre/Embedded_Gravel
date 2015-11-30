@@ -51,7 +51,10 @@ FUNC(ctx_switch_full)
 FUNC(ctx_switch_half)
 	@ load target registers from tcb context
 	ldmia	r0, {r4-r11, sp, lr}
-	@ Note that the lr here is the lr set in context
+	@ -- For the first launch:
+	@ the lr here is the lr set in context
 	@ which is launch_task when task launched for the first time
 	@ thus it branch to launch_task and execute task function
+	@ -- After the first launch:
+	@ lr should store a address in task function
 	mov 	pc, lr

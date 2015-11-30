@@ -21,6 +21,11 @@
 
 tcb_t system_tcb[OS_MAX_TASKS]; /*allocate memory for system TCBs */
 
+/**
+ *  idle stack which will be placed in the data section
+ */
+uint32_t g_idle_stack[OS_KSTACK_SIZE/sizeof(uint32_t)];
+
 void sched_init(task_t* main_task  __attribute__((unused)))
 {
 
@@ -85,6 +90,7 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     // function argument
     idle_tcb->context.r5 = 0;
     // user mode stack, top of the user mode stack
+    // idle_tcb->context.r6 = (uint32_t) &(g_idle_stack[OS_KSTACK_SIZE/sizeof(uint32_t)]);
     idle_tcb->context.r6 = (uint32_t) USR_STACK;
     idle_tcb->context.r7 = 0;
     idle_tcb->context.r8 = global_data;
@@ -116,7 +122,7 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
         uint8_t init_prio = i + 1;
         tcb_t* tcb = &system_tcb[init_prio];
 
-        context_init(tasks[i], tcb);
+        context_init(&((task_t*)tasks)[i], tcb);
         tcb->native_prio = init_prio; 
         tcb->cur_prio = init_prio; 
         tcb->holds_lock = 0;

@@ -48,7 +48,7 @@ int mutex_create(void)
     }
 
     // if there is no available mutex, return error
-	return ENOMEM; // fix this to return the correct value
+	return -ENOMEM; // fix this to return the correct value
 }
 
 int mutex_lock(int mutex  __attribute__((unused)))
@@ -61,13 +61,13 @@ int mutex_lock(int mutex  __attribute__((unused)))
     if(gtMutex[mutex].bAvailable == TRUE) {
 
         enable_interrupts();
-        return EINVAL;
+        return -EINVAL;
     
     } else if(gtMutex[mutex].pHolding_Tcb == get_cur_tcb()) {
 
         // if the current task is already holding the lock
         enable_interrupts();
-        return EDEADLOCK;
+        return -EDEADLOCK;
 
     } else {
         if(gtMutex[mutex].bLock == 0) {
@@ -106,13 +106,13 @@ int mutex_unlock(int mutex  __attribute__((unused)))
     if(gtMutex[mutex].bAvailable == TRUE) {
         
         enable_interrupts();
-        return EINVAL;
+        return -EINVAL;
     
     } else if(gtMutex[mutex].pHolding_Tcb != get_cur_tcb()) {
         
         // if the urrent task does not hold the mutex
         enable_interrupts();
-        return EPERM;
+        return -EPERM;
     
     } else {
         temp = gtMutex[mutex].pHolding_Tcb;
