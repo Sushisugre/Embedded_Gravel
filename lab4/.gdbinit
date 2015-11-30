@@ -10,5 +10,5 @@ b proc.c:task_create
 b ctx_switch_half
 b ctx_switch_full
 b dev_update if millis==100
-b assign_schedulue
+b assign_schedule
 b sort_tasks
