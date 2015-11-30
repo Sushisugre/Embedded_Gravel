@@ -76,7 +76,7 @@ void sort_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __att
     // insertion sort
     for (i = 0; i < num_tasks; i++) {
     	for(j = 0; j < i; j++) {
-    		if((tasks[i]->cur_prio) < (tasks[j]->cur_prio)) {
+    		if((tasks[i]->T) < (tasks[j]->T)) {
     			temp = tasks[i];
     			for(k = i-1; k >= j; k--) {
     				tasks[k+1] = tasks[k];
