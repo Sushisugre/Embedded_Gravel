@@ -15,7 +15,7 @@ FUNC(swi_handler)
         @ store user mode banked sp, lr
         @ otherwise it may get modified by other task
         stmfd sp, {sp, lr}^
-        sub   sp, sp, #4
+        sub   sp, sp, #8
         @ store user program register and lr_svc
         stmfd sp!, {r0-r12, lr} 
 
