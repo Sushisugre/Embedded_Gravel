@@ -34,6 +34,12 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
         return -EINVAL;
     }
 
+    if(!valid_addr((void *)tasks, num_tasks, (uintptr_t)USR_START_ADDR, (uintptr_t)USR_END_ADDR))
+    {
+        enable_interrupts();
+        return -EFAULT;
+    }
+
     task_t* task_ptrs[num_tasks];
     int i;
     for (i = 0; i < (int)num_tasks; ++i)
