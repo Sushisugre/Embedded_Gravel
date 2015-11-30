@@ -67,13 +67,13 @@ void sort_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __att
 int assign_schedule(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
 	size_t i;
-	float result = 0;
+	double result = 0;
 
 	// do ub test
 	// calculate the result on the left side of the equation
 	for(i = 0; i < num_tasks; i++) {
         task_t* task = &((task_t*)tasks)[i];
-		result = result + ((float)(task->C))/((float)(task->T));
+		result = result + ((double)(task->C))/((double)(task->T));
 	}
 
 	// check the value
