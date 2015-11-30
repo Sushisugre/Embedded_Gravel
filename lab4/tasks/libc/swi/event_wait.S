@@ -12,12 +12,13 @@
 #include <bits/swi.h>
 #include <bits/errno.h>
 
+
 	.file "event_wait.S"
 
 FUNC(event_wait)
         @disable irq
         mrs r2, cpsr  
-        orr r2, r2, #PSR_IRQ
+        orr r2, r2, #0x00000080
         msr cpsr, r2  
 
         stmfd sp!, {r1-r12, lr}  @ save unbanked register before change mode
@@ -41,7 +42,7 @@ FUNC(event_wait)
 .return:
         @ enable irq
         mrs r2, cpsr  
-        bic r2, r2, #PSR_IRQ
+        bic r2, r2, #0x00000080
         msr cpsr, r2  
 
         ldmfd sp!, {r1-r12, lr} 
