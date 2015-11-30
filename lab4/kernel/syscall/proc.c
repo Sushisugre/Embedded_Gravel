@@ -36,9 +36,9 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
 
     task_t** task_ptrs;
     int i;
-    for (i = 0; i < num_tasks; ++i)
+    for (i = 0; i < (int)num_tasks; ++i)
     {
-        task_ptrs[i] = &task[i];
+        task_ptrs[i] = &tasks[i];
     }
     // check schedulable, 
     // The task list at the end of this method will be sorted in order is priority
