@@ -34,15 +34,21 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
         return -EINVAL;
     }
 
+    task_t* task_ptrs[num_tasks];
+    int i;
+    for (i = 0; i < (int)num_tasks; ++i)
+    {
+        task_ptrs[i] = &tasks[i];
+    }
     // check schedulable, 
     // The task list at the end of this method will be sorted in order is priority
     // TODO: update assign_schedule in part2, now it's just a dummy
-    if (!assign_schedule(&tasks, num_tasks)){
+    if (!assign_schedule(task_ptrs, num_tasks)){
         enable_interrupts();
         return -ESCHED;
     }
 
-    allocate_tasks(&tasks, num_tasks);
+    allocate_tasks(task_ptrs, num_tasks);
 
     /**
      * code should not come here
@@ -52,7 +58,12 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
 
 int event_wait(unsigned int dev  __attribute__((unused)))
 {
-  return 1; /* remove this line after adding your code */	
+    // get the tcb of the current task
+    dev_wait(dev);
+
+    //TODO: You should modify the dev wait for this part to return a EHOLDSLOCK error if a task calls dev wait while holding a lock1
+    
+    return 1; 	
 }
 
 /* An invalid syscall causes the kernel to exit. */

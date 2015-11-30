@@ -29,6 +29,29 @@ static float u_n_num[64] = {
 };
 
 /**
+ * Sort the task list in order is priority
+ * @param tasks An array of task pointers containing the task set to schedule.
+ */
+void sort_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused))) {
+    size_t i, j, k;
+    task_t* temp;
+
+    // insertion sort
+    for (i = 0; i < num_tasks; i++) {
+        for(j = 0; j < i; j++) {
+            if((tasks[i]->T) < (tasks[j]->T)) {
+                temp = tasks[i];
+                for(k = i-1; k >= j; k--) {
+                    tasks[k+1] = tasks[k];
+                }
+                tasks[j] = temp;
+                break;
+            }
+        }
+    }
+}
+
+/**
  * @brief Perform UB Test and reorder the task list.
  *
  * The task list at the end of this method will be sorted in order is priority
@@ -43,47 +66,23 @@ static float u_n_num[64] = {
  */
 int assign_schedule(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
-	int i;
-	float result = 0;
+    size_t i;
+    float result = 0;
 
-	// do ub test
-	// calculate the result on the left side of the equation
-	for(i = 0; i < num_tasks; i++) {
-		result = result + ((float)(tasks[i]->C))/((float)(tasks[i]->T));
-	}
-
-	// check the value
-	if(result <= u_n_num[num_tasks-1]) {
-		// if pass ub test, then sort the tasks according to the priority
-		sort_tasks(tasks, num_tasks);
-		return 1;
-	} else {
-		// if not pass ub test
-		return 0;
-	}
-
-	//return 1; // fix this; dummy return to prevent compiler warnings	
-}
-	
-/**
- * Sort the task list in order is priority
- * @param tasks An array of task pointers containing the task set to schedule.
- */
-void sort_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused))) {
-    size_t i, j, k;
-    task_t* temp;
-
-    // insertion sort
-    for (i = 0; i < num_tasks; i++) {
-    	for(j = 0; j < i; j++) {
-    		if((tasks[i]->T) < (tasks[j]->T)) {
-    			temp = tasks[i];
-    			for(k = i-1; k >= j; k--) {
-    				tasks[k+1] = tasks[k];
-    			}
-    			tasks[j] = temp;
-    			break;
-    		}
-    	}
+    // do ub test
+    // calculate the result on the left side of the equation
+    for(i = 0; i < num_tasks; i++) {
+        result = result + ((float)(tasks[i]->C))/((float)(tasks[i]->T));
     }
+
+    // check the value
+    if(result <= u_n_num[num_tasks-1]) {
+        // if pass ub test, then sort the tasks according to the priority
+        sort_tasks(tasks, num_tasks);
+        return 1;
+    } else {
+        // if not pass ub test
+        return 0;
+    }
+	//return 1; // fix this; dummy return to prevent compiler warnings	
 }

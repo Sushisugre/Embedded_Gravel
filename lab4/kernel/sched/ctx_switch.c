@@ -33,6 +33,7 @@ static __attribute__((unused)) tcb_t* cur_tcb; /* use this if needed */
 void dispatch_init(tcb_t* idle __attribute__((unused)))
 {
     cur_tcb = idle;
+    runqueue_add(cur_tcb, cur_tcb->cur_prio);
 }
 
 
@@ -49,13 +50,14 @@ void dispatch_init(tcb_t* idle __attribute__((unused)))
 void dispatch_save(void)
 {
 	tcb_t* target_tcb = runqueue_remove(highest_prio());
+    tcb_t* previous_tcb = cur_tcb;
 
-    ctx_switch_full((void*)&(target_tcb->context), (void*)&(cur_tcb->context));
-    
     // current task is still runable
-    runqueue_add(cur_tcb, cur_tcb->cur_prio);
+    runqueue_add(previous_tcb, previous_tcb->cur_prio);
 
     cur_tcb = target_tcb;
+
+    ctx_switch_full((void*)&(target_tcb->context), (void*)&(previous_tcb->context));
 
     // launch_task();
 }
@@ -72,9 +74,9 @@ void dispatch_nosave(void)
 {
     tcb_t* target_tcb = runqueue_remove(highest_prio());
   
-    ctx_switch_half((void*)&(target_tcb->context));
-
     cur_tcb = target_tcb;
+
+    ctx_switch_half((void*)&(target_tcb->context));
     // launch_task();
 }
 
@@ -90,10 +92,11 @@ void dispatch_nosave(void)
 void dispatch_sleep(void)
 {
     tcb_t* target_tcb = runqueue_remove(highest_prio());
+    tcb_t* previous_tcb = cur_tcb;
 
-    ctx_switch_full((void*)&(target_tcb->context), (void*)&(cur_tcb->context));
-        
     cur_tcb = target_tcb;
+
+    ctx_switch_full((void*)&(target_tcb->context), (void*)&(previous_tcb->context));
 }
 
 /**
