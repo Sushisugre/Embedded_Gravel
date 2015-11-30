@@ -11,6 +11,7 @@
 
 #include <task.h>
 #include <sched.h>
+#include <sched_i.h>
 #include <device.h>
 #include <arm/reg.h>
 #include <arm/psr.h>
@@ -106,7 +107,7 @@ void dev_update(unsigned long millis __attribute__((unused)))
                             // drop the task from sleep queue
                 devices[i].sleep_queue = 0;
                 tcb_t* wakeup = system_tcp[devices[i].sleep_queue->cur_prio];
-                
+
 			    runqueue_add(wakeup, devices[i].sleep_queue->cur_prio);
                 if (devices[i].sleep_queue->cur_prio < get_cur_prio()) {
                     dispatch_save();
