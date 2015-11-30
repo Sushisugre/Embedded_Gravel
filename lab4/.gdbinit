@@ -9,4 +9,4 @@ b allocate_tasks
 b proc.c:task_create
 b ctx_switch_half
 b ctx_switch_full
-b dev_update
+b dev_update if millis==100
