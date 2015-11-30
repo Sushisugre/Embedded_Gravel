@@ -34,17 +34,22 @@ static float u_n_num[64] = {
  */
 void sort_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused))) {
     size_t i, j, k;
-    task_t* temp;
+    task_t temp;
 
     // insertion sort
     for (i = 0; i < num_tasks; i++) {
     	for(j = 0; j < i; j++) {
-    		if((tasks[i]->T) < (tasks[j]->T)) {
-    			temp = tasks[i];
+
+            task_t* task_i = &((task_t*)tasks)[i];
+            task_t* task_j = &((task_t*)tasks)[j];
+
+    		if((task_i->T) < (task_j->T)) {
+
+    			temp = *task_i;
     			for(k = i-1; k >= j; k--) {
-    				tasks[k+1] = tasks[k];
+    				*(&((task_t*)tasks)[k+1]) = *(&((task_t*)tasks)[k]);
     			}
-    			tasks[j] = temp;
+    			*task_j = temp;
     			break;
     		}
     	}
