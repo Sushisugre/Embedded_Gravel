@@ -72,7 +72,8 @@ int assign_schedule(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
 	// do ub test
 	// calculate the result on the left side of the equation
 	for(i = 0; i < num_tasks; i++) {
-		result = result + ((float)(tasks[i]->C))/((float)(tasks[i]->T));
+        task_t* task = &((task_t*)tasks)[i];
+		result = result + ((float)(task->C))/((float)(task->T));
 	}
 
 	// check the value
