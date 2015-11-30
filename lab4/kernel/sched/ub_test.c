@@ -73,7 +73,7 @@ int assign_schedule(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
 	// calculate the result on the left side of the equation
 	for(i = 0; i < num_tasks; i++) {
         task_t task = ((task_t*)tasks)[i];
-		result = result + ((float)(task->C))/((float)(task->T));
+		result = result + ((float)(task.C))/((float)(task.T));
 	}
 
 	// check the value
