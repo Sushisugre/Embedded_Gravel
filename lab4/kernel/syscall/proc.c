@@ -34,15 +34,21 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
         return -EINVAL;
     }
 
+    task_t* task_ptrs[num_tasks];
+    int i;
+    for (i = 0; i < (int)num_tasks; ++i)
+    {
+        task_ptrs[i] = &tasks[i];
+    }
     // check schedulable, 
     // The task list at the end of this method will be sorted in order is priority
     // TODO: update assign_schedule in part2, now it's just a dummy
-    if (!assign_schedule(tasks, num_tasks)){
+    if (!assign_schedule(task_ptrs, num_tasks)){
         enable_interrupts();
         return -ESCHED;
     }
 
-    allocate_tasks(tasks, num_tasks);
+    allocate_tasks(task_ptrs, num_tasks);
 
     /**
      * code should not come here

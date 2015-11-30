@@ -18,7 +18,7 @@
 extern unsigned g_ms_counter; 
 
 void time_driver() {
-  int i;
+  //int i;
 
   // Set the counter register to zero
   reg_write(OSTMR_OSCR_ADDR, 0x0);

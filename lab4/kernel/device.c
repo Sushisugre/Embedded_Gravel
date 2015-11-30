@@ -112,7 +112,6 @@ void dev_update(unsigned long millis __attribute__((unused)))
                     dispatch_save();
                 }
             }
-
 		}
 	}
 }
