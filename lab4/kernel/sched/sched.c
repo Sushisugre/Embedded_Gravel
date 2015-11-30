@@ -91,7 +91,7 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     idle_tcb->context.r5 = 0;
     // user mode stack, top of the user mode stack
     // idle_tcb->context.r6 = (uint32_t) &(g_idle_stack[OS_KSTACK_SIZE/sizeof(uint32_t)]);
-    idle_tcb->context.r7 = (uint32_t) USR_STACK;
+    idle_tcb->context.r6 = (uint32_t) USR_STACK;
     idle_tcb->context.r7 = 0;
     idle_tcb->context.r8 = global_data;
     idle_tcb->context.r9 = 0;
