@@ -15,6 +15,11 @@
 	.file "event_wait.S"
 
 FUNC(event_wait)
+        @disable irq
+        mrs r2, cpsr  
+        orr r2, r2, #PSR_IRQ
+        msr cpsr, r2  
+
         stmfd sp!, {r1-r12, lr}  @ save unbanked register before change mode
         swi  EVENT_WAIT 
         ldr  r1, =errno @ called function doesn't need to keep r0-r3
@@ -33,6 +38,11 @@ FUNC(event_wait)
         @ Store the new value of errno
         str r0, [r4]
         mov r0, #-1
-.return:    
+.return:
+        @ enable irq
+        mrs r2, cpsr  
+        bic r2, r2, #PSR_IRQ
+        msr cpsr, r2  
+
         ldmfd sp!, {r1-r12, lr} 
         mov pc, lr
