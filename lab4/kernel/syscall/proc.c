@@ -48,7 +48,7 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
         return -ESCHED;
     }
 
-    allocate_tasks(tasks, num_tasks);
+    allocate_tasks(task_ptrs, num_tasks);
 
     /**
      * code should not come here
