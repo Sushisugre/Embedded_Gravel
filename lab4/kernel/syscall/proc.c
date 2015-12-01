@@ -25,12 +25,12 @@
 int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
 
-    disable_interrupts();
+    // disable_interrupts();
 
     // check task number
     if (num_tasks <=0 || num_tasks > OS_MAX_TASKS)
     {
-        enable_interrupts();
+        // enable_interrupts();
         return -EINVAL;
     }
 
@@ -38,7 +38,7 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     if(!valid_addr((void *)tasks, num_tasks * sizeof(task_t), 
             (uintptr_t)USR_START_ADDR, (uintptr_t)USR_END_ADDR))
     {
-        enable_interrupts();
+        // enable_interrupts();
         return -EFAULT;
     }
 
@@ -52,10 +52,11 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     // The task list at the end of this method will be sorted in order is priority
     // TODO: update assign_schedule in part2, now it's just a dummy
     if (!assign_schedule(task_ptrs, num_tasks)){
-        enable_interrupts();
+        // enable_interrupts();
         return -ESCHED;
     }
 
+    disable_interrupts();
     allocate_tasks(task_ptrs, num_tasks);
 
     /**
@@ -66,11 +67,15 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
 
 int event_wait(unsigned int dev  __attribute__((unused)))
 {
+    // invalid device num
+    if (dev >= NUM_DEVICES){
+        return -EINVAL;
+    }
+
     // get the tcb of the current task
     dev_wait(dev);
 
     //TODO: You should modify the dev wait for this part to return a EHOLDSLOCK error if a task calls dev wait while holding a lock1
-    
     return 1; 	
 }
 
