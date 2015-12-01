@@ -3,7 +3,7 @@
  * @brief recursively calls task create
  *	    Tests: 1. task_create cancels current task
  *	           2. Timer has at least 10ms granularity
- *		   3. Sleep works properly
+ *		          3. Sleep works properly
  * @note  Dont think this is realted to the OS cyclone
  *
  * @author Tao Yang(taoy)
