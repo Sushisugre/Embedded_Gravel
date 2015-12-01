@@ -49,7 +49,7 @@ void c_swi_handler(unsigned swi_num, unsigned* regs){
         }
         case CREATE_SWI:
         {
-            task_create((task_t*)regs[0], regs[1]);
+            regs[0] = task_create((task_t*)regs[0], regs[1]);
             break;
         }
         case MUTEX_CREATE:
