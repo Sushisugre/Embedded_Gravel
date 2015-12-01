@@ -73,9 +73,9 @@ int event_wait(unsigned int dev  __attribute__((unused)))
     }
 
     // return a EHOLDSLOCK error if a task calls dev wait while holding a lock1
-    if (get_cur_tcb()->holds_lock){
-        return -EHOLDSLOCK;
-    }
+    // if (get_cur_tcb()->holds_lock){
+    //     return -EHOLDSLOCK;
+    // }
 
     // get the tcb of the current task
     dev_wait(dev);
