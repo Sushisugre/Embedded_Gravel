@@ -45,14 +45,14 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     int i;
     for (i = 0; i < (int)num_tasks; ++i)
     {
-        // check tasks user stack in valid address, has correct aligment
+        // check tasks user stack in valid address, 
+        // and has correct aligment
         if(!(valid_addr(tasks[i].stack_pos,
                 (size_t)OS_USTACK_SIZE,
                 USR_START_ADDR, USR_END_ADDR))
             || (size_t)tasks[i].stack_pos % OS_USTACK_ALIGN != 0) {
                 return -EFAULT;
         }
-
 
         task_ptrs[i] = &tasks[i];
     }
@@ -63,6 +63,8 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     }
 
     disable_interrupts();
+
+    // schedule tasks
     allocate_tasks(task_ptrs, num_tasks);
 
     /**
