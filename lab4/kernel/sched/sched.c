@@ -18,6 +18,8 @@
 #include <arm/psr.h>
 #include <arm/exception.h>
 #include <arm/physmem.h>
+#include <device.h>
+#include <lock.h>
 
 tcb_t system_tcb[OS_MAX_TASKS]; /*allocate memory for system TCBs */
 
@@ -52,37 +54,6 @@ void sched_init(task_t* main_task  __attribute__((unused)))
         gtMutex[i].pSleep_queue = 0;
     }
 
-        /**
-     * Setup idle tcb
-     */
-    tcb_t* idle_tcb = &system_tcb[IDLE_PRIO];
-
-    // user entry point, i.e. task function
-    idle_tcb->context.r4 = (uint32_t) &idle;
-    // function argument
-    idle_tcb->context.r5 = 0;
-    // user mode stack, top of the user mode stack
-    // idle_tcb->context.r6 = (uint32_t) &(g_idle_stack[OS_KSTACK_SIZE/sizeof(uint32_t)]);
-    idle_tcb->context.r6 = (uint32_t) USR_STACK;
-    idle_tcb->context.r7 = 0;
-    idle_tcb->context.r8 = global_data;
-    idle_tcb->context.r9 = 0;
-    idle_tcb->context.r10 = 0;
-    idle_tcb->context.r11 = 0;
-    // after first ctx_switch_half, branch to launch_task
-    idle_tcb->context.lr = &launch_task;
-    // initial sp is the high address of kstack in tcb
-    idle_tcb->context.sp = (void*)idle_tcb->kstack_high;
-
-    idle_tcb->native_prio = IDLE_PRIO;
-    idle_tcb->cur_prio = IDLE_PRIO;
-    idle_tcb->holds_lock = 0;
-    idle_tcb->sleep_queue = 0;
-
-    // make idle task run
-    disable_interrupts();
-    dispatch_init(idle_tcb);
-    enable_interrupts();
 }
 
 /**
@@ -134,7 +105,39 @@ void context_init(task_t* task, tcb_t* tcb) {
  */
 void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
-    sched_init();
+    sched_init((task_t*)0);
+
+    /**
+     * Setup idle tcb
+     */
+    tcb_t* idle_tcb = &system_tcb[IDLE_PRIO];
+
+    // user entry point, i.e. task function
+    idle_tcb->context.r4 = (uint32_t) &idle;
+    // function argument
+    idle_tcb->context.r5 = 0;
+    // user mode stack, top of the user mode stack
+    // idle_tcb->context.r6 = (uint32_t) &(g_idle_stack[OS_KSTACK_SIZE/sizeof(uint32_t)]);
+    idle_tcb->context.r6 = (uint32_t) USR_STACK;
+    idle_tcb->context.r7 = 0;
+    idle_tcb->context.r8 = global_data;
+    idle_tcb->context.r9 = 0;
+    idle_tcb->context.r10 = 0;
+    idle_tcb->context.r11 = 0;
+    // after first ctx_switch_half, branch to launch_task
+    idle_tcb->context.lr = &launch_task;
+    // initial sp is the high address of kstack in tcb
+    idle_tcb->context.sp = (void*)idle_tcb->kstack_high;
+
+    idle_tcb->native_prio = IDLE_PRIO;
+    idle_tcb->cur_prio = IDLE_PRIO;
+    idle_tcb->holds_lock = 0;
+    idle_tcb->sleep_queue = 0;
+
+    // make idle task run
+    disable_interrupts();
+    dispatch_init(idle_tcb);
+    enable_interrupts();
 
     /**
      * Setup up passed in tasks
