@@ -25,19 +25,15 @@
 int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
 
-    // disable_interrupts();
-
     // check task number
     if (num_tasks <=0 || num_tasks > OS_MAX_TASKS)
     {
-        // enable_interrupts();
         return -EINVAL;
     }
 
     // cehck tasks stay in valid address
     if(!valid_addr((void *)tasks, num_tasks * sizeof(task_t), 
                 USR_START_ADDR, USR_END_ADDR)){
-        // enable_interrupts();
         return -EFAULT;
     }
 
