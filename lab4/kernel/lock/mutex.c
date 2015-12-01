@@ -88,7 +88,7 @@ int mutex_lock(int mutex  __attribute__((unused)))
                 temp = temp->sleep_queue;
             }
             temp->sleep_queue = get_cur_tcb();
-            
+
             // context switch to another task
             dispatch_save();
         }
@@ -139,7 +139,6 @@ int mutex_unlock(int mutex  __attribute__((unused)))
             // check the wake up task's priority and current running task's priority
             if(highest_prio() < get_cur_prio()) {
                 // switch to the highest task
-                enable_interrupts();
                 dispatch_save();
             } else {
                 // stay the same
