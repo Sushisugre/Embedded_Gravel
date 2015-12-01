@@ -132,8 +132,13 @@ int mutex_unlock(int mutex  __attribute__((unused)))
         } else {
             // if the sleep queue have tasks waiting for the mutex
             // set mutex_t
+
+            // first tcb in sleeping queue gets the mutex
             gtMutex[mutex].pHolding_Tcb = gtMutex[mutex].pSleep_queue;
+            // move the head of mutex sleeping queue to next
             gtMutex[mutex].pSleep_queue = gtMutex[mutex].pSleep_queue->sleep_queue;
+            // clear the sleeping queue of the holding tcb
+            gtMutex[mutex].pHolding_Tcb->sleep_queue = 0;
 
             // put the wake up task into runqueue
             runqueue_add(gtMutex[mutex].pHolding_Tcb, gtMutex[mutex].pHolding_Tcb->cur_prio);
