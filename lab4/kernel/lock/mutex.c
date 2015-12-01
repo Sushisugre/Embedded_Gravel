@@ -79,7 +79,7 @@ int mutex_lock(int mutex  __attribute__((unused)))
             // set lock status and holding tcb
             gtMutex[mutex].bLock = 1;
             gtMutex[mutex].pHolding_Tcb = get_cur_tcb();
-            get_cur_tcb().holds_lock = 1;
+            get_cur_tcb()->holds_lock = 1;
             gtMutex[mutex].pSleep_queue = 0;
             enable_interrupts();
             return 0;
