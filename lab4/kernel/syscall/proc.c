@@ -28,7 +28,7 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     disable_interrupts();
 
     // check task number
-    if (num_tasks <=0 || num_tasks > OS_AVAIL_TASKS)
+    if (num_tasks <=0 || num_tasks > OS_MAX_TASKS)
     {
         enable_interrupts();
         return -EINVAL;

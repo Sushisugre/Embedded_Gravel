@@ -17,6 +17,7 @@
 #include <bits/errno.h>
 #include <arm/psr.h>
 #include <arm/exception.h>
+#include <config.h>
 #ifdef DEBUG_MUTEX
 #include <exports.h> // temp
 #endif
@@ -57,13 +58,15 @@ int mutex_lock(int mutex  __attribute__((unused)))
     
     disable_interrupts();
 
-    // if the provided mutex identifier is invalid
-    if(gtMutex[mutex].bAvailable == TRUE) {
-
+    // if the provided mutex identifier if invalid
+    if(mutex > OS_NUM_MUTEX) {
+        
         enable_interrupts();
         return -EINVAL;
     
-    } else if(gtMutex[mutex].pHolding_Tcb == get_cur_tcb()) {
+    } 
+
+    if(gtMutex[mutex].pHolding_Tcb == get_cur_tcb()) {
 
         // if the current task is already holding the lock
         enable_interrupts();
@@ -103,12 +106,14 @@ int mutex_unlock(int mutex  __attribute__((unused)))
     disable_interrupts();
 
     // if the provided mutex identifier if invalid
-    if(gtMutex[mutex].bAvailable == TRUE) {
+    if(mutex > OS_NUM_MUTEX) {
         
         enable_interrupts();
         return -EINVAL;
     
-    } else if(gtMutex[mutex].pHolding_Tcb != get_cur_tcb()) {
+    } 
+
+    if(gtMutex[mutex].pHolding_Tcb != get_cur_tcb()) {
         
         // if the urrent task does not hold the mutex
         enable_interrupts();
