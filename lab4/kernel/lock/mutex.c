@@ -59,7 +59,8 @@ int mutex_lock(int mutex  __attribute__((unused)))
     disable_interrupts();
 
     // if the provided mutex identifier if invalid
-    if(mutex > OS_NUM_MUTEX) {
+    if(mutex > OS_NUM_MUTEX ||
+            gtMutex[mutex].bAvailable == TRUE) {
         
         enable_interrupts();
         return -EINVAL;
@@ -90,7 +91,7 @@ int mutex_lock(int mutex  __attribute__((unused)))
             temp->sleep_queue = get_cur_tcb();
 
             // context switch to another task
-            dispatch_save();
+            dispatch_sleep();
         }
     }
 
@@ -105,7 +106,8 @@ int mutex_unlock(int mutex  __attribute__((unused)))
     disable_interrupts();
 
     // if the provided mutex identifier if invalid
-    if(mutex > OS_NUM_MUTEX) {
+    if(mutex > OS_NUM_MUTEX
+            || gtMutex[mutex].bAvailable == TRUE) {
         
         enable_interrupts();
         return -EINVAL;
