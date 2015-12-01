@@ -49,7 +49,7 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
         if(!(valid_addr(tasks[i].stack_pos,
                 (size_t)OS_USTACK_SIZE,
                 USR_START_ADDR, USR_END_ADDR))
-            || tasks[i].stack_pos % OS_USTACK_ALIGN != 0) {
+            || (size_t)tasks[i].stack_pos % OS_USTACK_ALIGN != 0) {
                 return -EFAULT;
         }
 
