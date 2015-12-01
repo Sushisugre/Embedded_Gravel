@@ -23,10 +23,7 @@
 
 tcb_t system_tcb[OS_MAX_TASKS]; /*allocate memory for system TCBs */
 
-/**
- *  idle stack which will be placed in the data section
- */
-uint32_t g_idle_stack[OS_KSTACK_SIZE/sizeof(uint32_t)];
+extern mutex_t gtMutex[OS_NUM_MUTEX];
 
 /**
  * This method will be called before allocating new tasks
