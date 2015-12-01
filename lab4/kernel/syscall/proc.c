@@ -26,28 +26,39 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
 {
 
     // check task number
-    if (num_tasks <=0 || num_tasks > OS_MAX_TASKS)
+    // reserve the lowest priority task for idle
+    // reserve the highest priority for part 2
+    // only 62 can be real tasks
+    if (num_tasks <=0 || num_tasks > OS_AVAIL_TASKS - 1)
     {
         return -EINVAL;
     }
 
-    // cehck tasks stay in valid address
+    // check tasks stay in valid address
     if(!valid_addr((void *)tasks, num_tasks * sizeof(task_t), 
                 USR_START_ADDR, USR_END_ADDR)){
         return -EFAULT;
     }
 
+    // array of task pointers
     task_t* task_ptrs[num_tasks];
     int i;
     for (i = 0; i < (int)num_tasks; ++i)
     {
+        // check tasks user stack in valid address, has correct aligment
+        if(!(valid_addr(tasks[i].stack_pos,
+                (size_t)OS_USTACK_SIZE,
+                USR_START_ADDR, USR_END_ADDR))
+            || tasks[i].stack_pos % OS_USTACK_ALIGN != 0) {
+                return -EFAULT;
+        }
+
+
         task_ptrs[i] = &tasks[i];
     }
     // check schedulable, 
     // The task list at the end of this method will be sorted in order is priority
-    // TODO: update assign_schedule in part2, now it's just a dummy
     if (!assign_schedule(task_ptrs, num_tasks)){
-        // enable_interrupts();
         return -ESCHED;
     }
 
