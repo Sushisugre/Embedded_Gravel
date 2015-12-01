@@ -107,7 +107,7 @@ int mutex_lock(int mutex  __attribute__((unused)))
     }
 
     // the function cannot get here
-    return 1; // fix this to return the correct value
+    return 1; 
 }
 
 int mutex_unlock(int mutex  __attribute__((unused)))
@@ -170,6 +170,5 @@ int mutex_unlock(int mutex  __attribute__((unused)))
     }
 
     // the function will not get here
-	return 1; // fix this to return the correct value
-}
+	return 1; 
 
