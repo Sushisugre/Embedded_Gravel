@@ -58,8 +58,8 @@ ASFLAGS = -nostdinc -Wall -Wextra -Werror -DASSEMBLER -g
 KLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(KLOAD_ADDR) -g
 TLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(TLOAD_ADDR) -g
 
-KINCLUDES = -I$(UDIR)/include -I$(KDIR)/include
-TINCLUDES = -I$(TLIBCDIR)/include
+KINCLUDES = -I$(UDIR)/include -I$(KDIR)/include -g
+TINCLUDES = -I$(TLIBCDIR)/include -g
 
 ########### SUBFOLDER INCLUDES ##################
 
