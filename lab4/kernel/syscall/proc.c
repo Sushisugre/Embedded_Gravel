@@ -36,8 +36,7 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
 
     // cehck tasks stay in valid address
     if(!valid_addr((void *)tasks, num_tasks * sizeof(task_t), 
-            (uintptr_t)USR_START_ADDR, (uintptr_t)USR_END_ADDR))
-    {
+                USR_START_ADDR, USR_END_ADDR)){
         // enable_interrupts();
         return -EFAULT;
     }
@@ -46,6 +45,12 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     int i;
     for (i = 0; i < (int)num_tasks; ++i)
     {
+
+        if(!(valid_addr(tasks[i].stack_pos, (size_t)OS_USTACK_SIZE,
+                    USR_START_ADDR, USR_END_ADDR))){
+            return -EFAULT;
+        }
+
         task_ptrs[i] = &tasks[i];
     }
     // check schedulable, 
