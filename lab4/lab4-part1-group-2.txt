@@ -77,7 +77,7 @@ TEST END!
 
 ############### simple_mutex.bin ###############
 
-
+suces!
 
 ############### mutex_chaser.bin ###############
 

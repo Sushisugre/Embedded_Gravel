@@ -49,7 +49,7 @@ int mutex_create(void)
     }
 
     // if there is no available mutex, return error
-	return -ENOMEM; // fix this to return the correct value
+	return -ENOMEM; 
 }
 
 int mutex_lock(int mutex  __attribute__((unused)))
@@ -88,8 +88,7 @@ int mutex_lock(int mutex  __attribute__((unused)))
                 temp = temp->sleep_queue;
             }
             temp->sleep_queue = get_cur_tcb();
-            enable_interrupts();
-
+            
             // context switch to another task
             dispatch_save();
         }
