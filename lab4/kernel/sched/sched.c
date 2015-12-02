@@ -46,7 +46,7 @@ void sched_init(task_t* main_task  __attribute__((unused)))
     {
         // don't change the bAvailable flag
         // what is created, is created
-        // for the case which mutex is created before tasks
+        // for the case which mutexes are created before tasks
         gtMutex[i].pHolding_Tcb = 0;
         gtMutex[i].bLock = 0;
         gtMutex[i].pSleep_queue = 0;

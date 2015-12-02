@@ -171,4 +171,5 @@ int mutex_unlock(int mutex  __attribute__((unused)))
 
     // the function will not get here
 	return 1; 
+}
 
