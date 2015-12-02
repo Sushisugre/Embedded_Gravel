@@ -13,9 +13,6 @@
 #include <syscall.h>
 #include <lock.h>
 
-
-#define E_BADCODE 0x0badc0de
-
 /* Dispatch the syscall to different lib function according to swi_num
  swi number and pointer to the register value on stack is passed from assembly swi handler */
 void c_swi_handler(unsigned swi_num, unsigned* regs){
@@ -49,7 +46,7 @@ void c_swi_handler(unsigned swi_num, unsigned* regs){
         }
         case CREATE_SWI:
         {
-            task_create((task_t*)regs[0], regs[1]);
+            regs[0] = task_create((task_t*)regs[0], regs[1]);
             break;
         }
         case MUTEX_CREATE:

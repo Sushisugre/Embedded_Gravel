@@ -1,0 +1,221 @@
+Test outputs
+
+
+############### dagger.bin ###############
+
+@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<@@<QEMU: Terminated
+
+############### cyclone.bin ###############
+
+Test begin
+Time now is 10
+Time now is 30
+Time now is 60
+Time now is 100
+Time now is 150
+Time now is 210
+Time now is 280
+Time now is 360
+Time now is 450
+Time now is 550
+Time now is 660
+Time now is 780
+Time now is 910
+Time now is 1050
+Time now is 1200
+Time now is 1360
+Time now is 1530
+Time now is 1710
+Time now is 1900
+Time now is 2100
+Time now is 2310
+Time now is 2530
+Time now is 2760
+Time now is 3000
+Time now is 3250
+Time now is 3510
+Time now is 3780
+Time now is 4060
+Time now is 4350
+Time now is 4650
+Test ends!!
+
+############### sys_err.bin ###############
+
+1. Test create return EINVAL
+        SUCCESS ****************
+
+2. Test create return EFAULT
+        SUCCESS ****************
+
+3. Mutex Create returns ENOMEM
+        SUCCESS ****************
+
+4. Mutex Unlock return EINVAL
+        SUCCESS ****************
+
+5. Mutex Unlock return EPERM
+        SUCCESS ****************
+
+6. Mutex Lock return EINVAL
+        SUCCESS ****************
+
+7. Mutex Lock return success
+        SUCCESS ****************
+
+8. Mutex Lock return EDEADLOCK
+        SUCCESS ****************
+
+9. Mutex Unlock return success
+        SUCCESS ****************
+
+10. Event Wait return EINVAL
+        SUCCESS ****************
+
+TEST END!
+
+
+############### simple_mutex.bin ###############
+
+suces!
+
+############### mutex_chaser.bin ###############
+
+
+
+############### stress.bin ###############
+
+Time is now 15620
+Time is now 15640
+Time is now 15650
+Time is now 15670
+Time is now 15690
+Time is now 15700
+Time is now 15720
+Time is now 15760
+Time is now 15800
+Time is now 15800
+Time is now 15900
+Time is now 15900
+Time is now 15910
+Time is now 16000
+Time is now 16000
+Time is now 16010
+Time is now 16020
+Time is now 16030
+Time is now 16040
+Time is now 16050
+Time is now 16070
+Time is now 16090
+Time is now 16100
+Time is now 16100
+Time is now 16110
+Time is now 16140
+Time is now 16200
+Time is now 16200
+Time is now 16210
+Time is now 16220
+Time is now 16230
+Time is now 16240
+Time is now 16260
+Time is now 16290
+Time is now 16300
+Time is now 16400
+Time is now 16400
+Time is now 16410
+Time is now 16420
+Time is now 16500
+Time is now 16500
+Time is now 16510
+Time is now 16520
+Time is now 16530
+Time is now 16550
+Time is now 16590
+Time is now 16600
+Time is now 16600
+Time is now 16700
+Time is now 16800
+Time is now 16800
+Time is now 16810
+Time is now 16820
+Time is now 16830
+Time is now 16840
+Time is now 16850
+Time is now 16860
+Time is now 16880
+Time is now 16900
+Time is now 16900
+Time is now 16920
+Time is now 16940
+Time is now 16970
+Time is now 17000
+Time is now 17000
+Time is now 17010
+Time is now 17030
+Time is now 17040
+Time is now 17060
+Time is now 17100
+Time is now 17100
+Time is now 17110
+Time is now 17120
+Time is now 17140
+Time is now 17190
+Time is now 17200
+Time is now 17200
+Time is now 17210
+Time is now 17220
+Time is now 17270
+Time is now 17300
+Time is now 17400
+Time is now 17400
+Time is now 17410
+Time is now 17420
+Time is now 17430
+Time is now 17460
+Time is now 17500
+Time is now 17500
+Time is now 17510
+Time is now 17520
+Time is now 17550
+Time is now 17600
+Time is now 17600
+Time is now 17610
+Time is now 17620
+Time is now 17630
+Time is now 17640
+Time is now 17660
+Time is now 17690
+Time is now 17700
+Time is now 17700
+Time is now 17740
+Time is now 17800
+Time is now 17800
+Time is now 17900
+Time is now 18000
+Time is now 18000
+Time is now 18010
+Time is now 18020
+Time is now 18030
+Time is now 18040
+Time is now 18050
+Time is now 18060
+Time is now 18070
+Time is now 18090
+Time is now 18100
+Time is now 18110
+Time is now 18130
+Time is now 18150
+Time is now 18180
+Time is now 18200
+Time is now 18200
+Time is now 18210
+Time is now 18220
+Time is now 18240
+Time is now 18260
+Time is now 18290
+Time is now 18300
+Time is now 18300
+*********** Test PASSED *******************
+*********** Test PASSED *******************
+*********** Test PASSED *******************
+

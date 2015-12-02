@@ -17,6 +17,7 @@
 #include <bits/errno.h>
 #include <arm/psr.h>
 #include <arm/exception.h>
+#include <config.h>
 #ifdef DEBUG_MUTEX
 #include <exports.h> // temp
 #endif
@@ -48,7 +49,7 @@ int mutex_create(void)
     }
 
     // if there is no available mutex, return error
-	return -ENOMEM; // fix this to return the correct value
+	return -ENOMEM; 
 }
 
 int mutex_lock(int mutex  __attribute__((unused)))
@@ -57,13 +58,16 @@ int mutex_lock(int mutex  __attribute__((unused)))
     
     disable_interrupts();
 
-    // if the provided mutex identifier is invalid
-    if(gtMutex[mutex].bAvailable == TRUE) {
-
+    // if the provided mutex identifier if invalid
+    if(mutex > OS_NUM_MUTEX ||
+            gtMutex[mutex].bAvailable == TRUE) {
+        
         enable_interrupts();
         return -EINVAL;
     
-    } else if(gtMutex[mutex].pHolding_Tcb == get_cur_tcb()) {
+    } 
+
+    if(gtMutex[mutex].pHolding_Tcb == get_cur_tcb()) {
 
         // if the current task is already holding the lock
         enable_interrupts();
@@ -75,25 +79,35 @@ int mutex_lock(int mutex  __attribute__((unused)))
             // set lock status and holding tcb
             gtMutex[mutex].bLock = 1;
             gtMutex[mutex].pHolding_Tcb = get_cur_tcb();
+            get_cur_tcb()->holds_lock = 1;
+            gtMutex[mutex].pSleep_queue = 0;
             enable_interrupts();
             return 0;
+
         } else {
             // if the lock is been locked
             // move the current tack to mutex sleeping queue
             temp = gtMutex[mutex].pSleep_queue;
-            while((temp->sleep_queue) != 0) {
-                temp = temp->sleep_queue;
+
+            if (temp == 0)
+            {
+                gtMutex[mutex].pSleep_queue = get_cur_tcb();
+            } else {
+
+                while((temp->sleep_queue) != 0) {
+                    temp = temp->sleep_queue;
+                }
+                temp->sleep_queue = get_cur_tcb();
             }
-            temp->sleep_queue = get_cur_tcb();
-            enable_interrupts();
+
 
             // context switch to another task
-            dispatch_save();
+            dispatch_sleep();
         }
     }
 
     // the function cannot get here
-    return 1; // fix this to return the correct value
+    return 1; 
 }
 
 int mutex_unlock(int mutex  __attribute__((unused)))
@@ -103,12 +117,15 @@ int mutex_unlock(int mutex  __attribute__((unused)))
     disable_interrupts();
 
     // if the provided mutex identifier if invalid
-    if(gtMutex[mutex].bAvailable == TRUE) {
+    if(mutex > OS_NUM_MUTEX
+            || gtMutex[mutex].bAvailable == TRUE) {
         
         enable_interrupts();
         return -EINVAL;
     
-    } else if(gtMutex[mutex].pHolding_Tcb != get_cur_tcb()) {
+    } 
+
+    if(gtMutex[mutex].pHolding_Tcb != get_cur_tcb()) {
         
         // if the urrent task does not hold the mutex
         enable_interrupts();
@@ -116,6 +133,7 @@ int mutex_unlock(int mutex  __attribute__((unused)))
     
     } else {
         temp = gtMutex[mutex].pHolding_Tcb;
+        temp->holds_lock = 0;
 
         // if there is no element in sleep queue
         if(gtMutex[mutex].pSleep_queue == 0) {
@@ -124,19 +142,25 @@ int mutex_unlock(int mutex  __attribute__((unused)))
             enable_interrupts();
             return 0;
         } else {
-            // if the sleep queue have tasks waiting for the mutex
-            // set mutex_t
-            gtMutex[mutex].pHolding_Tcb = gtMutex[mutex].pSleep_queue;
-            gtMutex[mutex].pSleep_queue = gtMutex[mutex].pSleep_queue->sleep_queue;
 
+            // if the sleep queue have tasks waiting for the mutex
+
+            // first tcb in sleeping queue gets the mutex
+            gtMutex[mutex].pHolding_Tcb = gtMutex[mutex].pSleep_queue;
+            // move the head of mutex sleeping queue to next
+            gtMutex[mutex].pSleep_queue = gtMutex[mutex].pSleep_queue->sleep_queue;
+            // clear the sleeping queue of the holding tcb
+            gtMutex[mutex].pHolding_Tcb->sleep_queue = 0;
+
+            gtMutex[mutex].pHolding_Tcb->holds_lock = 1;
             // put the wake up task into runqueue
             runqueue_add(gtMutex[mutex].pHolding_Tcb, gtMutex[mutex].pHolding_Tcb->cur_prio);
         
             // check the wake up task's priority and current running task's priority
             if(highest_prio() < get_cur_prio()) {
                 // switch to the highest task
-                enable_interrupts();
                 dispatch_save();
+
             } else {
                 // stay the same
                 enable_interrupts();
@@ -146,6 +170,6 @@ int mutex_unlock(int mutex  __attribute__((unused)))
     }
 
     // the function will not get here
-	return 1; // fix this to return the correct value
+	return 1; 
 }
 

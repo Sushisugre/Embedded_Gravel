@@ -18,16 +18,39 @@
 #include <arm/psr.h>
 #include <arm/exception.h>
 #include <arm/physmem.h>
+#include <device.h>
+#include <lock.h>
 
 tcb_t system_tcb[OS_MAX_TASKS]; /*allocate memory for system TCBs */
 
-/**
- *  idle stack which will be placed in the data section
- */
-uint32_t g_idle_stack[OS_KSTACK_SIZE/sizeof(uint32_t)];
+extern mutex_t gtMutex[OS_NUM_MUTEX];
 
+/**
+ * This method will be called before allocating new tasks
+ * clear previous tasks and their status 
+ */
 void sched_init(task_t* main_task  __attribute__((unused)))
 {
+    // don't really understand the parameter 
+    // not used here
+    
+    // clear runbits
+    runqueue_init();
+
+    // intitalte devices
+    dev_init();
+
+    // clear mutex holding
+    int i;
+    for (i = 0; i < OS_NUM_MUTEX; i++)
+    {
+        // don't change the bAvailable flag
+        // what is created, is created
+        // for the case which mutexes are created before tasks
+        gtMutex[i].pHolding_Tcb = 0;
+        gtMutex[i].bLock = 0;
+        gtMutex[i].pSleep_queue = 0;
+    }
 
 }
 
@@ -80,6 +103,8 @@ void context_init(task_t* task, tcb_t* tcb) {
  */
 void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
+    sched_init((task_t*)0);
+
     /**
      * Setup idle tcb
      */

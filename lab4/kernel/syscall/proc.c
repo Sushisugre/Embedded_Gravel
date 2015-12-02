@@ -25,29 +25,46 @@
 int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
 
-    disable_interrupts();
-
     // check task number
-    if (num_tasks <=0 || num_tasks > OS_AVAIL_TASKS)
+    // reserve the lowest priority task for idle
+    // reserve the highest priority for part 2
+    // only 62 can be real tasks
+    if (num_tasks <=0 || num_tasks > OS_AVAIL_TASKS - 1)
     {
-        enable_interrupts();
         return -EINVAL;
     }
 
-    task_t* task_ptrs[num_tasks];
+    // check tasks stay in valid address
+    if(!valid_addr((void *)tasks, num_tasks * sizeof(task_t), 
+                USR_START_ADDR, USR_END_ADDR)){
+        return -EFAULT;
+    }
+
+    // array of task pointers
+    task_t* task_ptrs[OS_MAX_TASKS];
     int i;
     for (i = 0; i < (int)num_tasks; ++i)
     {
+        // check tasks user stack in valid address, 
+        // and has correct aligment
+        if(!(valid_addr(tasks[i].stack_pos,
+                (size_t)OS_USTACK_SIZE,
+                USR_START_ADDR, USR_END_ADDR))
+            || (size_t)tasks[i].stack_pos % OS_USTACK_ALIGN != 0) {
+                return -EFAULT;
+        }
+
         task_ptrs[i] = &tasks[i];
     }
     // check schedulable, 
     // The task list at the end of this method will be sorted in order is priority
-    // TODO: update assign_schedule in part2, now it's just a dummy
     if (!assign_schedule(task_ptrs, num_tasks)){
-        enable_interrupts();
         return -ESCHED;
     }
 
+    disable_interrupts();
+
+    // schedule tasks
     allocate_tasks(task_ptrs, num_tasks);
 
     /**
@@ -58,11 +75,19 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
 
 int event_wait(unsigned int dev  __attribute__((unused)))
 {
+    // invalid device num
+    if (dev >= NUM_DEVICES){
+        return -EINVAL;
+    }
+
+    // return a EHOLDSLOCK error if a task calls dev wait while holding a lock1
+    // if (get_cur_tcb()->holds_lock){
+    //     return -EHOLDSLOCK;
+    // }
+
     // get the tcb of the current task
     dev_wait(dev);
 
-    //TODO: You should modify the dev wait for this part to return a EHOLDSLOCK error if a task calls dev wait while holding a lock1
-    
     return 1; 	
 }
 
