@@ -44,7 +44,7 @@ void panic(const char* str)
 //dev3
 void fun1(void* str)
 {
-    int cur_mutex=1;
+    int cur_mutex=0;
  	str = str;   
 	while(cur_mutex<MUTEX_NUM){
         putchar((int)str);
