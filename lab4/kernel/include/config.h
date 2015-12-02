@@ -22,6 +22,7 @@
 #define USR_END_ADDR          0xa3000000
 
 #define OS_KSTACK_SIZE        4096
+#define OS_USTACK_SIZE        4096
 #define OS_USTACK_ALIGN       1024
 
 /* OS_MAX_TASKS must be atleast 8 and must be atmost 64 */

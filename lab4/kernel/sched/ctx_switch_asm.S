@@ -56,5 +56,5 @@ FUNC(ctx_switch_half)
 	@ which is launch_task when task launched for the first time
 	@ thus it branch to launch_task and execute task function
 	@ -- After the first launch:
-	@ lr should store a address in task function
+	@ lr should store the address to return to after context switch back 
 	mov 	pc, lr

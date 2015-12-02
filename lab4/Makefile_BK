@@ -14,7 +14,7 @@ MAKEFLAGS += -rR
 # Make sure there are no name clashes.  Add new ones here if you make your own
 # tests (which I recommend you do).
 
-PACKAGES = dagger sys_err simple_mutex cyclone mutex_chaser stress
+PACKAGES = dagger typo
 
 .PHONY: all package clean clobber $(PACKAGES)
 all: package kernel
@@ -58,8 +58,8 @@ ASFLAGS = -nostdinc -Wall -Wextra -Werror -DASSEMBLER -g
 KLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(KLOAD_ADDR) -g
 TLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(TLOAD_ADDR) -g
 
-KINCLUDES = -I$(UDIR)/include -I$(KDIR)/include -g
-TINCLUDES = -I$(TLIBCDIR)/include -g
+KINCLUDES = -I$(UDIR)/include -I$(KDIR)/include
+TINCLUDES = -I$(TLIBCDIR)/include
 
 ########### SUBFOLDER INCLUDES ##################
 
