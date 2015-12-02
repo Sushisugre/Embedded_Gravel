@@ -17,7 +17,7 @@
  * the array to store the u(n) value of the ub test
  * for better performance
  */ 
-static float u_n_num[64] = {
+static double u_n_num[64] = {
 	1.000, 0.828, 0.780, 0.757, 0.743, 0.735, 0.729, 0.724,
 	0.721, 0.718, 0.715, 0.714, 0.712, 0.711, 0.709, 0.708, 
 	0.707, 0.707, 0.706, 0.705, 0.705, 0.704, 0.704, 0.703, 
@@ -33,11 +33,11 @@ static float u_n_num[64] = {
  * @param tasks An array of task pointers containing the task set to schedule.
  */
 void sort_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused))) {
-    size_t i, j, k;
+    int i, j, k;
     task_t* temp;
 
     // insertion sort
-    for (i = 0; i < num_tasks; i++) {
+    for (i = 0; i < (int)num_tasks; i++) {
         for(j = 0; j < i; j++) {
             if((tasks[i]->T) < (tasks[j]->T)) {
                 temp = tasks[i];
@@ -66,13 +66,13 @@ void sort_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __att
  */
 int assign_schedule(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
-    size_t i;
-    float result = 0;
+    int i;
+    double result = 0;
 
     // do ub test
     // calculate the result on the left side of the equation
-    for(i = 0; i < num_tasks; i++) {
-        result = result + ((float)(tasks[i]->C))/((float)(tasks[i]->T));
+    for(i = 0; i < (int)num_tasks; i++) {
+        result = result + ((double)(tasks[i]->C))/((double)(tasks[i]->T));
     }
 
     // check the value
