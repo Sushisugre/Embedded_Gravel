@@ -41,7 +41,7 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     }
 
     // array of task pointers
-    task_t* task_ptrs[num_tasks];
+    task_t* task_ptrs[OS_MAX_TASKS];
     int i;
     for (i = 0; i < (int)num_tasks; ++i)
     {
