@@ -1,0 +1,230 @@
+Yes!
+
+1>>mutex 0
+2>>mutex 0
+3>>mutex 0
+4>>mutex 0
+2>>mutex 1
+2>>mutex 2
+3>>mutex 1
+2>>mutex 3
+4>>mutex 1
+2>>mutex 4
+3>>mutex 2
+1>>mutex 1
+2>>mutex 5
+2>>mutex 6
+3>>mutex 3
+4>>mutex 2
+2>>mutex 7
+2>>mutex 8
+3>>mutex 4
+1>>mutex 2
+2>>mutex 9
+4>>mutex 3
+2>>mutex 10
+3>>mutex 5
+2>>mutex 11
+2>>mutex 12
+3>>mutex 6
+4>>mutex 4
+1>>mutex 3
+2>>mutex 13
+2>>mutex 14
+3>>mutex 7
+2>>mutex 15
+4>>mutex 5
+2>>mutex 16
+3>>mutex 8
+1>>mutex 4
+2>>mutex 17
+2>>mutex 18
+3>>mutex 9
+4>>mutex 6
+2>>mutex 19
+2>>mutex 20
+3>>mutex 10
+1>>mutex 5
+2>>mutex 21
+4>>mutex 7
+2>>mutex 22
+3>>mutex 11
+2>>mutex 23
+2>>mutex 24
+3>>mutex 12
+4>>mutex 8
+1>>mutex 6
+2>>mutex 25
+2>>mutex 26
+3>>mutex 13
+2>>mutex 27
+4>>mutex 9
+2>>mutex 28
+3>>mutex 14
+1>>mutex 7
+2>>mutex 29
+2>>mutex 30
+3>>mutex 15
+4>>mutex 10
+2>>mutex 31
+3>>mutex 16
+1>>mutex 8
+4>>mutex 11
+3>>mutex 17
+3>>mutex 18
+4>>mutex 12
+1>>mutex 9
+3>>mutex 19
+4>>mutex 13
+3>>mutex 20
+1>>mutex 10
+3>>mutex 21
+4>>mutex 14
+3>>mutex 22
+1>>mutex 11
+4>>mutex 15
+3>>mutex 23
+3>>mutex 24
+4>>mutex 16
+1>>mutex 12
+3>>mutex 25
+4>>mutex 17
+3>>mutex 26
+1>>mutex 13
+3>>mutex 27
+4>>mutex 18
+3>>mutex 28
+1>>mutex 14
+4>>mutex 19
+3>>mutex 29
+3>>mutex 30
+4>>mutex 20
+1>>mutex 15
+3>>mutex 31
+4>>mutex 21
+1>>mutex 16
+4>>mutex 22
+1>>mutex 17
+4>>mutex 23
+4>>mutex 24
+1>>mutex 18
+4>>mutex 25
+1>>mutex 19
+4>>mutex 26
+1>>mutex 20
+4>>mutex 27
+4>>mutex 28
+1>>mutex 21
+4>>mutex 29
+1>>mutex 22
+4>>mutex 30
+1>>mutex 23
+4>>mutex 31
+Final mutex0 value 624 == result value 624
+Yes!
+
+Final mutex1 value 198 == result value 624
+No!
+
+Final mutex2 value 198 == result value 624
+No!
+
+Final mutex3 value 198 == result value 624
+No!
+
+Final mutex4 value 198 == result value 624
+No!
+
+Final mutex5 value 198 == result value 624
+No!
+
+Final mutex6 value 198 == result value 624
+No!
+
+Final mutex7 value 198 == result value 624
+No!
+
+Final mutex8 value 198 == result value 624
+No!
+
+Final mutex9 value 198 == result value 624
+No!
+
+Final mutex10 value 198 == result value 624
+No!
+
+Final mutex11 value 198 == result value 624
+No!
+
+Final mutex12 value 198 == result value 624
+No!
+
+Final mutex13 value 198 == result value 624
+No!
+
+Final mutex14 value 198 == result value 624
+No!
+
+Final mutex15 value 198 == result value 624
+No!
+
+Final mutex16 value 198 == result value 624
+No!
+
+Final mutex17 value 198 == result value 624
+No!
+
+Final mutex18 value 198 == result value 624
+No!
+
+Final mutex19 value 198 == result value 624
+No!
+
+Final mutex20 value 198 == result value 624
+No!
+
+Final mutex21 value 198 == result value 624
+No!
+
+Final mutex22 value 198 == result value 624
+No!
+
+Final mutex23 value 198 == result value 624
+No!
+
+Final mutex24 value 195 == result value 624
+No!
+
+Final mutex25 value 195 == result value 624
+No!
+
+Final mutex26 value 195 == result value 624
+No!
+
+Final mutex27 value 195 == result value 624
+No!
+
+Final mutex28 value 195 == result value 624
+No!
+
+Final mutex29 value 195 == result value 624
+No!
+
+Final mutex30 value 195 == result value 624
+No!
+
+Final mutex31 value 195 == result value 61>>mutex 24
+24
+No!
+
+TEST PASSED SUCCESSFULLY!
+
+1>>mutex 25
+1>>mutex 26
+1>>mutex 27
+1>>mutex 28
+1>>mutex 29
+1>>mutex 30
+1>>mutex 31
+QEMU: Terminated
+s4keng@s4keng-VirtualBox:~/Downloads$ 
