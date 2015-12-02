@@ -26,7 +26,7 @@
 #define NO_STR  "\033[31;1mNo!\033[0m\n"
 #define TEST_DONE "\033[32;1mTEST PASSED SUCCESSFULLY!\033[0m\n"
 
-//order of operations: ((init_val+3)*11-7)*13=61
+//order of operations: ((init_val+3)*11-7)*13=624
 static int fun1_opval=3;
 static int fun2_opval=11;
 static int fun3_opval=7;
@@ -41,7 +41,7 @@ void panic(const char* str)
 	puts(str);
 	while(1);
 }
-//dev3
+//dev3   +3
 void fun1(void* str)
 {
     int cur_mutex=0;
@@ -68,7 +68,7 @@ void fun1(void* str)
         if (event_wait(3) < 0)
             panic("Dev 3 failed");
 }
-//dev0
+//dev0  *11
 void fun2(void* str)
 {
     int cur_mutex=0;
@@ -90,7 +90,7 @@ void fun2(void* str)
         if (event_wait(0) < 0)
             panic("Dev 0 failed");
 }
-//dev1
+//dev1   -7
 void fun3(void* str)
 {
     int cur_mutex=0;
@@ -112,7 +112,7 @@ void fun3(void* str)
         if (event_wait(1) < 0)
             panic("Dev 1 failed");
 }
-//dev2
+//dev2  *13
 void fun4(void* str)
 {
     int cur_mutex=0,i=0,m_val;
