@@ -61,7 +61,7 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
         return -ESCHED;
     }
 
-    disable_interrupts();
+    // disable_interrupts();
 
     // schedule tasks
     allocate_tasks(task_ptrs, num_tasks);
