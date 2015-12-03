@@ -52,14 +52,14 @@ CWARNINGS_SAFE = -Wall -Wno-unused-parameter -Wextra -Wpointer-arith \
 CWARNINGS =  $(CWARNINGS_SAFE)
 CWARNINGS1 = $(CWARNINGS_SAFE) $(CWARNINGS_NOISY)
 
-KCFLAGS = -Os -ffreestanding -ffixed-r8 -nostdinc $(CWARNINGS) -g
-TCFLAGS = -Os -ffreestanding -nostdinc $(CWARNINGS) -g
-ASFLAGS = -nostdinc -Wall -Wextra -Werror -DASSEMBLER -g
-KLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(KLOAD_ADDR) -g
-TLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(TLOAD_ADDR) -g
+KCFLAGS = -Os -ffreestanding -ffixed-r8 -nostdinc $(CWARNINGS)
+TCFLAGS = -Os -ffreestanding -nostdinc $(CWARNINGS)
+ASFLAGS = -nostdinc -Wall -Wextra -Werror -DASSEMBLER
+KLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(KLOAD_ADDR)
+TLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(TLOAD_ADDR)
 
-KINCLUDES = -I$(UDIR)/include -I$(KDIR)/include -g
-TINCLUDES = -I$(TLIBCDIR)/include -g
+KINCLUDES = -I$(UDIR)/include -I$(KDIR)/include
+TINCLUDES = -I$(TLIBCDIR)/include
 
 ########### SUBFOLDER INCLUDES ##################
 

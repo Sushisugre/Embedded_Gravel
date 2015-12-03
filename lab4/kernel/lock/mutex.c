@@ -19,7 +19,7 @@
 #include <arm/exception.h>
 #include <config.h>
 #ifdef DEBUG_MUTEX
-#include <exports.h> // temp
+#include <exports.h> 
 #endif
 
 mutex_t gtMutex[OS_NUM_MUTEX];
@@ -93,13 +93,12 @@ int mutex_lock(int mutex  __attribute__((unused)))
             {
                 gtMutex[mutex].pSleep_queue = get_cur_tcb();
             } else {
-
+                // put current tcb at the end of the mutex sleeping queue
                 while((temp->sleep_queue) != 0) {
                     temp = temp->sleep_queue;
                 }
                 temp->sleep_queue = get_cur_tcb();
             }
-
 
             // context switch to another task
             dispatch_sleep();

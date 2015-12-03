@@ -13,8 +13,8 @@
 
     .file   "enter_user_mode.S"
     .text
-    .equ user_mode_code, 0x10  @ eable irq in user mode
-    .equ svc_mode_code, 0x13   @ enable irq in svc mode
+    .equ user_mode_code, 0x10  @ eable irq, fiq in user mode
+    .equ svc_mode_code, 0x13   @ enable irq, fiq in svc mode
     .equ null, 0x0
 
 FUNC(enter_user_mode)
