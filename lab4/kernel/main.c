@@ -103,7 +103,7 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     
     // init mutex here for mutex may be created before any tasks
     mutex_init();
-    dev_init();
+    // dev_init();
 
     init_timer();
 
