@@ -34,8 +34,8 @@
   
 %\newpage
 
-\section{Workflow}
-\subsection{Kernel Initiation}
+%\section{Workflow}
+\section{Kernel Initiation}
 \begin{itemize}
 	\setlength{\itemsep}{1pt}
 	\setlength{\parskip}{0pt}
@@ -43,10 +43,15 @@
 	\item Store the value of r8 (uboot function table) to global variable {\it global\_data}
 	\item Wire in SWI/IRQ handler
 	\item Set up IRQ stack\\
-		A chuck of memory is allocated for IRQ stack in data section as the global variable array {\it g\_irq\_stack}, we don't need to specified its location explicitly and worry about it will be clobbered by code or stack. Since array grows from lower address to higher address, while the growth direction of stack is opposite. So sp is set to point at the highest address(end) of array {\it g\_irq\_stack}. \\
+		A chuck of memory is allocated for IRQ stack in data section as the global variable array {\it g\_irq\_stack}, we don't need to specified its location explicitly and worry about it will be clobbered by code or stack. Since array grows from lower address to higher address, while the growth direction of stack is opposite. So sp is set to point at the highest address(end) of array {\it g\_irq\_stack}. 
+	\smallskip
 	\item Initiate interrupt controller\\
 		Update ICMR to mask interrupt from all interrupt except OSMR0.\\
-		Update ICLR to route interrupt from OSMR0 as IRQ.\\
+		Update ICLR to route interrupt from OSMR0 as IRQ.
+		\smallskip
+	\item initiate Mutex
+		Update global variable {\it gtMutex}, set all mutex as available
+		\smallskip
 	\item Initiate Timer
 		Set all time counter variables to 0.\\
 		Set the value of OSSR to 0\\
@@ -57,7 +62,7 @@
 %%%%%%%%%%%
 % Task creation
 %%%%%%%%%%%
-\subsection{Task Creation}
+\section{Task Creation}
 \begin{itemize}
 	\setlength{\itemsep}{1pt}
 	\setlength{\parskip}{0pt}
@@ -68,7 +73,7 @@
 %%%%%%%%%%%
 % Context Switch
 %%%%%%%%%%%
-\subsection{Context Switch}
+\section{Context Switch}
 When an IRQ interrupt is generated, the system automatically changes into IQR mode and the interrupt is handled by the IRQ handler which is consist of two parts, irq\_handler.S and c\_irq\_handler.c.\\
 In irq\_handler.S:
 	 \begin{itemize}
@@ -88,10 +93,11 @@ In c\_irq\_handler.c:
 \end{itemize}
 
 %%%%%%%%%%%
-% TIMEDRIVER
+% Event wait
 %%%%%%%%%%%
-\subsubsection{Event Wait}	
-As shown in the graph, 4 global variables, {\it g\_ms\_counter}, {\it g\_s\_counter}, {\it g\_m\_counter} and {\it g\_h\_counter}, are maintained as time counter in our system. They records how much time has elapsed since kernel booted up. 
+\subsection{Event Wait}	
+One sentence
+
  \begin{itemize}
 	  \setlength{\itemsep}{1pt}
 	  \setlength{\parskip}{0pt}
@@ -99,15 +105,35 @@ As shown in the graph, 4 global variables, {\it g\_ms\_counter}, {\it g\_s\_coun
 	  \item test
 \end{itemize}
 
-For every 10ms, an IRQ interrupt is generated from the timer and the system dispatches the interrupt to be handled in the corresponding time\_driver handler. In time\_driver, the corresponding bit in OSSR is cleared and the value of the global variables are updated.\\
-\newline
-The design of our time counting system successfully separates the register register reading part and the task processing part of the system making it more flexible and convenient when implementing other timer related system calls.
-\newline
+%%%%%%%%%%%
+% Dev update
+%%%%%%%%%%%
+\subsection{Device Update}	
+One sentence
+ \begin{itemize}
+	  \setlength{\itemsep}{1pt}
+	  \setlength{\parskip}{0pt}
+	  \setlength{\parsep}{0pt}
+	  \item test
+\end{itemize}
+
+%%%%%%%%%%%
+% Mutex
+%%%%%%%%%%%
+\subsection{Mutex Lock \& Unlock}	
+One sentence
+ \begin{itemize}
+	  \setlength{\itemsep}{1pt}
+	  \setlength{\parskip}{0pt}
+	  \setlength{\parsep}{0pt}
+	  \item test
+\end{itemize}
+
 
 %%%%%%%%%%%
 % New System Calls
 %%%%%%%%%%%	
-\subsection{New System Calls}
+\section{New System Calls}
 \begin{itemize}
 \item{task\_create}\\
 	int task\_create(task\_t* tasks, size\_t num\_tasks)\\

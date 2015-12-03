@@ -135,9 +135,7 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     idle_tcb->sleep_queue = 0;
 
     // make idle task run
-    disable_interrupts();
     dispatch_init(idle_tcb);
-    enable_interrupts();
 
     /**
      * Setup up passed in tasks
