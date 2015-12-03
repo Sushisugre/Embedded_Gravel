@@ -2,8 +2,10 @@
  * 
  * @brief Top level implementation of the scheduler.
  *
- * @author Kartik Subramanian <ksubrama@andrew.cmu.edu>
- * @date 2008-11-20
+ * @author Shi Su <shis@andrew.cmu.edu>
+ *         Mengjin Yan <mengjinyan@cmu.edu>  
+ *     
+ * @date Thu Dec  3 00:14:22 EST 2015
  */
 
 #include <types.h>

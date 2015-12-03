@@ -5,7 +5,7 @@
  * @author Shi Su <shis@andrew.cmu.edu>
  *         Mengjin Yan <mengjinyan@cmu.edu>  
  *	   
- * @date   
+ * @date Thu Dec  3 00:14:22 EST 2015
  */
  
 #include <kernel.h>
@@ -101,7 +101,7 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     // other devices are masked so the value in ICLR has no effect on them
     update_interrupt_controller(1 << INT_OSTMR_0, 0);
     
-    // init mutex here for mutex may be created before any tasks
+    // init mutex here to be available fro creation
     mutex_init();
     // dev_init();
 

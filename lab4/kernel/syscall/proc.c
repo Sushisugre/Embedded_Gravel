@@ -2,11 +2,10 @@
  * 
  * @brief Implementation of `process' syscalls
  *
- * @author Mike Kasick <mkasick@andrew.cmu.edu>
- * @date   Sun, 14 Oct 2007 00:07:38 -0400
- *
- * @author Kartik Subramanian <ksubrama@andrew.cmu.edu>
- * @date 2008-11-12
+ * @author Shi Su <shis@andrew.cmu.edu>
+ *         Mengjin Yan <mengjinyan@cmu.edu>  
+ *     
+ * @date Thu Dec  3 00:14:22 EST 2015
  */
 
 #include <exports.h>
