@@ -59,7 +59,6 @@ void dispatch_save(void)
 
     ctx_switch_full((void*)&(target_tcb->context), (void*)&(previous_tcb->context));
 
-    // launch_task();
 }
 
 /**

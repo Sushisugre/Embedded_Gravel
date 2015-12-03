@@ -37,7 +37,7 @@ void sched_init(task_t* main_task  __attribute__((unused)))
     // clear runbits
     runqueue_init();
 
-    // intitalte devices
+    // intitalte devices - sleeping queue, next matcher
     dev_init();
 
     // clear mutex holding

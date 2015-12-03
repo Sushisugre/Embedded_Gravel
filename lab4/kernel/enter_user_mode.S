@@ -13,8 +13,8 @@
 
     .file   "enter_user_mode.S"
     .text
-    .equ user_mode_code, 0x50  @ eable irq in user mode
-    .equ svc_mode_code, 0x53   @ enable irq in svc mode
+    .equ user_mode_code, 0x10  @ eable irq, fiq in user mode
+    .equ svc_mode_code, 0x13   @ enable irq, fiq in svc mode
     .equ null, 0x0
 
 FUNC(enter_user_mode)
@@ -38,6 +38,8 @@ FUNC(enter_user_mode)
     mov r2, #LOAD_ADDR
     blx r2  @ branch to the address in r
 
+@@@@@@@ The following code will not be executed @@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@ As Gravelv2 never return @@@@@@@@@@@@@@@@@@@
     @ restore svc mode
     mrs r2, cpsr  @ copy cpsr to r0
     bic r2, r2, #0xff

@@ -101,17 +101,18 @@ int kmain(int argc __attribute__((unused)), char** argv  __attribute__((unused))
     // other devices are masked so the value in ICLR has no effect on them
     update_interrupt_controller(1 << INT_OSTMR_0, 0);
     
-    // TODO: init 
+    // init mutex here for mutex may be created before any tasks
     mutex_init();
     dev_init();
-
-
 
     init_timer();
 
     // setup for usermode & call user program
     enter_user_mode();
 
+/*********** The following code will not be executed *******************/
+/**************** As Gravelv2 will not return ************************8*/
+  
     // restore native swi/irq handler, interrupt controller
     restore_handler(old_swi_handler, old_swi_inst);
     restore_handler(old_irq_handler, old_irq_inst);
