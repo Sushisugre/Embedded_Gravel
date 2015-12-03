@@ -38,6 +38,8 @@ FUNC(enter_user_mode)
     mov r2, #LOAD_ADDR
     blx r2  @ branch to the address in r
 
+@@@@@@@ The following code will not be executed @@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@ As Gravelv2 never return @@@@@@@@@@@@@@@@@@@
     @ restore svc mode
     mrs r2, cpsr  @ copy cpsr to r0
     bic r2, r2, #0xff
