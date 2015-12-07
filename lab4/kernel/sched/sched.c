@@ -2,8 +2,10 @@
  * 
  * @brief Top level implementation of the scheduler.
  *
- * @author Kartik Subramanian <ksubrama@andrew.cmu.edu>
- * @date 2008-11-20
+ * @author Shi Su <shis@andrew.cmu.edu>
+ *         Mengjin Yan <mengjinyan@cmu.edu>  
+ *     
+ * @date Thu Dec  3 00:14:22 EST 2015
  */
 
 #include <types.h>
@@ -37,7 +39,7 @@ void sched_init(task_t* main_task  __attribute__((unused)))
     // clear runbits
     runqueue_init();
 
-    // intitalte devices - sleeping queue, next matcher
+    // intitalte devices - sleeping queue, next match
     dev_init();
 
     // clear mutex holding
@@ -103,11 +105,14 @@ void context_init(task_t* task, tcb_t* tcb) {
  */
 void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
+    disable_interrupts();
     sched_init((task_t*)0);
+    enable_interrupts();
 
     /**
      * Setup idle tcb
      */
+    disable_interrupts();
     tcb_t* idle_tcb = &system_tcb[IDLE_PRIO];
 
     // user entry point, i.e. task function
@@ -126,11 +131,14 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     idle_tcb->context.lr = &launch_task;
     // initial sp is the high address of kstack in tcb
     idle_tcb->context.sp = (void*)idle_tcb->kstack_high;
-
+    // task priorities
     idle_tcb->native_prio = IDLE_PRIO;
     idle_tcb->cur_prio = IDLE_PRIO;
+    // if the task holds mutex
     idle_tcb->holds_lock = 0;
+    // next tcb in the mutex sleep queue
     idle_tcb->sleep_queue = 0;
+    enable_interrupts();
 
     // make idle task run
     disable_interrupts();
@@ -140,18 +148,23 @@ void allocate_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
     /**
      * Setup up passed in tasks
      */
+    disable_interrupts();
     int i;
     for (i = 0; i < (int)num_tasks; i++)
     {
-        // save highest priority 0 for part 2
+        // reserve highest priority 0 for part 2
         uint8_t init_prio = i + 1;
         tcb_t* tcb = &system_tcb[init_prio];
 
         context_init(tasks[i], tcb);
         // context_init(&((task_t*)tasks)[i], tcb);
+        
+        // task priorities 
         tcb->native_prio = init_prio; 
         tcb->cur_prio = init_prio; 
+        // if the task holds mutex
         tcb->holds_lock = 0;
+        // next tcb in the mutex sleep queue
         tcb->sleep_queue = 0;
 
         // add the new tasks to ready queue

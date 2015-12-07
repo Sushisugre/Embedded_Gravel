@@ -19,7 +19,7 @@ FUNC(_start)
     mov r1, sp 
      @ Call main function      
     bl main 
-    @ Infinite loop    
+    @ Infinite loop!    
 .Loop:   
     subs r1, r1, r1
     beq .Loop  

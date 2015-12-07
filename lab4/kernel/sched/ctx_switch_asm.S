@@ -8,6 +8,11 @@
  *
  * @author Kartik Subramanian
  * @date   2008-11-21
+ *
+ * @author Shi Su <shis@andrew.cmu.edu>
+ *         Mengjin Yan <mengjinyan@cmu.edu>  
+ *     
+ * @date Thu Dec  3 00:14:22 EST 2015
  */
 
 	.file "ctx_switch_asm.S"
@@ -54,7 +59,7 @@ FUNC(ctx_switch_half)
 	@ -- For the first launch:
 	@ the lr here is the lr set in context
 	@ which is launch_task when task launched for the first time
-	@ thus it branch to launch_task and execute task function
+	@ thus setup usr stack and branches to launch_task and execute task function
 	@ -- After the first launch:
-	@ lr should store the address to return to after context switch back 
+	@ lr should store the address (in svc) to return to after context switch back 
 	mov 	pc, lr
