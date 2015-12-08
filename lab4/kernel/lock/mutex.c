@@ -80,6 +80,9 @@ int mutex_lock(int mutex  __attribute__((unused)))
             gtMutex[mutex].bLock = 1;
             gtMutex[mutex].pHolding_Tcb = get_cur_tcb();
             get_cur_tcb()->holds_lock = 1;
+            #ifdef HLP
+            get_cur_tcb()->cur_prio = 0;
+            #endif // HLP
             gtMutex[mutex].pSleep_queue = 0;
             enable_interrupts();
             return 0;
@@ -133,6 +136,9 @@ int mutex_unlock(int mutex  __attribute__((unused)))
     } else {
         temp = gtMutex[mutex].pHolding_Tcb;
         temp->holds_lock = 0;
+        #ifdef HLP
+            temp->cur_prio = temp->native_prio;
+        #endif // HLP
 
         // if there is no element in sleep queue
         if(gtMutex[mutex].pSleep_queue == 0) {
@@ -152,6 +158,10 @@ int mutex_unlock(int mutex  __attribute__((unused)))
             gtMutex[mutex].pHolding_Tcb->sleep_queue = 0;
 
             gtMutex[mutex].pHolding_Tcb->holds_lock = 1;
+            #ifdef HLP
+                gtMutex[mutex].pHolding_Tcb->cur_prio = 0;
+            #endif // HLP
+
             // put the wake up task into runqueue
             runqueue_add(gtMutex[mutex].pHolding_Tcb, gtMutex[mutex].pHolding_Tcb->cur_prio);
         
