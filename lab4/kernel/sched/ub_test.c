@@ -66,8 +66,8 @@ void sort_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __att
  */
 int assign_schedule(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
-    int i, j;
-    double result = 0;
+  int i, j;
+    double result;
 
     // Sort the input list so that it satisfies rate-monotonicity
     sort_tasks(tasks, num_tasks);
@@ -81,7 +81,7 @@ int assign_schedule(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
         for(i = 0; i <= j; i++) {
             result = result + ((double)(tasks[i]->C))/((double)(tasks[i]->T));
         }
-        result = result + ((double)(tasks[j]->B))/((double)(tasks[i]->T));
+        result = result + ((double)(tasks[j]->B))/((double)(tasks[j]->T));
 
         // check if the result equals to U(j)
         if(result > u_n_num[j]) {
