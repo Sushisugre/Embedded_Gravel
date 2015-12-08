@@ -7,6 +7,8 @@
  * @author Kartik Subramanian <ksubrama@andrew.cmu.edu>
  * @date   2008-11-30
  */
+
+#define HLP
 #include <stdio.h>
 #include <task.h>
 #include <unistd.h>
@@ -45,11 +47,13 @@ int main(int argc, char** argv)
 	tasks[0].data = (void*)'@';
 	tasks[0].stack_pos = (void*)0xa2000000;
 	tasks[0].C = 1;
+	tasks[0].B = 0;
 	tasks[0].T = PERIOD_DEV0;
 	tasks[1].lambda = fun2;
 	tasks[1].data = (void*)'<';
 	tasks[1].stack_pos = (void*)0xa1000000;
 	tasks[1].C = 1;
+	tasks[1].B = 0;
 	tasks[1].T = PERIOD_DEV1;
 	
 	task_create(tasks, 2);
