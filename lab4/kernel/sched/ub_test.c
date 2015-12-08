@@ -66,23 +66,31 @@ void sort_tasks(task_t** tasks  __attribute__((unused)), size_t num_tasks  __att
  */
 int assign_schedule(task_t** tasks  __attribute__((unused)), size_t num_tasks  __attribute__((unused)))
 {
-    int i;
+    int i, j;
     double result = 0;
 
-    // do ub test
-    // calculate the result on the left side of the equation
-    for(i = 0; i < (int)num_tasks; i++) {
-        result = result + ((double)(tasks[i]->C))/((double)(tasks[i]->T));
-    }
+    // Sort the input list so that it satisfies rate-monotonicity
+    sort_tasks(tasks, num_tasks);
 
-    // check the value
-    if(result <= u_n_num[num_tasks-1]) {
-        // if pass ub test, then sort the tasks according to the priority
-        sort_tasks(tasks, num_tasks);
-        return 1;
-    } else {
-        // if not pass ub test
-        return 0;
+    // Do ub test
+    // Calculate result iterativly for every task
+    for(j = 0; j < (int)num_tasks; j++) {
+        
+        // calculate result on the left side of the equation
+        result = 0;
+        for(i = 0; i <= j; i++) {
+            result = result + ((double)(tasks[i]->C))/((double)(tasks[i]->T));
+        }
+        result = result + ((double)(tasks[j]->B))/((double)(tasks[i]->T));
+
+        // check if the result equals to U(j)
+        if(result <= u_n_num[j]) {
+            // if pass the test
+            return 1;
+        } else {
+            // if not pass the test
+            return 0;
+        }
     }
 	//return 1; // fix this; dummy return to prevent compiler warnings	
 }
