@@ -84,13 +84,11 @@ int assign_schedule(task_t** tasks  __attribute__((unused)), size_t num_tasks  _
         result = result + ((double)(tasks[j]->B))/((double)(tasks[i]->T));
 
         // check if the result equals to U(j)
-        if(result <= u_n_num[j]) {
-            // if pass the test
-            return 1;
-        } else {
+        if(result > u_n_num[j]) {
             // if not pass the test
             return 0;
         }
     }
-	//return 1; // fix this; dummy return to prevent compiler warnings	
+	
+    return 1; // fix this; dummy return to prevent compiler warnings	
 }
