@@ -185,5 +185,5 @@ int mutex_unlock(int mutex  __attribute__((unused)))
 	return 1; 
 }
 
-#endif // HLP
+//#endif // HLP
 
