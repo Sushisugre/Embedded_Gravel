@@ -7,7 +7,8 @@
  *     
  * @date Thu Dec  3 00:14:22 EST 2015
  */
-
+#ifndef HLP
+#define HLP
 #include <exports.h>
 #include <bits/errno.h>
 #include <config.h>
@@ -58,6 +59,7 @@ int task_create(task_t* tasks  __attribute__((unused)), size_t num_tasks  __attr
     // check schedulable, 
     // The task list at the end of this method will be sorted in order is priority
     if (!assign_schedule(task_ptrs, num_tasks)){
+        puts("UB test not pass\n");
         return -ESCHED;
     }
 
@@ -80,9 +82,11 @@ int event_wait(unsigned int dev  __attribute__((unused)))
     }
 
     // return a EHOLDSLOCK error if a task calls dev wait while holding a lock1
+#ifdef HLP
     if (get_cur_tcb()->holds_lock){
          return -EHOLDSLOCK;
     }
+#endif // HLP
 
     // get the tcb of the current task
     dev_wait(dev);
@@ -98,3 +102,5 @@ void invalid_syscall(unsigned int call_num  __attribute__((unused)))
 	disable_interrupts();
 	while(1);
 }
+
+#endif //HLP

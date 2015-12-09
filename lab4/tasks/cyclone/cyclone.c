@@ -9,6 +9,8 @@
  * @author Tao Yang(taoy)
  * @date   2010-11-30
  */
+
+#define HLP
 #include <stdio.h>
 #include <unistd.h>
 #include <task.h>
@@ -42,6 +44,7 @@ void fun1(void* str)
 	tasks[0].stack_pos = (void*)0xa1000000;
 	tasks[0].C = 1;
 	tasks[0].T = PERIOD_DEV3;
+	tasks[0].B = 0;
 	
 	task_create(tasks, 1);
 	// task create wipe out the task, therefore never reaches here
@@ -59,6 +62,7 @@ int main(int argc, char** argv)
 	tasks[0].stack_pos = (void*)0xa1000000;
 	tasks[0].C = 1;
 	tasks[0].T = PERIOD_DEV3;
+	tasks[0].B = 0;
 
 	task_create(tasks, 1);
 
