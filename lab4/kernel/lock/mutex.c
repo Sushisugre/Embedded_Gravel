@@ -12,8 +12,8 @@
 //#define DEBUG_MUTEX
 
 // in hlp mode
-#ifndef HLP
-#define HLP
+//#ifndef HLP
+//#define HLP
 #include <lock.h>
 #include <task.h>
 #include <sched.h>
@@ -185,5 +185,5 @@ int mutex_unlock(int mutex  __attribute__((unused)))
 	return 1; 
 }
 
-#endif // HLP
+//#endif // HLP
 
