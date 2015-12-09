@@ -12,8 +12,8 @@
 //#define DEBUG_MUTEX
 
 // in hlp mode
-#ifndef HLP
-#define HLP
+//#ifndef HLP
+//#define HLP
 #include <lock.h>
 #include <task.h>
 #include <sched.h>

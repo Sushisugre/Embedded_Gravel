@@ -7,8 +7,8 @@
  *     
  * @date Thu Dec  3 00:14:22 EST 2015
  */
-#ifndef HLP
-#define HLP
+//#ifndef HLP
+//#define HLP
 #include <exports.h>
 #include <bits/errno.h>
 #include <config.h>

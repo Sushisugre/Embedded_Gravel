@@ -10,7 +10,7 @@
  * @date   2010-11-30
  */
 
-#define HLP
+//#define HLP
 #include <stdio.h>
 #include <unistd.h>
 #include <task.h>
