@@ -8,8 +8,8 @@
  * @date   2008-11-30
  */
 
-#ifndef HLP
-#define HLP
+// #ifndef HLP
+// #define HLP
 #include <stdio.h>
 #include <task.h>
 #include <unistd.h>
@@ -65,4 +65,4 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-#endif //HLP
+// #endif //HLP
