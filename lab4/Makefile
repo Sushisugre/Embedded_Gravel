@@ -52,8 +52,11 @@ CWARNINGS_SAFE = -Wall -Wno-unused-parameter -Wextra -Wpointer-arith \
 CWARNINGS =  $(CWARNINGS_SAFE)
 CWARNINGS1 = $(CWARNINGS_SAFE) $(CWARNINGS_NOISY)
 
+# -D HLP to define HLP macro in C source file
+# So the kernel will satifies Highest Locker Priority protocol
+# remove the flag the kernel will behavior the same as lab4 part1
 KCFLAGS = -Os -ffreestanding -ffixed-r8 -nostdinc $(CWARNINGS) -D HLP
-TCFLAGS = -Os -ffreestanding -nostdinc $(CWARNINGS) -D HLP
+TCFLAGS = -Os -ffreestanding -nostdinc $(CWARNINGS)
 ASFLAGS = -nostdinc -Wall -Wextra -Werror -DASSEMBLER
 KLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(KLOAD_ADDR)
 TLDFLAGS = -nostdlib -N --fatal-warnings --warn-common -Ttext $(TLOAD_ADDR)
